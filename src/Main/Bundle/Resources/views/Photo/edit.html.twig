@@ -1,0 +1,16 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{% block body %}
+    <h1>Photo edit</h1>
+
+    <form action="{{ path('admin_photo_edit', { 'id': id, 'type':type,'object_id':object_id, '_city':_city,'_locale':'ru' }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        <p>
+            <button type="submit">Edit</button>
+        </p>
+    </form>
+    <div>
+        <a href="">К списку</a>
+    </div>
+{% endblock %}

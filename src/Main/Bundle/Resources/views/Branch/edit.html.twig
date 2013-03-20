@@ -1,0 +1,44 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{%- set chain = current_chain()-%}
+{% block body %}
+    <h3>Редактирование заведения сети {{ chain.getName }} по адресу - {{ entity.getStreet }}</h3>
+    <form action="{{ path_city('admin_branch_edit', { 'id': entity.id, 'chain_id':chain.getId }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        </p>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>
+                    {% if entity.parent is null %}
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'object_id':entity.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'object_id':entity.parent.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                    {% endif %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ path_city('admin_branch', {'chain_id':chain.getId}) }}" class="btn btn-primary">К списку</a>
+        {#<form action="&#123;&#35;{ path_city('admin_branch_delete', { 'id': entity.id, 'chain_id':chain.getId }) }&#35;&#125;" method="post">#}
+            {#{{ form_widget(delete_form) }}#}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        {#</form>#}
+    </div>
+{% endblock %}

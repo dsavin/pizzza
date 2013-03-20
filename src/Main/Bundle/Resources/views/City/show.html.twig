@@ -1,0 +1,42 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{% block body %}
+    <h3>Город - {{ entity.getName }}</h3>
+
+    <table class="table table-hover"">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Название</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Название EN</th>
+                <td>{{ entity.getNameEn }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ entity.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('city') }}">К списку</a>
+        </li>
+        <li>
+            <a href="{{ path('city_edit', { 'id': entity.id }) }}">Редактирвоать</a>
+        </li>
+        <li>
+            <form action="{{ path('city_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    </ul>
+{% endblock %}

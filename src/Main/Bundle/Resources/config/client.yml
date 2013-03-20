@@ -1,0 +1,7 @@
+_discount_single:
+    pattern:  /discount/{chain_url}/{dis_url}
+    defaults: { _controller: MainBundle:Client\Discount:show, _city:kiev }
+    
+_discount_single_city:
+    pattern:  /{_city}/discount/{chain_url}/{dis_url}
+    defaults: { _controller: MainBundle:Client\Discount:show }

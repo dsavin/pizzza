@@ -1,0 +1,12 @@
+services:
+   kernel.listener.subdomain_listener:
+       class: Main\Bundle\EventListener\LocaleListener
+       tags:
+           - { name: kernel.event_listener, event: kernel.request}
+   acme.twig.acme_extension:
+       class: Main\Bundle\Twig\MainExtension
+       tags:
+           - { name: twig.extension }
+       arguments:
+           em: "@doctrine.orm.entity_manager"
+           container: "@service_container"

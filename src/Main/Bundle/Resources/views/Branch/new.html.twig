@@ -1,0 +1,17 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{%- set chain = current_chain()-%}
+{% block body %}
+    <h3>Добавляем отделение</h3>
+
+    <form action="{{ path_city('admin_branch_new',{'chain_id':chain_id, 'branch_id':branch_id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit" class="btn btn-success">Добавить</button>
+        </p>
+    </form>
+    <div>
+        <a href="{{ path_city('admin_branch',{'chain_id':chain_id}) }}" class="btn btn-info">К списку</a>
+    </div>
+{% endblock %}

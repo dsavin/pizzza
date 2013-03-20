@@ -1,0 +1,17 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block body %}
+    <h3>Добавление сети заведений. Город - {{ current_city().getName }}</h3>
+
+    <form action="{{ path_city('admin_chain_create', {"id":id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Добавить</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path_city('admin_chain') }}">К списку</a>
+        </li>
+    </ul>
+{% endblock %}

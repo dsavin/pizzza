@@ -1,0 +1,224 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.getTitle }}{% endblock %}
+{% block description %}{{ entity.getDescription }}{% endblock %}
+{% block keywords %}{{ entity.getKeywords }}{% endblock %}
+{% set active = 1 %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="#">Пиццерии</a></li>
+                    <li><a href="#">{{ entityChain.name }}</a></li>
+                    <li>{{ entity.street }}</li>
+                </ul>
+                <div class="gholder">
+                    <div class="title-adress">
+                        <div class="image">
+                            <div>
+                                {% if entityChain.getImageName %}
+                                    <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" />
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="title-gholder">
+                            <h1><a href="#">{{ entityChain.name }}</a></h1>
+                            <div class="row">
+                                <div>{{ entity.street }}</div>
+                                <a href="#">Все пиццерии сети ({{ entityChain.getBranchs.count }})</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-info">
+                <div class="more-address">
+                    <div class="gholder">
+                        <img src="/images/img-41.jpg" width="303" height="208" alt="image description" class="place" />
+                        <div class="gframe">
+                            <div class="box">
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                </ul>
+                                <span class="sum">21</span>
+                                <a href="#" class="add"><span>Оставить отзыв</span></a>
+                            </div>
+                            <div class="osobennosti">
+                                <span class="text">Особенности</span>
+                                <span class="rss" title="rrr"></span>
+                                <span class="dinner" title="rrr"></span>
+                            </div>
+                            <div class="metro">Контрактовая площадь, Почтовая площадь</div>
+                            <div class="time">{{ entity.getWorkAt }}</div>
+                            <div class="phone">{{ entity.phones }}</div>
+                        </div>
+                    </div>
+                    <p>{{ entity.text }}</p>
+                    <div class="social">
+                        <div class="holder"><a href="#"><img src="/images/social.gif" width="79" height="22" alt="image description" /></a></div>
+                        <div class="holder"><a href="#"><img src="/images/social-02.gif" width="128" height="22" alt="image description" /></a></div>
+                        <div class="holder"><a href="#"><img src="/images/social-03.gif" width="95" height="22" alt="image description" /></a></div>
+                        <div class="holder"><a href="#"><img src="/images/social-04.gif" width="59" height="22" alt="image description" /></a></div>
+                    </div>
+                </div>
+                <div class="action">
+                    <div class="heading">
+                        <h2>Фотографии  <span>(8)</span></h2>
+                    </div>
+                    <div class="tabs-area">
+                        <ul class="action-tabset">
+                            <li class="active"><a href="#tab-30">1</a></li>
+                            <li><a href="#tab-31">2</a></li>
+                        </ul>
+                        <div class="tab-list">
+                            <div class="tab" id="tab-30">
+                                <div class="area">
+                                    <a href="images/img-37.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-37.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-38.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-38.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-39.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-39.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-40.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-40.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="tab" id="tab-31">
+                                <div class="area">
+                                    <a href="images/img-38.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-38.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-37.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-37.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-39.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-39.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-40.jpg" rel="group" class="block lightbox">
+                                        <img src="/images/img-40.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="maps">
+                    <div class="heading">
+                        <h2>На карте</h2>
+                    </div>
+                    <div class="content-placeholder">
+                        <div class="map-placeholder">
+                            <img src="/images/img-42.jpg" width="626" height="291" alt="image description" />
+                        </div>
+                    </div>
+                </div>
+                <div class="last-comment">
+                    <div class="heading">
+                        <h2>Последние отзывы</h2>
+                        <a href="#">Все отзывы о {{ entityChain.name }}</a>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="meta">
+                                <strong class="name">Илья</strong>
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                </ul>
+                                <em class="date">25 сентября, 2012</em>
+                                <a href="#" class="reply">Ответить</a>
+                            </div>
+                            <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. Идея была и остается хорошая – делать вкусную, тонкую, неаполитанскую пиццу наверно. Видимо популярность настолько выросла, что за качеством некому следить. Хочется больше качественного, ненавязчивого внимания к клиенту.</span>
+                        </li>
+                        <li>
+                            <div class="meta">
+                                <strong class="name">Марина</strong>
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                </ul>
+                                <em class="date">5 сентября, 2012</em>
+                                <a href="#" class="reply">Ответить</a>
+                            </div>
+                            <span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="add-comment">
+                    <div class="heading">
+                        <h2>Добавить отзыв</h2>
+                    </div>
+                    <form action="#">
+                        <fieldset>
+                            <div class="area">
+                                <div class="cols">
+                                    <label for="name">Ваше имя</label>
+                                    <input class="text-input" id="name" type="text" value="" />
+                                    <span class="error-text">Укажите имя</span>
+                                </div>
+                                <div class="cols error">
+                                    <label for="email">Электронная почта</label>
+                                    <input class="text-input" id="email" type="text" value="" />
+                                    <span class="error-text">Укажите электронную почту</span>
+                                </div>
+                            </div>
+                            <div class="textarea disabled">
+                                <label for="comment">Отзыв (не менее 40 символов)</label>
+                                <textarea id="comment" cols="30" rows="10"></textarea>
+                                <span class="error-text">Слишком короткий отзыв</span>
+                            </div>
+                            <div class="mark">
+                                <strong>Ваша оценка</strong>
+                                <ul class="star-rating">
+                                    <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
+                                    <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
+                                    <li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>
+                                    <li class="active"><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>
+                                    <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
+                                </ul>
+                            </div>
+                            <div class="capcha">
+                                <label for="capcha">Введите сумму цифр</label>
+                                <div class="input">
+                                    <span>3 + 2 =</span>
+                                    <input type="text" id="capcha" value="5" />
+                                    <span class="error-text">Неправда :)</span>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <input type="submit" class="disabled-button" value="Добавить отзыв" />
+                                <div class="button-text">Вам осталось заполнить следующие поля: <br />«Электронная почта», «Отзыв», «Введите сумму цифр»</div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

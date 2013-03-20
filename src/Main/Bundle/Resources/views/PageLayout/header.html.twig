@@ -1,0 +1,44 @@
+<div id="header">
+    <div class="top-images">
+        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+    </div>
+    <div class="gholder">
+        <strong class="logo">
+            <a href="/">Pizzza</a>
+        </strong>
+
+        <div class="description">
+            <em>Все о пиццериях <br/>и доставке пиццы в Киеве</em>
+        </div>
+        <div class="header-sum comment-sum">
+            <span>395</span>
+            <em>комментариев <br/> от посетителей</em>
+        </div>
+        <div class="header-sum catalog-sum">
+            <span>128</span>
+            <em>пиццерий <br/>в каталоге</em>
+        </div>
+    </div>
+    <ul id="nav">
+        <li {% if active == 1 %}class="active"{% endif %}><a href="#" class="pizza">Пиццерии</a></li>
+        <li {% if active == 2 %}class="active"{% endif %}><a href="#" class="dostavka">Доставка пиццы</a></li>
+        <li {% if active == 3 %}class="active"{% endif %}><a href="#">Акции</a></li>
+        <li {% if active == 4 %}class="active"{% endif %}><a href="#">Публикации</a>
+
+            <div class="drop">
+                <ul>
+                    <li><a href="#">Новости</a></li>
+                    <li><a href="#">Рецепты</a></li>
+                    <li><a href="#">Статьи</a></li>
+                    <li><a href="#">Обзоры</a></li>
+                </ul>
+            </div>
+        </li>
+        <li {% if active == 5 %}class="active"{% endif %}><a href="#">Карта</a></li>
+        <li {% if active == 6 %}class="active"{% endif %}><a href="#">Галерея пиццы</a></li>
+    </ul>
+</div>

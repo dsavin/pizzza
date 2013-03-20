@@ -1,0 +1,58 @@
+html{overflow:auto;}
+body{
+	background:#dbf3fd;
+	color:#333;
+	font:13px/20px Tahoma;
+	margin:0;
+	min-width:984px;
+}
+*{outline:none;}
+#not-ie{
+	position:relative;
+	overflow:hidden;
+	width:100%;
+}
+#not-ie h2{
+	color:#f3801f;
+	font:23px/26px Tahoma;
+	margin:0;
+	padding:0 0 25px;
+	text-align:center;
+}
+#not-ie p{
+	margin:0 0 10px;
+	text-align:center;
+}
+#not-ie img{
+	border:none;
+	margin:0 0 10px;
+	vertical-align:top;
+}
+.not-ie{
+	background:url(../images/bg-ie-c.gif) repeat-y;
+	margin:0 auto;
+	width:984px;
+}
+.not-ie .holder{background:url(../images/bg-ie-t.jpg) no-repeat;}
+.not-ie .frame{
+	background:url(../images/bg-ie-b.jpg) no-repeat 0 100%;
+	overflow:hidden;
+	min-height:99%;
+	padding:170px 30px;
+}
+.browser{
+	overflow:hidden;
+	padding:54px 0;
+	zoom:1;
+}
+.browser .browser-block{
+	float:left;
+	width:184px;
+}
+.browser .name{text-align:center;}
+.browser .name a{
+	color:#005987;
+	font-size:15px;
+	text-decoration:underline;
+}
+.browser .name a:hover{text-decoration:none;}

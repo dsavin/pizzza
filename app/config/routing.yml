@@ -1,0 +1,14 @@
+main:
+    resource: "@MainBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/
+    requirements:
+          _locale:  ru|en
+    defaults:
+        _locale: ru
+
+_client:
+    resource: "@MainBundle/Resources/config/client.yml"
+
+_client_php:
+    resource: "@MainBundle/Resources/config/client.php"

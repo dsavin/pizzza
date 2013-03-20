@@ -1,0 +1,42 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <h3>Список заведений сети {{ chain.getName }}</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Улица</th>
+                <th>Урл</th>
+                <th>Перевод</th>
+                <th>
+                    <div>
+                        <a class="btn btn-primary" href="{{ path_city('admin_branch_new',{'chain_id':chain.getId, '_locale':'ru'}) }}">Добавить</a>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{#{ path_city('admin_branch_show', { 'id': entity.id }) }#}">{{ entity.street }}</a></td>
+                <td>{{ entity.url }}</td>
+                <td>
+                    {%- if entity.getChildren.count > 0-%}
+                        <a href="{{ path_city('admin_branch_edit', { 'id': entity.getChildren.first.id, '_locale':'en', 'chain_id':chain.getId }) }}">en</a>
+                    {%- else -%}
+                        <a href="{{ path_city('admin_branch_new',{'chain_id':chain.getId, '_locale':'en', 'branch_id':entity.id}) }}">en</a>
+                    {%- endif -%}
+                </td>
+                <td>
+                    <div>
+                        <a href="{{ path_city('admin_branch_edit', { 'id': entity.id, 'chain_id':chain.getId }) }}" class="btn"><i class="icon-edit"></i></a>
+                        <a href="{{ path_city('_branch_single', { 'chain_url': chain.url, 'branch_url': entity.url, '_locale':'en', '_city':_city }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

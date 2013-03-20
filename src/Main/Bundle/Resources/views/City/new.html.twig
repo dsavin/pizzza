@@ -1,0 +1,19 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{% block body %}
+    <h3>Добавление нового города</h3>
+
+    <form action="{{ path('city_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Создать</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('city') }}">К списку</a>
+        </li>
+    </ul>
+{% endblock %}
