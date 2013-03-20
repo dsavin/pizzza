@@ -7,8 +7,11 @@ use Main\Bundle\Controller\BaseController as Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Main\Bundle\Entity\Branch;
 use Main\Bundle\Entity\Chain;
+use Main\Bundle\Entity\Photo;
+
 use Main\Bundle\Form\BranchType;
 
 /**
@@ -97,6 +100,8 @@ class BranchController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MainBundle:Branch')->find($id);
 
+        $entitiesPhoto = $em->getRepository('MainBundle:Photo')->findBy(array('object_id'=>$id,'type'=>'branch'));
+
         $editForm = $this->createForm(new BranchType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -115,6 +120,7 @@ class BranchController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entitiesPhoto' => $entitiesPhoto
         );
     }
 

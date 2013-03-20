@@ -25,13 +25,23 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
+            {% for photo in entitiesPhoto %}
+                <tr>
+                    <td>
+                        {% if photo.getImageName %}
+                            <img src="{{ vich_uploader_asset(photo, 'image') }}" width="50" alt="{{ photo.getImageName }}" class="thumb" />
+                        {% endif %}
+                    </td>
+                    <td>{{ photo.imageName }}</td>
+                    <td>
+                        {% if entity.parent is null %}
+                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'object_id':entity.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                        {% else %}
+                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'object_id':entity.parent.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div>

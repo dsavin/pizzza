@@ -21,6 +21,8 @@
                             <div>
                                 {% if entityChain.getImageName %}
                                     <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" />
+                                {% else %}
+                                    <img src="/images/88x35.png" width="88" height="35" alt="default site logo 88x35" />
                                 {% endif %}
                             </div>
                         </div>
@@ -28,7 +30,7 @@
                             <h1><a href="#">{{ entityChain.name }}</a></h1>
                             <div class="row">
                                 <div>{{ entity.street }}</div>
-                                <a href="#">Все пиццерии сети ({{ entityChain.getBranchs.count }})</a>
+                                <a href="#">Все пиццерии сети - ({{ entityChain.getBranchsByLocale(_locale).count }})</a>
                             </div>
                         </div>
                     </div>
@@ -37,7 +39,11 @@
             <div class="main-info">
                 <div class="more-address">
                     <div class="gholder">
-                        <img src="/images/img-41.jpg" width="303" height="208" alt="image description" class="place" />
+                        {% if entitiesPhoto|length > 0 %}
+                            <img src="{{ vich_uploader_asset(entitiesPhoto[0], 'image') }}" width="303" height="208" alt="{{ entitiesPhoto[0].altTeg }}" class="place" />
+                        {% else %}
+                            <img src="/images/303x208.png" width="303" height="208" alt="default site logo 303x208" />
+                        {% endif %}
                         <div class="gframe">
                             <div class="box">
                                 <ul class="stars">
@@ -68,59 +74,46 @@
                         <div class="holder"><a href="#"><img src="/images/social-04.gif" width="59" height="22" alt="image description" /></a></div>
                     </div>
                 </div>
-                <div class="action">
-                    <div class="heading">
-                        <h2>Фотографии  <span>(8)</span></h2>
-                    </div>
-                    <div class="tabs-area">
-                        <ul class="action-tabset">
-                            <li class="active"><a href="#tab-30">1</a></li>
-                            <li><a href="#tab-31">2</a></li>
-                        </ul>
-                        <div class="tab-list">
-                            <div class="tab" id="tab-30">
-                                <div class="area">
-                                    <a href="images/img-37.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-37.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-38.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-38.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-39.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-39.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-40.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-40.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="tab" id="tab-31">
-                                <div class="area">
-                                    <a href="images/img-38.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-38.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-37.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-37.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-39.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-39.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-40.jpg" rel="group" class="block lightbox">
-                                        <img src="/images/img-40.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                </div>
+                {% if entitiesPhoto|length > 0 %}
+                    <div class="action">
+                        <div class="heading">
+                            <h2>Фотографии  <span>({{ entitiesPhoto|length }})</span></h2>
+                        </div>
+                        <div class="tabs-area">
+                            <ul class="action-tabset">
+                                {% set i = 1 %}
+                                {% set j = 1 %}
+                                {% for photo in entitiesPhoto %}
+                                    {% if loop.index == j %}
+                                        <li {% if loop.first %}class="active"{% endif %}>
+                                            <a href="#tab-{{ j }}">{{ i }}</a>
+                                        </li>
+                                        {% set j = j+4 %}
+                                        {% set i = i+1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            {% set j = 1 %}
+                            <div class="tab-list">
+                                {% for photo in entitiesPhoto %}
+                                    {% if loop.index == j %}
+                                        <div class="tab" id="tab-{{ j }}">
+                                            <div class="area">
+                                        {% set j = j+4 %}
+                                    {% endif %}
+                                            <a href="{{ vich_uploader_asset(photo, 'image') }}" rel="group" class="block lightbox">
+                                                <img src="{{ vich_uploader_asset(photo, 'image') }}" width="140" height="98" alt="{{ photo.altTeg }}" />
+                                                <span class="mask"></span>
+                                            </a>
+                                    {% if loop.index == (j-1) or loop.last %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
                 <div class="maps">
                     <div class="heading">
                         <h2>На карте</h2>

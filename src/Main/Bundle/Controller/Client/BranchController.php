@@ -13,6 +13,7 @@
 
     use Main\Bundle\Entity\Branch;
     use Main\Bundle\Entity\Chain;
+    use Main\Bundle\Entity\Photo;
 
     /**
      * Branch controller.
@@ -49,9 +50,12 @@
                 throw $this->createNotFoundException('Нету такого заведения');
             }
 
+            $entitiesPhoto = $em->getRepository('MainBundle:Photo')->findBy(array('object_id'=>$entity->getId(),'type'=>'branch'));
+
             return array(
                 'entity'      => $entity,
-                'entityChain'   => $entityChain
+                'entityChain'   => $entityChain,
+                'entitiesPhoto' => $entitiesPhoto
             );
         }
     }

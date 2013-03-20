@@ -485,4 +485,20 @@
         {
             return $this->lang;
         }
+
+        /**
+         * @param string $_locale
+         * @return ArrayCollection
+         */
+        public function getBranchsByLocale($_locale = 'ru')
+        {
+            $result = new ArrayCollection();
+            foreach ($this->getBranchs() as $branch) {
+                if ($branch->getLang() == $_locale) {
+                    $result->add($branch);
+                }
+            }
+
+            return $result;
+        }
     }

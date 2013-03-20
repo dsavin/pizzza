@@ -2,15 +2,22 @@
 {% block javascripts %}
 {% endblock %}
 {% block body %}
-    <h1>Photo edit</h1>
+    <h3>Редактирование фото</h3>
 
     <form action="{{ path('admin_photo_edit', { 'id': id, 'type':type,'object_id':object_id, '_city':_city,'_locale':'ru' }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
+        {% if entity.getImageName %}
+            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="100" alt="{{ entity.getImageName }}" class="thumb" />
+        {% endif %}
+        <br/>
+        <br/>
         <p>
-            <button type="submit">Edit</button>
+            <button type="submit" class="btn btn-success">сохранить</button>
         </p>
     </form>
     <div>
-        <a href="">К списку</a>
+        {% if url %}
+            <a href="{{ url }}" class="btn btn-info">К списку</a>
+        {% endif %}
     </div>
 {% endblock %}

@@ -15,7 +15,7 @@
                 ->add('image', 'file', array(
                                             'data_class'    => 'Symfony\Component\HttpFoundation\File\File',
                                             'property_path' => 'image',
-                                            'required'      => false,
+                                            'required'      => true,
                                             'label'         => 'Фото'
                                        ))
                 ->add('status', 'choice', array(
