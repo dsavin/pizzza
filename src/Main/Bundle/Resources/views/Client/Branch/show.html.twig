@@ -5,6 +5,38 @@
 {% block keywords %}{{ entity.getKeywords }}{% endblock %}
 {% set active = 1 %}
 
+{% block javascripts %}
+    <script>
+        function setMap()
+        {
+            var mapOptions = {
+                center:new google.maps.LatLng({{ entity.lat }}, {{ entity.lng }}),
+                zoom:13,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions)
+
+            var marker = new google.maps.Marker({
+                map:map,
+                position:map.getCenter(),
+                icon: new google.maps.MarkerImage(
+                    '/images/marker.png',
+                    new google.maps.Size(27,28)
+                )
+            });
+//            var infowindow = new google.maps.InfoWindow();
+//            infowindow.setContent('<b>Маркер</b>');
+            google.maps.event.addListener(marker, 'click', function () {
+//                infowindow.open(map, marker);
+            });
+        }
+        $(document).ready(function(){
+            setMap();
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="main">
         <div id="content">
@@ -119,8 +151,8 @@
                         <h2>На карте</h2>
                     </div>
                     <div class="content-placeholder">
-                        <div class="map-placeholder">
-                            <img src="/images/img-42.jpg" width="626" height="291" alt="image description" />
+                        <div class="map-placeholder" id="map-canvas">
+                            {#<img src="/images/img-42.jpg" width="626" height="291" alt="image description" />#}
                         </div>
                     </div>
                 </div>
