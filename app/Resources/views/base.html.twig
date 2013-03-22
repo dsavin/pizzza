@@ -1,5 +1,6 @@
 {% set _city = app.request.session.get('_city') %}
 {% set _locale = app.request.session.get('_locale') %}
+{% set maxRating = get_max_rating_by_city() %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>

@@ -541,4 +541,11 @@ class Branch
 
         return $this->parent;
     }
+
+    public function getStarsByMaxRating($max_rating)
+    {
+        $stars = 5*($this->rating/$max_rating*100)/100;
+
+        return (int)$stars;
+    }
 }
