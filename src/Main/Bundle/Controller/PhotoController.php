@@ -16,7 +16,7 @@ use Main\Bundle\Form\PhotoType;
 /**
  * Photo controller.
  *
- * @Route("/{_city}/admin/{type}/{object_id}/photo")
+ * @Route("/{_city}/admin/{branch_id}/photo")
  */
 class PhotoController extends Controller
 {
@@ -26,11 +26,12 @@ class PhotoController extends Controller
      * @Route("/{id}/edit", name="admin_photo_edit")
      * @Template()
      */
-    public function editAction(Request $request, $type, $object_id, $id, $_city)
+    public function editAction(Request $request, $branch_id, $id, $_city)
     {
         $em = $this->getDoctrine()->getManager();
-        $url = false;
         $entity = new Photo();
+
+        $entityBranch = $em->getRepository('MainBundle:Branch')->find($branch_id);
 
         if ($id) {
             $entity = $em->getRepository('MainBundle:Photo')->find($id);
@@ -46,31 +47,25 @@ class PhotoController extends Controller
             $editForm->bind($request);
 
             if ($editForm->isValid()) {
-                $entity->setType($type);
-                $entity->setObjectId($object_id);
+                $entity->setBranch($entityBranch);
 
                 $em->persist($entity);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('admin_photo_edit', array('id' => $entity->getId(), 'type'=>$type, 'object_id'=>$object_id, '_city'=>$_city)));
+                return $this->redirect($this->generateUrl('admin_photo_edit', array('id' => $entity->getId(), 'branch_id'=>$branch_id, '_city'=>$_city)));
             }
         }
 
-        if ($type == "branch") {
-            $entityBranch = $em->getRepository('MainBundle:Branch')->find($id);
-
-            $url = $this->generateUrlCity('admin_branch_edit', array(
-                                                                    'id'=> $entityBranch->getId(),
-                                                                    'chain_id' => $entityBranch->getChain()->getId(),
-                                                                    '_locale'=>$request->getLocale(),
-                                                                    '_city'=>$_city));
-        }
+        $url = $this->generateUrlCity('admin_branch_edit', array(
+                                                                'id'=> $entityBranch->getId(),
+                                                                'chain_id' => $entityBranch->getChain()->getId(),
+                                                                '_locale'=>$request->getLocale(),
+                                                                '_city'=>$_city));
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'type' => $type,
-            'object_id' => $object_id,
+            'branch_id' => $branch_id,
             'id' => $id,
             'url' => $url
         );

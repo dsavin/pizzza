@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
@@ -21,8 +21,21 @@
         return $collection;
     }
 
+    setMoreRoute($collection, '_discounts_list', '/discounts', array(
+                                                                    '_controller' => 'MainBundle:Client\Discount:list',
+                                                               ));
+
+    setMoreRoute($collection, '_chain_discounts_list', '/discounts/{chain_url}', array(
+                                                                                      '_controller' => 'MainBundle:Client\Chain:discounts',
+                                                                                 ));
+    setMoreRoute($collection, '_branches_all', '/{chain_url}/all', array(
+                                                                              '_controller' => 'MainBundle:Client\Branch:all',
+                                                                         ));
+
+
     setMoreRoute($collection, '_branch_single', '/{chain_url}/{branch_url}', array(
                                                                                   '_controller' => 'MainBundle:Client\Branch:show',
                                                                              ));
+
 
     return $collection;

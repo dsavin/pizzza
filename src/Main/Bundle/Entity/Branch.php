@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Main\Bundle\Entity\Photo;
+use Main\Bundle\Entity\Feature;
+
 /**
  * Branch
  *
@@ -137,9 +140,25 @@ class Branch
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="branch")
+     */
+    private $photos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Feature", inversedBy="branches")
+     * @ORM\JoinTable(name="feature_branch",
+     *      joinColumns={@ORM\JoinColumn(name="feature_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="branch_id", referencedColumnName="id")}
+     *      )
+     */
+    private $features;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->features = new ArrayCollection();
         $this->updated_at = new \DateTime();
         $this->keywords = '';
         $this->lang = $lang;
@@ -547,5 +566,54 @@ class Branch
         $stars = 5*($this->rating/$max_rating*100)/100;
 
         return (int)$stars;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param Photo $photo
+     */
+    public function addPhoto(Photo $photo)
+    {
+        $this->photos[] = $photo;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * @param ArrayCollection $features
+     * @return Branch
+     */
+    public function setFeatures(ArrayCollection $features)
+    {
+        $this->features = $features;
+
+        return $this;
+    }
+
+    /**
+     * Add feature
+     *
+     * @param Feature $feature
+     */
+    public function addFeature(Feature $feature)
+    {
+        $this->features[] = $feature;
+    }
+
+    /**
+     * Get features
+     *
+     * @return Collection
+     */
+    public function getFeatures()
+    {
+        return $this->features;
     }
 }

@@ -98,15 +98,19 @@ class BranchController extends Controller
     public function editAction($id, $chain_id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        /**
+         * @var Branch
+         */
         $entity = $em->getRepository('MainBundle:Branch')->find($id);
-
-        $entitiesPhoto = $em->getRepository('MainBundle:Photo')->findBy(array('object_id'=>$id,'type'=>'branch'));
+        $entitiesPhoto = $entity->getPhotos();
 
         $editForm = $this->createForm(new BranchType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         if ($request->isMethod("POST")) {
             $editForm->bind($request);
+
+//            var_dump($entity->getFeatures()->count());exit;
 
             if ($editForm->isValid()) {
                 $em->persist($entity);

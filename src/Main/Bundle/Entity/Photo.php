@@ -10,6 +10,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use Main\Bundle\Entity\Branch;
+
 /**
  * Photo
  *
@@ -29,13 +31,6 @@ class Photo
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer")
@@ -43,11 +38,10 @@ class Photo
     private $status;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="object_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Branch", inversedBy="photos")
+     * @ORM\JoinColumn(name="branch_id", referencedColumnName="id")
      */
-    private $object_id;
+    private $branch;
 
     /**
      * @var \DateTime
@@ -93,26 +87,24 @@ class Photo
     }
 
     /**
-     * Set type
+     * Set branch
      *
-     * @param string $type
-     * @return Photo
+     * @param Branch $branch
      */
-    public function setType($type)
+    public function setBranch(Branch $branch)
     {
-        $this->type = $type;
-    
-        return $this;
+        $this->branch = $branch;
     }
 
     /**
-     * Get type
+     * Get branch
      *
-     * @return string 
+     * @return Branch
      */
-    public function getType()
+    public function getBranch()
     {
-        return $this->type;
+
+        return $this->branch;
     }
 
     /**
@@ -136,29 +128,6 @@ class Photo
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set object_id
-     *
-     * @param integer $objectId
-     * @return Photo
-     */
-    public function setObjectId($objectId)
-    {
-        $this->object_id = $objectId;
-    
-        return $this;
-    }
-
-    /**
-     * Get object_id
-     *
-     * @return integer 
-     */
-    public function getObjectId()
-    {
-        return $this->object_id;
     }
 
     /**

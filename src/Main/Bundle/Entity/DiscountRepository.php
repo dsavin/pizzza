@@ -24,11 +24,27 @@
                 ->andWhere('d.city_id = :city_id')
                 ->andWhere('d.lang = :lang')
                 ->andWhere('d.id <> :not_in_id')
-                ->andWhere('d.parent IS NULL')
                 ->setParameters($data)
                 ->setMaxResults(3)
                 ;
 
             return $query->getQuery()->getResult();
         }
-    }
+
+        public function getAllWithChainByCity($city_id, $lang)
+        {
+            $em = $this->getEntityManager();
+
+            $query = $em->createQueryBuilder()
+                ->select('d')
+                ->from('MainBundle:Discount','d')
+                ->join('d.chain', 'c')
+                ->where('d.city_id = :city_id')
+                ->andWhere('d.lang = :lang')
+                ->setParameter('city_id',$city_id)
+                ->setParameter('lang',$lang)
+            ;
+
+            return $query->getQuery();
+        }
+     }

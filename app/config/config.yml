@@ -66,8 +66,13 @@ vich_uploader:
             uri_prefix: /uploads/images/discount/img
             upload_destination: %kernel.root_dir%/../www/uploads/images/discount/img
         photo_pizzeria:
-                    uri_prefix: /uploads/images/pizzeria/photos
-                    upload_destination: %kernel.root_dir%/../www/uploads/images/pizzeria/photos
+            uri_prefix: /uploads/images/pizzeria/photos
+            upload_destination: %kernel.root_dir%/../www/uploads/images/pizzeria/photos
+        feature:
+            uri_prefix: /uploads/images/features
+            upload_destination: %kernel.root_dir%/../www/uploads/images/features
+
+
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

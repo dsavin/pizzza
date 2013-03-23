@@ -1,0 +1,50 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 3 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="#">Пиццерии</a></li>
+                    <li>{{ entityChain.name }}</li>
+                </ul>
+                {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entityChain}) }}
+            </div>
+            {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'discount', entityChain: entityChain}) }}
+            <div class="main-info">
+                <div class="actions-list">
+                    {% for entity in entitiesDiscounts %}
+                        <div class="gholder">
+                            {% if entity.getImageName %}
+                                <img src="{{ vich_uploader_asset(entity, 'image') }}" width="191" height="127" alt="{{ entity.getImageName }}" class="thumb" />
+                            {% else %}
+                                <img src="images/img-19.jpg" width="191" height="127" alt="image description" class="thumb" />
+                            {% endif %}
+                            <div class="holder">
+                                <h2>
+                                    <a href="{{ path_city('_discount_single', { 'chain_url': entity.getChain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.name }}</a>
+                                </h2>
+                                <p>{{ entity.shortText }}</p>
+                                <em class="date">{{ entity.timeWork }}</em>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="gholder">
+                            <h1>В этом городе нету акций или в этом переводе</h1>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

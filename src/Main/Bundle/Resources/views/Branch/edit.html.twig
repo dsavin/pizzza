@@ -17,9 +17,9 @@
                 <th>Название</th>
                 <th>
                     {% if entity.parent is null %}
-                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'object_id':entity.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'branch_id':entity.id, '_locale':'ru', '_city':_city}) }}">Добавить</a>
                     {% else %}
-                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'object_id':entity.parent.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':0, 'branch_id':entity.parent.id, '_locale':'ru', '_city':_city}) }}">Добавить</a>
                     {% endif %}
                 </th>
             </tr>
@@ -35,9 +35,9 @@
                     <td>{{ photo.imageName }}</td>
                     <td>
                         {% if entity.parent is null %}
-                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'object_id':entity.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'branch_id':entity.id, '_locale':'ru', '_city':_city}) }}">Изменить</a>
                         {% else %}
-                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'object_id':entity.parent.id, 'type':'branch', '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                            <a class="btn btn-primary" href="{{ path_city('admin_photo_edit',{'id':photo.id, 'branch_id':entity.parent.id, '_locale':'ru', '_city':_city}) }}">Изменить</a>
                         {% endif %}
                     </td>
                 </tr>

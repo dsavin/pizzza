@@ -71,7 +71,7 @@
             }
 
             if ($this->_city !== 'kiev') {
-                $parameters = $parameters + array('_city' => $this->_city);
+                $parameters =  array('_city' => $this->_city)+$parameters;
                 $route = $route . '_city';
             }
 

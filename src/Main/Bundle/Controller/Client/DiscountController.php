@@ -20,7 +20,7 @@
     {
 
         /**
-         * Displays a form to create a new Discount entity.
+         * Displays a Discount entity.
          *
          * @Template()
          */
@@ -60,6 +60,32 @@
                 'entityChain'    => $entityChain,
                 'entityDiscount' => $entityDiscount,
                 'entitiesDiscounts' => $entitiesDiscounts
+            );
+        }
+
+        /**
+         * Displays a form to create a new Discount entity.
+         *
+         * @Template()
+         */
+        public function listAction($_city, Request $request)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $city = $this->getCityByUrl($_city);
+            $paginator  = $this->get('knp_paginator');
+
+            $queryDiscouts = $em->getRepository('MainBundle:Discount')->getAllWithChainByCity($city->getId(),
+                                                                                            $request->getLocale());
+
+            $pagination = $paginator->paginate(
+                $queryDiscouts,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                1/*limit per page*/
+            );
+            $pagination->setTemplate('MainBundle:PageLayout:sliding.html.twig');
+
+            return array(
+                'pagination'    => $pagination
             );
         }
     }

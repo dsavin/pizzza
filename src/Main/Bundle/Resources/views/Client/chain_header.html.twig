@@ -1,0 +1,16 @@
+<div class="gholder">
+    <h1>{{ entityChain.name }}</h1>
+    <ul class="stars">
+        <li class="ico-star"></li>
+        <li class="ico-star"></li>
+        <li class="ico-star"></li>
+        <li class="ico-star"></li>
+        <li class="ico-star ico-star-empty"></li>
+    </ul>
+    <div class="sum-comment"><div>Отзывов: <strong>54</strong></div></div>
+    {% if entityChain.getImageName %}
+        <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" class="thumb-heading"/>
+    {% else %}
+        <img src="/images/88x35.png" width="88" height="35" alt="default site logo 88x35" class="thumb-heading"/>
+    {% endif %}
+</div>

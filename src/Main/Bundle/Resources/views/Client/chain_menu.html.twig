@@ -1,0 +1,17 @@
+<ul class="navigation">
+    <li {% if menu == "all" %}class="active"{% endif %}>
+        <a href="#"><strong>Общая информация</strong></a>
+    </li>
+    <li {% if menu == "branches" %}class="active"{% endif %}>
+        <a href="{{ path_city('_branches_all',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Пиццерии</strong></a>
+    </li>
+    <li {% if menu == "delivery" %}class="active"{% endif %}>
+        <a href="#"><strong>Доставка</strong></a>
+    </li>
+    <li {% if menu == "comments" %}class="active"{% endif %}>
+        <a href="#"><strong>Отзывы</strong><span>(45)</span></a>
+    </li>
+    <li {% if menu == "discount" %}class="active"{% endif %}>
+        <a href="{{ path_city('_chain_discounts_list',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Акции</strong></a>
+    </li>
+</ul>

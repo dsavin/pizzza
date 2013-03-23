@@ -50,12 +50,34 @@
                 throw $this->createNotFoundException('Нету такого заведения');
             }
 
-            $entitiesPhoto = $em->getRepository('MainBundle:Photo')->findBy(array('object_id'=>$entity->getId(),'type'=>'branch'));
+            $entitiesPhoto = $entity->getPhotos();
 
             return array(
                 'entity'      => $entity,
                 'entityChain'   => $entityChain,
                 'entitiesPhoto' => $entitiesPhoto
+            );
+        }
+
+        /**
+         * Displays single item branch
+         *
+         * @Template()
+         */
+        public function allAction($_city, $chain_url, Request $request)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $city = $this->getCityByUrl($_city);
+
+            $entities = $em->getRepository('MainBundle:Branch')->getListBranches($chain_url, $city->getId(), $request->getLocale() );
+
+            if (!$entities) {
+                throw $this->createNotFoundException('Нету такого заведения');
+            }
+
+            return array(
+                'entities'      => $entities,
+                'entityChain'   => $entities[0]->getChain(),
             );
         }
     }

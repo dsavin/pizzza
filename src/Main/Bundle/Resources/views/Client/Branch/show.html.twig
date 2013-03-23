@@ -62,7 +62,7 @@
                             <h1><a href="#">{{ entityChain.name }}</a></h1>
                             <div class="row">
                                 <div>{{ entity.street }}</div>
-                                <a href="#">Все пиццерии сети - ({{ entityChain.getBranchsByLocale(_locale).count }})</a>
+                                <a href="{{ path_city('_branches_all',{'chain_url':entityChain.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети - ({{ entityChain.getBranchsByLocale(_locale).count }})</a>
                             </div>
                         </div>
                     </div>
@@ -86,11 +86,16 @@
                                 <span class="sum">21</span>
                                 <a href="#" class="add"><span>Оставить отзыв</span></a>
                             </div>
-                            <div class="osobennosti">
-                                <span class="text">Особенности</span>
-                                <span class="rss" title="rrr"></span>
-                                <span class="dinner" title="rrr"></span>
-                            </div>
+                            {% if entity.getFeatures.count > 0 %}
+                                <div class="osobennosti">
+                                    <span class="text">Особенности</span>
+                                    {% for feature in entity.getFeatures %}
+                                        <span class="rss"  title="{{ feature.altTeg }}"
+                                                style="background: url({{ vich_uploader_asset(feature, 'image') }}) no-repeat;"
+                                                ></span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="metro">Контрактовая площадь, Почтовая площадь</div>
                             <div class="time">{{ entity.getWorkAt }}</div>
                             <div class="phone">{{ entity.phones }}</div>

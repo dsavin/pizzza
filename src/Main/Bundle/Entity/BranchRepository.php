@@ -12,4 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class BranchRepository extends EntityRepository
 {
+    public function getListBranches($chain_url, $city_id, $_locale)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('b')
+            ->from('MainBundle:Branch', 'b')
+            ->join('b.chain','c')
+
+            ->where('c.url = :chain_url')
+            ->andWhere('c.city_id = :city_id')
+            ->andWhere('c.lang = :lang')
+            ->andWhere('b.lang = :lang')
+
+            ->setParameter('chain_url', $chain_url)
+            ->setParameter('city_id',$city_id)
+            ->setParameter('lang',$_locale)
+            ;
+
+        return $query->getQuery()->getResult();
+    }
+
 }

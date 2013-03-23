@@ -7,10 +7,10 @@ use Main\Bundle\Controller\BaseController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Main\Bundle\Entity\Chain;
-use Main\Bundle\Form\ChainType;
+use Main\Bundle\Entity\Discount;
 
 /**
  * Chain controller.
@@ -42,5 +42,38 @@ class ChainController extends Controller
         );
     }
 
+    /**
+     * Displays discounts list form one chain
+     *
+     * @Template()
+     */
+    public function discountsAction($_city, $chain_url, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->getCityByUrl($_city);
 
+
+
+        $entityChain = $em->getRepository('MainBundle:Chain')->findOneBy(array(
+                                                                              'url'     => $chain_url,
+                                                                              'city_id' => $city->getId(),
+                                                                              'lang'    => $request->getLocale()
+                                                                         ));
+        if (!$entityChain) {
+            throw $this->createNotFoundException('Нету тут такой сети');
+        }
+
+
+
+        $entitiesDiscounts = $em->getRepository('MainBundle:Discount')->findBy(array(
+                                                                                          'chain'   => $entityChain->getId(),
+                                                                                          'city_id' => $city->getId(),
+                                                                                          'lang'    => $request->getLocale(),
+                                                                                     ));
+
+        return array(
+            'entityChain' => $entityChain,
+            'entitiesDiscounts' => $entitiesDiscounts
+        );
+    }
 }

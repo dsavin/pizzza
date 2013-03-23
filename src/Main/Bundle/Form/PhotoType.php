@@ -19,7 +19,7 @@
                                             'label'         => 'Фото'
                                        ))
                 ->add('status', 'choice', array(
-                                           'choices'   => array(1 => 'Показать', 2 => 'Скрыть'),
+                                           'choices'   => array(1 => 'Показать', 0 => 'Скрыть'),
                                            'required'  => true,
                                            'label'=>'Статус'
                                       ));
