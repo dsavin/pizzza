@@ -36,7 +36,9 @@
                             <div class="frame">
                                 <div class="title">
                                     <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.getChain.url,'branch_url':entity.url}) }}" class="link-addres">{{ entity.street }}</a>
-                                    <span class="icons" title="Контрактовая площадь"></span>
+                                    {% if entity.metro != '' %}
+                                        <span class="icons" title="{{ entity.metro }}"></span>
+                                    {% endif %}
                                 </div>
                                 <div class="row">
                                     {% for feature in entity.getFeatures %}

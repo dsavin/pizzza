@@ -1,0 +1,40 @@
+{% if entitiesPhoto|length > 0 %}
+    <div class="action">
+        <div class="heading">
+            <h2>Фотографии  <span>({{ entitiesPhoto|length }})</span></h2>
+        </div>
+        <div class="tabs-area">
+            <ul class="action-tabset">
+                {% set i = 1 %}
+                {% set j = 1 %}
+                {% for photo in entitiesPhoto %}
+                    {% if loop.index == j %}
+                        <li {% if loop.first %}class="active"{% endif %}>
+                            <a href="#tab-{{ j }}">{{ i }}</a>
+                        </li>
+                        {% set j = j+4 %}
+                        {% set i = i+1 %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% set j = 1 %}
+            <div class="tab-list">
+                {% for photo in entitiesPhoto %}
+                    {% if loop.index == j %}
+                        <div class="tab" id="tab-{{ j }}">
+                        <div class="area">
+                        {% set j = j+4 %}
+                    {% endif %}
+                    <a href="{{ vich_uploader_asset(photo, 'image') }}" rel="group" class="block lightbox">
+                        <img src="{{ vich_uploader_asset(photo, 'image') }}" width="140" height="98" alt="{{ photo.altTeg }}" />
+                        <span class="mask"></span>
+                    </a>
+                    {% if loop.index == (j-1) or loop.last %}
+                        </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

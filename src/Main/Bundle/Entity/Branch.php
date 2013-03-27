@@ -113,6 +113,13 @@ class Branch
     /**
      * @var string
      *
+     * @ORM\Column(name="metro", type="string", length=255)
+     */
+    private $metro;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="lang", type="string", length=5)
      */
     private $lang;
@@ -615,5 +622,28 @@ class Branch
     public function getFeatures()
     {
         return $this->features;
+    }
+
+    /**
+     * Set metro
+     *
+     * @param string $metro
+     * @return Branch
+     */
+    public function setMetro($metro)
+    {
+        $this->metro = trim($metro);
+
+        return $this;
+    }
+
+    /**
+     * Get metro
+     *
+     * @return string
+     */
+    public function getMetro()
+    {
+        return trim($this->metro);
     }
 }

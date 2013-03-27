@@ -35,7 +35,7 @@
                                 </h2>
                                 <p>{{ entity.shortText }}</p>
                                 <div class="meta">
-                                    <a href="#" class="cat">{{ entity.getChain.name }}</a>
+                                    <a href="{{ path_city('_chain_single',{'chain_url':entity.getChain.url, '_city':_city,'_locale':_locale}) }}" class="cat">{{ entity.getChain.name }}</a>
                                     <em class="date">{{ entity.timeWork }}</em>
                                 </div>
                             </div>

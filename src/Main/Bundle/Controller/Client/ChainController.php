@@ -23,22 +23,18 @@ class ChainController extends Controller
      *
      * @Template()
      */
-    public function showAction($url, $_locale, $_city)
+    public function showAction($chain_url, $_city, Request $request)
     {
-        $this->checkCity($_city);
+        $city = $this->getCityByUrl($_city);
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MainBundle:Chain')->find($id);
+        $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url'=>$chain_url,'lang'=>$request->getLocale(),'city_id'=>$city->getId()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Chain entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView()
         );
     }
 

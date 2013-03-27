@@ -19,6 +19,7 @@ class BranchType extends AbstractType
             ->add('keywords')
             ->add('url')
             ->add('phones')
+            ->add('metro')
             ->add('text')
             ->add('lat')
             ->add('lng')

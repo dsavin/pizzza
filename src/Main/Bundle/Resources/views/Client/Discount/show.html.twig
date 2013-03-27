@@ -13,14 +13,20 @@
         <div id="content">
             <div class="heading-page">
                 <ul class="breadcrumbs">
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Акции</a></li>
-                    <li><a href="#">{{ entityChain.getName }}</a></li>
+                    <li>
+                        <a href="\">Главная</a>
+                    </li>
+                    <li>
+                        <a href="#">Акции</a>
+                    </li>
+                    <li>
+                        <a href="{{ path_city('_chain_single',{'chain_url':entityChain.url, '_city':_city,'_locale':_locale}) }}">{{ entityChain.getName }}</a>
+                    </li>
                     <li>{{ entityDiscount.getName }}</li>
                 </ul>
                 <div class="gholder">
                     <h1>{{ entityDiscount.getName }}</h1>
-                    <a href="#" class="some-cat">{{ entityChain.getName }}</a>
+                    <a href="{{ path_city('_chain_single',{'chain_url':entityChain.url, '_city':_city,'_locale':_locale}) }}" class="some-cat">{{ entityChain.getName }}</a>
                 </div>
             </div>
             <div class="main-info">

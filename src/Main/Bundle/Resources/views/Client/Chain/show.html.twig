@@ -1,0 +1,214 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 3 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="#">Пиццерии</a></li>
+                    <li>{{ entity.name }}</li>
+                </ul>
+                {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entity}) }}
+            </div>
+            {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'all', entityChain: entity}) }}
+            <div class="main-info">
+            <div class="story">
+                <div class="images">
+                    <div>
+                        {% if entity.getImageName %}
+                            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="175" height="69" alt="{{ entity.getImageName }}" />
+                        {% else %}
+                            <img src="/images/88x35.png" width="175" height="35" alt="default site logo 175x69" />
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="holder">
+                    <p>{{ entity.text }}</p>
+                    {% if entity.site != "" %}
+                        <a href="http://{{ entity.site }}" target="_blank" class="link">{{ entity.site }}</a>
+                    {% endif %}
+                </div>
+                <div class="social">
+                    <div class="s-holder"><a href="#"><img src="/images/social.gif" width="79" height="22" alt="image description" /></a></div>
+                    <div class="s-holder"><a href="#"><img src="/images/social-02.gif" width="128" height="22" alt="image description" /></a></div>
+                    <div class="s-holder"><a href="#"><img src="/images/social-03.gif" width="95" height="22" alt="image description" /></a></div>
+                    <div class="s-holder"><a href="#"><img src="/images/social-04.gif" width="59" height="22" alt="image description" /></a></div>
+                </div>
+            </div>
+            {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getAllBranchPhotos}) }}
+            <div class="maps">
+                <div class="heading">
+                    <h2>Пиццерии сети «{{ entity.name }}»  <span>({{ entity.getBranchsByLocale(_locale).count }})</span></h2>
+                    <a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети</a>
+                </div>
+                <div class="adrress">
+                    <div class="map">
+                        <img src="/images/img-18.jpg" width="412" height="288" alt="image description" />
+                    </div>
+                    <div class="list-address">
+                        <div class="scrollable-area">
+                            <ul>
+                                {% for branch in entity.getBranchsByLocale(_locale) %}
+                                    <li>
+                                        <div class="titles">
+                                            <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}">{{ branch.street }}</a>
+                                        </div>
+                                        <div class="row">
+                                            <ul class="stars">
+                                                <li class="ico-star"></li>
+                                                <li class="ico-star"></li>
+                                                <li class="ico-star"></li>
+                                                <li class="ico-star"></li>
+                                                <li class="ico-star ico-star-empty"></li>
+                                            </ul>
+                                            <a class="comment-link" href="#">23</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="shadow"></div>
+                    </div>
+                </div>
+            </div>
+            {% if entity.getDiscountsByLocale(_locale).count > 0  %}
+                <div class="actions">
+                    <div class="heading">
+                        <h2>Акции от «Мамамиа»</h2>
+                    </div>
+                    <div class="gholder">
+                        {% for discount in entity.getDiscountsByLocale(_locale) %}
+                            {% if loop.index < 4 %}
+                                <div class="box">
+                                    {% if discount.getImageName %}
+                                        <img src="{{ vich_uploader_asset(discount, 'image') }}" width="193" height="119" alt="{{ discount.getImageName }}" class="thumb" />
+                                    {% else %}
+                                        <img src="images/img-19.jpg" width="193" height="119" alt="image description" class="thumb" />
+                                    {% endif %}
+                                    <h3>
+                                        <a href="{{ path_city('_discount_single', { 'chain_url': entity.url, 'dis_url': discount.url, '_city':_city }) }}">{{ discount.name }}</a>
+                                    </h3>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="last-comment">
+                <div class="heading">
+                    <h2>Последние отзывы</h2>
+                    <a href="#">Все отзывы</a>
+                </div>
+                <ul>
+                    <li>
+                        <div class="meta">
+                            <strong class="name">Илья <span>про</span></strong>
+                            <a href="#" class="link">Мамамиа на просп. Победы, 9б</a>
+                            <ul class="stars">
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                                <li class="ico-star ico-star-empty"></li>
+                                <li class="ico-star ico-star-empty"></li>
+                            </ul>
+                            <em class="date">25 сентября, 2012</em>
+                            <a href="#" class="reply">Ответить</a>
+                        </div>
+                        <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. Идея была и остается хорошая – делать вкусную, тонкую, неаполитанскую пиццу наверно. Видимо популярность настолько выросла, что за качеством некому следить. Хочется больше качественного, ненавязчивого внимания к клиенту.</span>
+                    </li>
+                    <li>
+                        <div class="meta">
+                            <strong class="name">Марина <span>про</span></strong>
+                            <a href="#" class="link">про  Службу доставки</a>
+                            <ul class="stars">
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                                <li class="ico-star"></li>
+                            </ul>
+                            <em class="date">5 сентября, 2012</em>
+                            <a href="#" class="reply">Ответить</a>
+                        </div>
+                        <span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="add-comment">
+                <div class="heading">
+                    <h2>Добавить отзыв</h2>
+                </div>
+                <form action="#">
+                    <fieldset>
+                        <div class="area">
+                            <div class="cols">
+                                <label for="name">Ваше имя <span>*</span></label>
+                                <input class="text-input" id="name" type="text" value="Заполненный инпут" />
+                            </div>
+                            <div class="cols">
+                                <label for="email">Электронная почта <span>*</span></label>
+                                <input class="text-input" id="email" type="text" value="jdfg93sad2@gmail.com" />
+                            </div>
+                        </div>
+                        <div class="textarea">
+                            <label for="comment">Отзыв <span>*</span></label>
+                            <textarea id="comment" cols="30" rows="10">Активый инпут.</textarea>
+                        </div>
+                        <div class="mark">
+                            <strong>Ваша оценка</strong>
+                            <ul class="star-rating">
+                                <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
+                                <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
+                                <li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>
+                                <li class="active"><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>
+                                <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
+                            </ul>
+                        </div>
+                        <div class="about">
+                            <strong>О чем ваш отзыв?</strong>
+                            <em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>
+                            <div class="row">
+                                <input id="radio1" class="radio" name="radio" type="radio" />
+                                <label for="radio1">Сеть пиццерий «Мамамиа»</label>
+                            </div>
+                            <div class="row">
+                                <input id="radio2" class="radio" name="radio" type="radio" />
+                                <label for="radio2">Служба доставки пиццы</label>
+                            </div>
+                            <div class="row">
+                                <input id="radio3" class="radio" name="radio" type="radio" />
+                                <label for="radio3">Пиццерия по адресу:</label>
+                                <select id="radio3" class="select-adress">
+                                    <option>ул. Набережно-Крещатицкая, 31</option>
+                                    <option>ул. Набережно-Крещатицкая, 31</option>
+                                    <option>ул. Набережно-Крещатицкая, 31</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="capcha">
+                            <label for="capcha">Введите сумму цифр <span>*</span></label>
+                            <div class="input">
+                                <span>3 + 2 =</span>
+                                <input type="text" id="capcha" value="5" />
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <input type="submit" value="Добавить отзыв" />
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

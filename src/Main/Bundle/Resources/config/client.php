@@ -28,14 +28,18 @@
     setMoreRoute($collection, '_chain_discounts_list', '/discounts/{chain_url}', array(
                                                                                       '_controller' => 'MainBundle:Client\Chain:discounts',
                                                                                  ));
+
+
     setMoreRoute($collection, '_branches_all', '/{chain_url}/all', array(
                                                                               '_controller' => 'MainBundle:Client\Branch:all',
                                                                          ));
-
 
     setMoreRoute($collection, '_branch_single', '/{chain_url}/{branch_url}', array(
                                                                                   '_controller' => 'MainBundle:Client\Branch:show',
                                                                              ));
 
+    setMoreRoute($collection, '_chain_single', '/{chain_url}', array(
+                                                                    '_controller' => 'MainBundle:Client\Chain:show',
+                                                               ));
 
     return $collection;

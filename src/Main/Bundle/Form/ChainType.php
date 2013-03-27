@@ -17,7 +17,8 @@ class ChainType extends AbstractType
             ->add('title', 'text', array('label'=>'<title/>'))
             ->add('description', 'textarea', array('label'=>'meta Description'))
             ->add('keywords', 'text', array('label'=>'meta Keywords', 'required' => false))
-
+            ->add('text', 'textarea', array('label'=>'Описание', 'required' => false))
+            ->add('social_text', 'text', array('label'=>'Текст для социалок', 'required' => false))
             ->add('type', 'choice', array(
                 'choices'   => array(1 => 'Только доставка', 2 => 'Только заведения', 3 => 'Заведение с доставкой'),
                 'required'  => true,
