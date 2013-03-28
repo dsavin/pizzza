@@ -72,4 +72,24 @@ class ChainController extends Controller
             'entitiesDiscounts' => $entitiesDiscounts
         );
     }
+    
+    /**
+     * Finds and displays a Chain entity.
+     *
+     * @Template()
+     */
+    public function deliveryAction($chain_url, $_city, Request $request)
+    {
+        $city = $this->getCityByUrl($_city);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url'=>$chain_url,'lang'=>$request->getLocale(),'city_id'=>$city->getId()));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Chain entity.');
+        }
+
+        return array(
+            'entity'      => $entity,
+        );
+    }
 }

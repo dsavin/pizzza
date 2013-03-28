@@ -20,7 +20,7 @@ class ChainType extends AbstractType
             ->add('text', 'textarea', array('label'=>'Описание', 'required' => false))
             ->add('social_text', 'text', array('label'=>'Текст для социалок', 'required' => false))
             ->add('type', 'choice', array(
-                'choices'   => array(1 => 'Только доставка', 2 => 'Только заведения', 3 => 'Заведение с доставкой'),
+                'choices'   => array(3 => 'Заведение с доставкой', 1 => 'Только доставка', 2 => 'Только заведения'),
                 'required'  => true,
                 'label'=>'Тип пиццерии'
             ))
@@ -30,6 +30,11 @@ class ChainType extends AbstractType
                 'required' => false,
                 'label'=>'Логотип'
             ))
+            ->add('rating_delivery', 'integer', array('label'=>'рейтиг доставки'))
+            ->add('title_delivery', 'text', array('label'=>'<title/> - доставки'))
+            ->add('description_delivery', 'textarea', array('label'=>'meta Description - доставки'))
+            ->add('keywords_delivery', 'text', array('label'=>'meta Keywords - доставки', 'required' => false))
+            ->add('text_delivery', 'textarea', array('label'=>'Текст - доставки', 'required' => false))
         ;
     }
 

@@ -1,0 +1,207 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
+{% set active = 3 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="#">Пиццерии</a></li>
+                    <li>{{ entity.name }}</li>
+                </ul>
+                {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entity}) }}
+            </div>
+            {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'delivery', entityChain: entity}) }}
+            <div class="main-info">
+                <div class="area-dostavka">
+                    <div class="head">
+                        <div class="title">Телефоны и районы доставки</div>
+                        <div class="orders">
+                            <strong>Онлайн-заказ:</strong>
+                            {% if entity.site != "" %}
+                                <a href="http://{{ entity.site }}" target="_blank" class="link"><span>{{ entity.site }}</span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="area-info">
+                        <div class="holder">
+                            <ul class="tel">
+                                <li>(044) <strong>222 5 222</strong></li>
+                                <li>(044) <strong>222 70 75</strong> <br />(044) <strong>468 70 90</strong></li>
+                            </ul>
+                            <ul class="adres">
+                                <li>Весь Киев, 9:00 – 22:00</li>
+                                <li>Куреневка, круглосуточно</li>
+                            </ul>
+                        </div>
+                        {% if entity.getTextDelivery != "" %}
+                            <div class="total">{{ entity.getTextDelivery }}</div>
+                        {% endif %}
+                        <div class="rating-total">
+                            <strong>Рейтинг доставки</strong>
+                            <div class="gholder">
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                </ul>
+                                <div class="com-total">16</div>
+                                <a href="#"><span>Оставить отзыв</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action">
+                    <div class="heading">
+                        <h2>Фотографии  <span>(8)</span></h2>
+                    </div>
+                    <div class="tabs-area">
+                        <ul class="action-tabset">
+                            <li class="active"><a href="#tab-30">1</a></li>
+                            <li><a href="#tab-31">2</a></li>
+                        </ul>
+                        <div class="tab-list">
+                            <div class="tab" id="tab-30">
+                                <div class="area">
+                                    <a href="images/img-24.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-24.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-25.jpgg" rel="group" class="block lightbox">
+                                        <img src="images/img-25.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-26.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-26.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-27.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-27.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="tab" id="tab-31">
+                                <div class="area">
+                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-15.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-14.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-16.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
+                                        <img src="images/img-17.jpg" width="140" height="98" alt="image description" />
+                                        <span class="mask"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="last-comment">
+                    <div class="heading">
+                        <h2>Отзывы о доставке от Мамамиа</h2>
+                        <a href="#">Все отзывы о Мамамиа</a>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="meta">
+                                <strong class="name">Илья</strong>
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                    <li class="ico-star ico-star-empty"></li>
+                                </ul>
+                                <em class="date">25 сентября, 2012</em>
+                                <a href="#" class="reply">Ответить</a>
+                            </div>
+                            <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. Идея была и остается хорошая – делать вкусную, тонкую, неаполитанскую пиццу наверно. Видимо популярность настолько выросла, что за качеством некому следить. Хочется больше качественного, ненавязчивого внимания к клиенту.</span>
+                        </li>
+                        <li>
+                            <div class="meta">
+                                <strong class="name">Марина</strong>
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                </ul>
+                                <em class="date">5 сентября, 2012</em>
+                                <a href="#" class="reply">Ответить</a>
+                            </div>
+                            <span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="add-comment">
+                    <div class="heading">
+                        <h2>Добавить отзыв</h2>
+                    </div>
+                    <form action="#">
+                        <fieldset>
+                            <div class="area">
+                                <div class="cols error">
+                                    <label for="name">Ваше имя</label>
+                                    <input class="text-input" id="name" type="text" value="" />
+                                    <span class="error-text">Укажите имя</span>
+                                </div>
+                                <div class="cols error">
+                                    <label for="email">Электронная почта</label>
+                                    <input class="text-input" id="email" type="text" value="" />
+                                    <span class="error-text">Укажите электронную почту</span>
+                                </div>
+                            </div>
+                            <div class="textarea error">
+                                <label for="comment">Отзыв (не менее 40 символов)</label>
+                                <textarea id="comment" cols="30" rows="10">Активый инпут.</textarea>
+                                <span class="error-text">Слишком короткий отзыв</span>
+                            </div>
+                            <div class="mark">
+                                <strong>Ваша оценка</strong>
+                                <ul class="star-rating">
+                                    <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
+                                    <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
+                                    <li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>
+                                    <li class="active"><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>
+                                    <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
+                                </ul>
+                            </div>
+                            <div class="capcha">
+                                <label for="capcha">Введите сумму цифр</label>
+                                <div class="input error">
+                                    <span>3 + 2 =</span>
+                                    <input type="text" id="capcha" value="5" />
+                                    <span class="error-text">Неправда :)</span>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                <input type="submit" class="disabled-button" value="Добавить отзыв" />
+                                <div class="button-text">Чтобы добавить отзыв, вы должны <br />заполнить все поля правильно.</div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

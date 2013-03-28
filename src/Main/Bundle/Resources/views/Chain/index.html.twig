@@ -36,7 +36,11 @@
                 <td>
                     <div>
                         <a href="{{ path_city('admin_chain_edit', { 'id': entity.id, '_locale':'ru'  }) }}" class="btn"><i class="icon-edit"></i></a>
-                        <a target="_blank" href="{{ path_city('_chain_single', { 'chain_url': entity.url, '_locale':'ru', '_city':_city }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                        {% if entity.getType == 3 or entity.getType == 2 %}
+                            <a target="_blank" href="{{ path_city('_chain_single', { 'chain_url': entity.url, '_locale':'ru', '_city':_city }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                        {% else %}
+                            <a target="_blank" href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':'ru', '_city':_city }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>

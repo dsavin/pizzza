@@ -48,7 +48,6 @@ class Chain
      */
     private $name;
 
-
     /**
      * @var string
      *
@@ -155,6 +154,48 @@ class Chain
      * @ORM\OneToMany(targetEntity="Discount", mappedBy="chain")
      */
     private $discounts;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title_delivery", type="string", length=255)
+     */
+    private $title_delivery;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description_delivery", type="string", length=255)
+     */
+    private $description_delivery;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keywords_delivery", type="string", length=255, nullable=true)
+     */
+    private $keywords_delivery;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating", type="integer")
+     */
+    private $rating;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating_delivery", type="integer")
+     */
+    private $rating_delivery;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text_delivery", type="text")
+     */
+    private $text_delivery;
 
     public function __construct($lang = 'ru')
     {
@@ -617,5 +658,120 @@ class Chain
         }
 
         return $result;
+    }
+    
+    /**
+     * Set title_delivery
+     *
+     * @param string $title
+     * @return Chain
+     */
+    public function setTitleDelivery($title)
+    {
+        $this->title_delivery = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title_delivery
+     *
+     * @return string
+     */
+    public function getTitleDelivery()
+    {
+        return $this->title_delivery;
+    }
+
+    /**
+     * Set keywords_delivery
+     *
+     * @param string $keywords
+     * @return Chain
+     */
+    public function setKeywordsDelivery($keywords)
+    {
+        $this->keywords_delivery = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * Get keywords_delivery
+     *
+     * @return string
+     */
+    public function getKeywordsDelivery()
+    {
+        return $this->keywords_delivery;
+    }
+
+    /**
+     * Set description_delivery
+     *
+     * @param string $description
+     * @return Chain
+     */
+    public function setDescriptionDelivery($description)
+    {
+        $this->description_delivery = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description_delivery
+     *
+     * @return string
+     */
+    public function getDescriptionDelivery()
+    {
+        return $this->description_delivery;
+    }
+    
+    /**
+     * Set text_delivery
+     *
+     * @param string $text
+     * @return Branch
+     */
+    public function setTextDelivery($text)
+    {
+        $this->text_delivery = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text_delivery
+     *
+     * @return string
+     */
+    public function getTextDelivery()
+    {
+        return $this->text_delivery;
+    }
+    
+    /**
+     * Set rating_delivery
+     *
+     * @param integer $rating
+     * @return Chain
+     */
+    public function setRatingDelivery($rating)
+    {
+        $this->rating_delivery = $rating;
+    
+        return $this;
+    }
+
+    /**
+     * Get rating_delivery
+     *
+     * @return integer 
+     */
+    public function getRatingDelivery()
+    {
+        return $this->rating_delivery;
     }
 }
