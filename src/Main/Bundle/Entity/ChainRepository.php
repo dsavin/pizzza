@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChainRepository extends EntityRepository
 {
+    public function getAllDelivery($city, $_locale)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('c')
+            ->from('MainBundle:Chain', 'c')
+
+            ->where('c.lang = :lang')
+            ->andWhere('c.city_id = :city_id')
+            ->andWhere(' c.type = :type_f OR c.type = :type_s ')
+
+            ->setParameter('city_id', $city->getId())
+            ->setParameter('lang',$_locale)
+            ->setParameter('type_f',Chain::TYPE_BOTH)
+            ->setParameter('type_s',Chain::TYPE_DELIVERY)
+        ;
+
+        return $query->getQuery()->getResult();
+
+    }
 }

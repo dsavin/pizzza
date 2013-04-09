@@ -23,25 +23,31 @@
             <div class="main-info">
                 <div class="area-dostavka">
                     <div class="head">
-                        <div class="title">Телефоны и районы доставки</div>
-                        <div class="orders">
-                            <strong>Онлайн-заказ:</strong>
-                            {% if entity.site != "" %}
-                                <a href="http://{{ entity.site }}" target="_blank" class="link"><span>{{ entity.site }}</span></a>
-                            {% endif %}
-                        </div>
+                        {% if entity.getArrayPhonesDelivery|length > 0 %}
+                            <div class="title">Телефоны и районы доставки</div>
+                        {% endif %}
+                        {% if entity.site != "" %}
+                            <div class="orders">
+                                <strong>Онлайн-заказ:</strong>
+                                    <a href="http://{{ entity.site }}" target="_blank" class="link"><span>{{ entity.site }}</span></a>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="area-info">
-                        <div class="holder">
-                            <ul class="tel">
-                                <li>(044) <strong>222 5 222</strong></li>
-                                <li>(044) <strong>222 70 75</strong> <br />(044) <strong>468 70 90</strong></li>
-                            </ul>
-                            <ul class="adres">
-                                <li>Весь Киев, 9:00 – 22:00</li>
-                                <li>Куреневка, круглосуточно</li>
-                            </ul>
-                        </div>
+                        {% if entity.getArrayPhonesDelivery|length > 0 %}
+                            <div class="holder">
+                                <ul class="tel">
+                                    {% for phone in entity.getArrayPhonesDelivery %}
+                                        <li>{{ phone.phone }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="adres">
+                                    {% for phone in entity.getArrayPhonesDelivery %}
+                                        <li>{{ phone.adress }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                         {% if entity.getTextDelivery != "" %}
                             <div class="total">{{ entity.getTextDelivery }}</div>
                         {% endif %}
@@ -49,11 +55,9 @@
                             <strong>Рейтинг доставки</strong>
                             <div class="gholder">
                                 <ul class="stars">
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star ico-star-empty"></li>
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRatingDelivery) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
                                 </ul>
                                 <div class="com-total">16</div>
                                 <a href="#"><span>Оставить отзыв</span></a>
@@ -61,59 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="action">
-                    <div class="heading">
-                        <h2>Фотографии  <span>(8)</span></h2>
-                    </div>
-                    <div class="tabs-area">
-                        <ul class="action-tabset">
-                            <li class="active"><a href="#tab-30">1</a></li>
-                            <li><a href="#tab-31">2</a></li>
-                        </ul>
-                        <div class="tab-list">
-                            <div class="tab" id="tab-30">
-                                <div class="area">
-                                    <a href="images/img-24.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-24.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-25.jpgg" rel="group" class="block lightbox">
-                                        <img src="images/img-25.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-26.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-26.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-27.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-27.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="tab" id="tab-31">
-                                <div class="area">
-                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-15.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-14.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-16.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                    <a href="images/img-17.jpg" rel="group" class="block lightbox">
-                                        <img src="images/img-17.jpg" width="140" height="98" alt="image description" />
-                                        <span class="mask"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getPhotos}) }}
                 <div class="last-comment">
                     <div class="heading">
                         <h2>Отзывы о доставке от Мамамиа</h2>

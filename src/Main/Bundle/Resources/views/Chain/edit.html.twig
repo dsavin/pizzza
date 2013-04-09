@@ -1,15 +1,96 @@
 {% extends "MainBundle:PageLayout:base_admin.html.twig" %}
 {% block javascripts %}
+    <script>
+        var addPhones = function()
+        {
+            var tr    = $('#hidden_phones').clone();
+            var table = $('#table_phones');
+            table.append(tr.show());
+
+            return false;
+        }
+    </script>
 {% endblock %}
 {% block body %}
     <h3>Редактирование сети - {{ entity.getName }}. Город - {{ current_city().getName() }}</h3>
-
     <form action="{{ path_city('admin_chain_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
         {%-if entity.getImageName is not null-%}
             <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.url }}" style="width: 150px; max-height: 200px;"/>
         {%-endif-%}
         <br/><br/>
+        <div>
+            <p>Телефоны доставки</p>
+            <table id="table_phones">
+                <tr>
+                    <td>Телефоны</td>
+                    <td>Aдресса</td>
+                </tr>
+                {% for phone in phones %}
+                    <tr>
+                        <td>
+                            <textarea name="main_bundle_chaintype_phone[]">{{ phone.phone }}</textarea>
+                        </td>
+                        <td>
+                            <textarea name="main_bundle_chaintype_adress[]">{{ phone.adress }}<</textarea>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            <textarea name="main_bundle_chaintype_phone[]"></textarea>
+                        </td>
+                        <td>
+                            <textarea name="main_bundle_chaintype_adress[]"></textarea>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr id="hidden_phones" style="display: none;">
+                    <td>
+                        <textarea name="main_bundle_chaintype_phone[]"></textarea>
+                    </td>
+                    <td>
+                        <textarea name="main_bundle_chaintype_adress[]"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <a href="" onclick="return addPhones();">Добавить</a>
+        </div>
+        <br/>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>
+                    {% if entity.parent is null %}
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_delivery_edit',{'id':0, 'chain_id':entity.id, '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{{ path_city('admin_photo_delivery_edit',{'id':0, 'chain_id':entity.parent.id, '_locale':'ru', '_city':_city}) }}">Добавить</a>
+                    {% endif %}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for photo in entitiesPhoto %}
+                    <tr>
+                        <td>
+                            {% if photo.getImageName %}
+                                <img src="{{ vich_uploader_asset(photo, 'image') }}" width="50" alt="{{ photo.getImageName }}" class="thumb" />
+                            {% endif %}
+                        </td>
+                        <td>{{ photo.imageName }}</td>
+                        <td>
+                            {% if entity.parent is null %}
+                                <a class="btn btn-primary" href="{{ path_city('admin_photo_delivery_edit',{'id':photo.id, 'chain_id':entity.id, '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                            {% else %}
+                                <a class="btn btn-primary" href="{{ path_city('admin_photo_delivery_edit',{'id':photo.id, 'chain_id':entity.parent.id, '_locale':'ru', '_city':_city}) }}">Изменить</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <br/>
         <p>
             <button type="submit" class="btn btn-success">Сохранить</button>

@@ -137,6 +137,8 @@ class ChainController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'phones' => $entity->getArrayPhonesDelivery(),
+            'entitiesPhoto' => $entity->getPhotos()
         );
     }
 
@@ -153,7 +155,7 @@ class ChainController extends Controller
         $this->checkCity($_city);
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MainBundle:Chain')->find($id);
-
+        $phones = array();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Chain entity.');
         }
@@ -162,7 +164,17 @@ class ChainController extends Controller
         $editForm = $this->createForm(new ChainType(), $entity);
         $editForm->bind($request);
 
+        $postPhones = $request->request->get('main_bundle_chaintype_phone');
+        $postAdress = $request->request->get('main_bundle_chaintype_adress');
+
+        foreach ($postPhones as $key=>$val) {
+            if( !empty($val) ) {
+                $phones[] = array('phone'=>$val,'adress'=>$postAdress[$key]);
+            }
+        }
+
         if ($editForm->isValid()) {
+            $entity->setPhonesDelivery( json_encode($phones) );
             $em->persist($entity);
             $em->flush();
 
@@ -173,6 +185,7 @@ class ChainController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'phones' => $phones
         );
     }
 

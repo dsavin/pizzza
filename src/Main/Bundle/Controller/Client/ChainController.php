@@ -4,6 +4,7 @@ namespace Main\Bundle\Controller\Client;
 
 use Main\Bundle\Controller\BaseController as Controller;
 
+use Main\Bundle\Entity\ChainRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -90,6 +91,31 @@ class ChainController extends Controller
 
         return array(
             'entity'      => $entity,
+        );
+    }
+
+    /**
+     * Страница всех доставок
+     *
+     * @Template()
+     */
+    public function deliveryListAction($_city, Request $request)
+    {
+        $city = $this->getCityByUrl($_city);
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * @var $chainRepo ChainRepository
+         */
+        $chainRepo = $em->getRepository('MainBundle:Chain');
+        $entities = $chainRepo->getAllDelivery($city, $request->getLocale());
+
+        if (!$entities) {
+            throw $this->createNotFoundException('Нету доставок в данном городе');
+        }
+
+        return array(
+            'entities'      => $entities,
         );
     }
 }

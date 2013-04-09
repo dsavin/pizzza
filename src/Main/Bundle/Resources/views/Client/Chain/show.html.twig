@@ -6,6 +6,39 @@
 {% set active = 3 %}
 
 {% block javascripts %}
+    <script>
+        function setMap()
+        {
+            {% for branch in entity.getBranchsByLocale(_locale) %}
+                {% if loop.index == 1 %}
+                    var mapOptions = {
+                        center:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
+                        zoom:13,
+                        mapTypeId:google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map-canvas"),
+                            mapOptions);
+                {% endif %}
+                var marker = new google.maps.Marker({
+                    map:map,
+                    position:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
+                    icon: new google.maps.MarkerImage(
+                            '/images/marker.png',
+                            new google.maps.Size(27,28)
+                    )
+                });
+                var infowindow = new google.maps.InfoWindow();
+                infowindow.setContent('<b>{{ branch.street }}</b>');
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+            {% endfor %}
+        }
+        $(document).ready(function(){
+            setMap();
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -51,9 +84,7 @@
                     <a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети</a>
                 </div>
                 <div class="adrress">
-                    <div class="map">
-                        <img src="/images/img-18.jpg" width="412" height="288" alt="image description" />
-                    </div>
+                    <div class="map" id="map-canvas"></div>
                     <div class="list-address">
                         <div class="scrollable-area">
                             <ul>
@@ -64,11 +95,9 @@
                                         </div>
                                         <div class="row">
                                             <ul class="stars">
-                                                <li class="ico-star"></li>
-                                                <li class="ico-star"></li>
-                                                <li class="ico-star"></li>
-                                                <li class="ico-star"></li>
-                                                <li class="ico-star ico-star-empty"></li>
+                                                {% for i in 1..5 %}
+                                                    <li class="ico-star {% if i > branch.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
+                                                {% endfor %}
                                             </ul>
                                             <a class="comment-link" href="#">23</a>
                                         </div>

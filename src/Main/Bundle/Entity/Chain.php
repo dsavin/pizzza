@@ -25,6 +25,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Chain
 {
+
+    const TYPE_DELIVERY = 1;
+    const TYPE_BRANCHES = 2;
+    const TYPE_BOTH = 3;
+
     /**
      * @var integer
      *
@@ -179,13 +184,6 @@ class Chain
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating", type="integer")
-     */
-    private $rating;
-    
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="rating_delivery", type="integer")
      */
     private $rating_delivery;
@@ -197,6 +195,18 @@ class Chain
      */
     private $text_delivery;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phones_delivery", type="text")
+     */
+    private $phones_delivery;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PhotoDelivery", mappedBy="chain")
+     */
+    private $photos;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -206,6 +216,7 @@ class Chain
         $this->updated_at = new \DateTime();
         $this->keywords = '';
         $this->lang = $lang;
+        $this->photos = new ArrayCollection();
     }
 
     /**
@@ -773,5 +784,69 @@ class Chain
     public function getRatingDelivery()
     {
         return $this->rating_delivery;
+    }
+
+    /**
+     * Set phones_delivery
+     *
+     * @param string $phones
+     * @return Chain
+     */
+    public function setPhonesDelivery($phones)
+    {
+        $this->phones_delivery = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Get phones_delivery
+     *
+     * @return string
+     */
+    public function getPhonesDelivery()
+    {
+        if( empty($this->phones_delivery) ) {
+            $this->phones_delivery = json_encode(array());
+        }
+
+        return $this->phones_delivery;
+    }
+
+    /**
+     * Get phones_delivery as array
+     *
+     * @return array
+     */
+    public function getArrayPhonesDelivery()
+    {
+        $phones = json_decode($this->getPhonesDelivery());
+
+        return $phones;
+    }
+
+    public function getStarsByMaxRating($max_rating)
+    {
+        $stars = 5*($this->rating_delivery/$max_rating*100)/100;
+
+        return (int)$stars;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param Photo $photo
+     */
+    public function addPhoto(Photo $photo)
+    {
+        $this->photos[] = $photo;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

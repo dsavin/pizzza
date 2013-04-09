@@ -29,6 +29,10 @@
                                                                                       '_controller' => 'MainBundle:Client\Chain:discounts',
                                                                                  ));
 
+    setMoreRoute($collection, '_delivery_list', '/delivery', array(
+                                                                    '_controller' => 'MainBundle:Client\Chain:deliveryList',
+                                                               ));
+
 
     setMoreRoute($collection, '_branches_all', '/{chain_url}/all', array(
                                                                               '_controller' => 'MainBundle:Client\Branch:all',

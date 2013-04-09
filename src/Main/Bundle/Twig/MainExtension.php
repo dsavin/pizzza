@@ -42,7 +42,7 @@
                 'current_chain'          => new \Twig_Function_Method($this, 'currentChain'),
                 'path_city'              => new \Twig_Function_Method($this, 'pathCity'),
                 'get_max_rating_by_city' => new \Twig_Function_Method($this, 'getMaxRating'),
-
+                'get_max_rating_delivery_by_city' => new \Twig_Function_Method($this, 'getMaxDeliveryRating'),
             );
         }
 
@@ -106,6 +106,27 @@
                 ->getResult();
             if ($result) {
                 $rating = $result[0]->getRating();
+            }
+
+            return $rating;
+        }
+
+        public function getMaxDeliveryRating()
+        {
+            $entityCity = $this->currentCity();
+            $rating = 0;
+            $result = $this->em->createQuery('SELECT c FROM MainBundle:Chain c
+                WHERE c.city_id = :city_id
+                AND c.lang = :lang
+                AND  ( c.type = 3 OR c.type = 1 )
+                ORDER BY c.rating_delivery DESC
+                ')
+                ->setMaxResults(1)
+                ->setParameter('city_id', $entityCity->getId())
+                ->setParameter('lang', 'ru')
+                ->getResult();
+            if ($result) {
+                $rating = $result[0]->getRatingDelivery();
             }
 
             return $rating;

@@ -71,8 +71,9 @@ vich_uploader:
         feature:
             uri_prefix: /uploads/images/features
             upload_destination: %kernel.root_dir%/../www/uploads/images/features
-
-
+        photo_pizzeria_delivery:
+            uri_prefix: /uploads/images/pizzeria/delivery
+            upload_destination: %kernel.root_dir%/../www/uploads/images/pizzeria/delivery
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

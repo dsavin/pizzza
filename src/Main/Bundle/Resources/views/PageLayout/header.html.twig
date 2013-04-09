@@ -27,7 +27,9 @@
     </div>
     <ul id="nav">
         <li {% if active == 1 %}class="active"{% endif %}><a href="#" class="pizza">Пиццерии</a></li>
-        <li {% if active == 2 %}class="active"{% endif %}><a href="#" class="dostavka">Доставка пиццы</a></li>
+        <li {% if active == 2 %}class="active"{% endif %}>
+            <a href="{{ path_city('_delivery_list',{'_city':_city,'_locale':_locale}) }}" class="dostavka">Доставка пиццы</a>
+        </li>
         <li {% if active == 3 %}class="active"{% endif %}>
             <a href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a>
         </li>
