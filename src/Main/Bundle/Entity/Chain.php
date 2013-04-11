@@ -215,6 +215,7 @@ class Chain
         $this->branchse_pohtos = new ArrayCollection();
         $this->updated_at = new \DateTime();
         $this->keywords = '';
+		$this->phones_delivery = '';
         $this->lang = $lang;
         $this->photos = new ArrayCollection();
     }
