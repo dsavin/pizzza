@@ -37,7 +37,7 @@
     setMoreRoute($collection, '_branches_all', '/{chain_url}/all', array(
                                                                               '_controller' => 'MainBundle:Client\Branch:all',
                                                                          ));
-    
+
     setMoreRoute($collection, '_chain__delivery_single', '/{chain_url}/delivery', array(
                                                                     '_controller' => 'MainBundle:Client\Chain:delivery',
                                                                ));

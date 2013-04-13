@@ -43,7 +43,7 @@
 
             $entity = $em->getRepository('MainBundle:Branch')->findOneBy(array(
                                                                               'url' => $branch_url,
-                                                                              'chain' => $entityChain->getId(),
+                                                                              'chain' => is_null($entityChain->getParent())?$entityChain->getId():$entityChain->getParent()->getId(),
                                                                               'lang'    => $request->getLocale()
                                                                          ));
             if (!$entity) {
