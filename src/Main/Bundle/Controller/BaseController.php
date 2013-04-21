@@ -15,6 +15,33 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class BaseController extends Controller
 {
 
+    private $ajaxResponce = array();
+
+    public function getAjaxResponce()
+    {
+
+        return $this->ajaxResponce;
+    }
+
+    public function addAjaxResponceError($message)
+    {
+        $this->ajaxResponce['errors'] = $message;
+    }
+
+    public function isAjaxResponceHasError()
+    {
+        if ( isset($this->ajaxResponce['error']) && !empty($this->ajaxResponce['error']) ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function addAjaxResponce($key, $value)
+    {
+        $this->ajaxResponce[$key] = $value;
+    }
+
     public function getLangsArray()
     {
         $return = array();

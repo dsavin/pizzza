@@ -33,4 +33,27 @@ class ChainRepository extends EntityRepository
         return $query->getQuery()->getResult();
 
     }
+
+    public function getAllNotDelivery($city, $_locale)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('c, branchs')
+            ->from('MainBundle:Chain', 'c')
+
+            ->join('c.branchs', 'branchs')
+
+            ->where('c.lang = :lang')
+            ->andWhere('c.city_id = :city_id')
+            ->andWhere(' ( c.type = :type_f OR c.type = :type_s ) ')
+
+            ->setParameter('city_id', $city->getId())
+            ->setParameter('lang',$_locale)
+            ->setParameter('type_f',Chain::TYPE_BRANCHES)
+            ->setParameter('type_s',Chain::TYPE_BOTH)
+        ;
+
+        return $query->getQuery()->getResult();
+    }
 }

@@ -54,6 +54,7 @@ function initRating() {
 			element:this,
 			onselect:function(num) {
 				// rating setted event
+                $('#stars_rating').val(num+1);
 			}
 		});
 	});

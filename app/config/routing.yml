@@ -11,4 +11,4 @@ _client:
     resource: "@MainBundle/Resources/config/client.yml"
 
 _client_php:
-    resource: "@MainBundle/Resources/config/client.php"
+    resource: "@MainBundle/Resources/config/client1.php"

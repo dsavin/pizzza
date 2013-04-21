@@ -6,7 +6,11 @@
 {% set active = 3 %}
 
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/main/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/main/js/comment.js') }}"></script>
     <script>
+        var map;
+        var openedWindow = false;
         function setMap()
         {
             {% for branch in entity.getBranchsByLocale(_locale) %}
@@ -14,9 +18,10 @@
                     var mapOptions = {
                         center:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
                         zoom:13,
-                        mapTypeId:google.maps.MapTypeId.ROADMAP
+                        mapTypeId:google.maps.MapTypeId.ROADMAP,
+                        scrollwheel:false
                     };
-                    var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    map = new google.maps.Map(document.getElementById("map-canvas"),
                             mapOptions);
                 {% endif %}
                 var marker = new google.maps.Marker({
@@ -27,13 +32,33 @@
                             new google.maps.Size(27,28)
                     )
                 });
-                var infowindow = new google.maps.InfoWindow();
-                infowindow.setContent('<b>{{ branch.street }}</b>');
-
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.open(map, marker);
-                });
+                attachSecretMessage(marker,'{{ branch.street }}', {{ branch.id }});
             {% endfor %}
+        }
+        function attachSecretMessage(marker, str, id)
+        {
+            var message = ["This","is","the","secret","message"];
+            var infowindow = new google.maps.InfoWindow(
+                    {
+                        content: '<b>'+str+'</b>'
+                    });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                if (openedWindow)
+                    openedWindow.close();
+                openedWindow = infowindow;
+                infowindow.open(map, marker);
+                map.setCenter(marker.getPosition());
+            });
+            $('#li_branch_id_'+id).click(function(){
+                if (openedWindow)
+                    openedWindow.close();
+                openedWindow = infowindow;
+                infowindow.open(map, marker);
+                map.setCenter(marker.getPosition());
+                $('#li_branch_id_'+id).addClass('list-address_in_hover');
+                $('#li_branch_id_'+id).parent().find('li').removeClass('list-address_in_hover');
+            });
         }
         $(document).ready(function(){
             setMap();
@@ -70,12 +95,12 @@
                         <a href="http://{{ entity.site }}" target="_blank" class="link">{{ entity.site }}</a>
                     {% endif %}
                 </div>
-                <div class="social">
-                    <div class="s-holder"><a href="#"><img src="/images/social.gif" width="79" height="22" alt="image description" /></a></div>
-                    <div class="s-holder"><a href="#"><img src="/images/social-02.gif" width="128" height="22" alt="image description" /></a></div>
-                    <div class="s-holder"><a href="#"><img src="/images/social-03.gif" width="95" height="22" alt="image description" /></a></div>
-                    <div class="s-holder"><a href="#"><img src="/images/social-04.gif" width="59" height="22" alt="image description" /></a></div>
-                </div>
+                {#<div class="social">#}
+                    {#<div class="s-holder"><a href="#"><img src="/images/social.gif" width="79" height="22" alt="image description" /></a></div>#}
+                    {#<div class="s-holder"><a href="#"><img src="/images/social-02.gif" width="128" height="22" alt="image description" /></a></div>#}
+                    {#<div class="s-holder"><a href="#"><img src="/images/social-03.gif" width="95" height="22" alt="image description" /></a></div>#}
+                    {#<div class="s-holder"><a href="#"><img src="/images/social-04.gif" width="59" height="22" alt="image description" /></a></div>#}
+                {#</div>#}
             </div>
             {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getAllBranchPhotos}) }}
             <div class="maps">
@@ -89,7 +114,11 @@
                         <div class="scrollable-area">
                             <ul>
                                 {% for branch in entity.getBranchsByLocale(_locale) %}
-                                    <li>
+                                    <li {% if loop.index == 1 %}class="list-address_in_hover"{% endif %}
+                                            data-lat="{{ branch.lat }}"
+                                            data-lng="{{ branch.lng }}"
+                                            id="li_branch_id_{{ branch.id }}"
+                                            >
                                         <div class="titles">
                                             <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}">{{ branch.street }}</a>
                                         </div>
@@ -132,65 +161,42 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="last-comment">
-                <div class="heading">
-                    <h2>Последние отзывы</h2>
-                    <a href="#">Все отзывы</a>
+            {% if comments|length > 0 %}
+                <div class="last-comment">
+                    <div class="heading">
+                        <h2>Последние отзывы</h2>
+                        <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы</a>
+                    </div>
+                    <ul>
+                        {% for comment in comments %}
+                            {{ include('MainBundle:Client:comment_item.html.twig', {'comment': comment, 'entity':entity }) }}
+                        {% endfor %}
+                    </ul>
                 </div>
-                <ul>
-                    <li>
-                        <div class="meta">
-                            <strong class="name">Илья <span>про</span></strong>
-                            <a href="#" class="link">Мамамиа на просп. Победы, 9б</a>
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star ico-star-empty"></li>
-                                <li class="ico-star ico-star-empty"></li>
-                            </ul>
-                            <em class="date">25 сентября, 2012</em>
-                            <a href="#" class="reply">Ответить</a>
-                        </div>
-                        <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. Идея была и остается хорошая – делать вкусную, тонкую, неаполитанскую пиццу наверно. Видимо популярность настолько выросла, что за качеством некому следить. Хочется больше качественного, ненавязчивого внимания к клиенту.</span>
-                    </li>
-                    <li>
-                        <div class="meta">
-                            <strong class="name">Марина <span>про</span></strong>
-                            <a href="#" class="link">про  Службу доставки</a>
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <em class="date">5 сентября, 2012</em>
-                            <a href="#" class="reply">Ответить</a>
-                        </div>
-                        <span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>
-                    </li>
-                </ul>
-            </div>
+            {% endif %}
             <div class="add-comment">
                 <div class="heading">
                     <h2>Добавить отзыв</h2>
                 </div>
-                <form action="#">
+                <form action="{{ path('_add_comment',{ 'item':entity.id }) }}" method="POST" id="some_form">
                     <fieldset>
                         <div class="area">
                             <div class="cols">
                                 <label for="name">Ваше имя <span>*</span></label>
-                                <input class="text-input" id="name" type="text" value="Заполненный инпут" />
+                                <input class="text-input" id="name" type="text" value="Имя" name="name"/>
+                                <input class="text-input" id="last_name" type="text" value="" name="last_name"/>
+                                <span class="error-text"></span>
                             </div>
                             <div class="cols">
                                 <label for="email">Электронная почта <span>*</span></label>
-                                <input class="text-input" id="email" type="text" value="jdfg93sad2@gmail.com" />
+                                <input class="text-input" id="email" type="text" value="jdfg93sad2@gmail.com" name="email"/>
+                                <span class="error-text"></span>
                             </div>
                         </div>
                         <div class="textarea">
                             <label for="comment">Отзыв <span>*</span></label>
-                            <textarea id="comment" cols="30" rows="10">Активый инпут.</textarea>
+                            <textarea id="comment" cols="30" rows="10" name="text">Введите ваш комментарий</textarea>
+                            <span class="error-text"></span>
                         </div>
                         <div class="mark">
                             <strong>Ваша оценка</strong>
@@ -206,32 +212,33 @@
                             <strong>О чем ваш отзыв?</strong>
                             <em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>
                             <div class="row">
-                                <input id="radio1" class="radio" name="radio" type="radio" />
+                                <input id="radio1" class="radio" name="type" type="radio" checked="checked" value="2"/>
                                 <label for="radio1">Сеть пиццерий «Мамамиа»</label>
                             </div>
                             <div class="row">
-                                <input id="radio2" class="radio" name="radio" type="radio" />
+                                <input id="radio2" class="radio" name="type" type="radio" value="3"/>
                                 <label for="radio2">Служба доставки пиццы</label>
                             </div>
-                            <div class="row">
-                                <input id="radio3" class="radio" name="radio" type="radio" />
+                            <div class="row" onclick="$(this).find('input').attr('checked',true)">
+                                <input id="radio3" class="radio" name="type" type="radio" value="4"/>
                                 <label for="radio3">Пиццерия по адресу:</label>
-                                <select id="radio3" class="select-adress">
-                                    <option>ул. Набережно-Крещатицкая, 31</option>
-                                    <option>ул. Набережно-Крещатицкая, 31</option>
-                                    <option>ул. Набережно-Крещатицкая, 31</option>
+                                <select id="radio3" class="select-adress" name="branch">
+                                    {% for branch in entity.getBranchsByLocale(_locale) %}
+                                        <option value="{{ branch.id }}">{{ branch.street }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="capcha">
-                            <label for="capcha">Введите сумму цифр <span>*</span></label>
-                            <div class="input">
-                                <span>3 + 2 =</span>
-                                <input type="text" id="capcha" value="5" />
-                            </div>
+                            {#<label for="capcha">Введите сумму цифр <span>*</span></label>#}
+                            {#<div class="input">#}
+                                {#<span>3 + 2 =</span>#}
+                                {#<input type="text" id="capcha" value="5" />#}
+                            {#</div>#}
                         </div>
                         <div class="footer">
-                            <input type="submit" value="Добавить отзыв" />
+                            <input type="hidden" value="4" name="rating" id="stars_rating">
+                            <input type="submit" value="Добавить отзыв"/>
                         </div>
                     </fieldset>
                 </form>

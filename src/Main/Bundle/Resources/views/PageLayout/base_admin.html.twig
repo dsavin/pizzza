@@ -27,7 +27,7 @@
                     <a class="brand" href="/" target="_blank">PizZza.com.ua - {{ current_city().getName }} - {{ app.request.getLocale }}</a>
                     {% render 'MainBundle:PageLayout:city' with{'_city':_city}%}
                     <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link">Username</a></p>
+                        <p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link">{{ app.user.username }}</a></p>
                         {#<ul class="nav">#}
                             {#<li class="active"><a href="#">Home</a></li>#}
                             {#<li><a href="#about">About</a></li>#}

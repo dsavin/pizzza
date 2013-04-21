@@ -2,6 +2,7 @@
 {% set _locale = app.request.session.get('_locale') %}
 {% set maxRating = get_max_rating_by_city() %}
 {% set maxRatingDelivery = get_max_rating_delivery_by_city() %}
+{% set maxRatingChain = get_max_rating_chain_by_city() %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
@@ -12,6 +13,7 @@
         <meta name="keywords" content="{% block keywords %}keywords{% endblock %}" />
 
         <link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/all.css') }}" />
+        <link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/style.css') }}" />
         <link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/fancybox.css') }}" />
         {% block stylesheets %}{% endblock %}
         <script type="text/javascript" src="{{ asset('bundles/main/js/jquery-1.8.3.min.js') }}"></script>
@@ -24,9 +26,9 @@
 
     </head>
     <body>
-        {{ _city }}
+        {#{ _city }}
         <br/>
-        {{ _locale }}
+        {{ _locale }#}
         <div id="wrapper">
             {% render "MainBundle:PageLayout:header" with { 'active': active|default(0) } %}
 

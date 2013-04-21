@@ -1,50 +1,51 @@
 <?php
 
-    namespace Main\Bundle\Twig;
+namespace Main\Bundle\Twig;
 
-    use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager;
 
-    use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 
-    use Main\Bundle\Entity\City;
-    use Main\Bundle\Entity\Branch;
-    use Main\Bundle\Entity\Chain;
+use Main\Bundle\Entity\City;
+use Main\Bundle\Entity\Branch;
+use Main\Bundle\Entity\Chain;
 
-    use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-    class MainExtension extends \Twig_Extension
+class MainExtension extends \Twig_Extension
+{
+    private $em;
+    private $container;
+    private $request;
+    private $route;
+
+    private $_city;
+
+    public function __construct(EntityManager $em, ContainerInterface $container)
     {
-        private $em;
-        private $container;
-        private $request;
-        private $route;
+        $this->em = $em;
+        $this->container = $container;
+        $this->request = $this->container->get('request');
+        $this->route = $this->container->get('router');
+        $this->_city = trim($this->request->attributes->get('_city'));
+    }
 
-        private $_city;
-
-        public function __construct(EntityManager $em, ContainerInterface $container)
-        {
-            $this->em = $em;
-            $this->container = $container;
-            $this->request = $this->container->get('request');
-            $this->route = $this->container->get('router');
-            $this->_city = trim($this->request->attributes->get('_city'));
-        }
-
-        /**
-         * Returns a list of functions to add to the existing list.
-         *
-         * @return array An array of functions
-         */
-        public function getFunctions()
-        {
-            return array(
-                'current_city'           => new \Twig_Function_Method($this, 'currentCity'),
-                'current_chain'          => new \Twig_Function_Method($this, 'currentChain'),
-                'path_city'              => new \Twig_Function_Method($this, 'pathCity'),
-                'get_max_rating_by_city' => new \Twig_Function_Method($this, 'getMaxRating'),
-                'get_max_rating_delivery_by_city' => new \Twig_Function_Method($this, 'getMaxDeliveryRating'),
-            );
-        }
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return array An array of functions
+     */
+    public function getFunctions()
+    {
+        return array(
+            'current_city'                    => new \Twig_Function_Method($this, 'currentCity'),
+            'current_chain'                   => new \Twig_Function_Method($this, 'currentChain'),
+            'path_city'                       => new \Twig_Function_Method($this, 'pathCity'),
+            'get_max_rating_by_city'          => new \Twig_Function_Method($this, 'getMaxRating'),
+            'get_max_rating_delivery_by_city' => new \Twig_Function_Method($this, 'getMaxDeliveryRating'),
+            'get_max_rating_chain_by_city'    => new \Twig_Function_Method($this, 'getMaxChainRating')
+        );
+    }
 
 //    public function getFilters()
 //    {
@@ -53,83 +54,112 @@
 //        );
 //    }
 
-        public function currentCity()
-        {
-            $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl($this->_city);
+    public function currentCity()
+    {
+        $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl($this->_city);
 
-            if (!$entity) {
-                $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl("kiev");
-            }
-
-            return $entity;
+        if (!$entity) {
+            $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl("kiev");
         }
 
-        public function pathCity($route, $parameters = array(), $absolute = false)
-        {
-            if (empty($this->_city)) {
-                $this->_city = $this->request->getSession()->get('_city');
-            }
+        return $entity;
+    }
 
-            if ($this->_city !== 'kiev') {
-                $parameters =  array('_city' => $this->_city)+$parameters;
-                $route = $route . '_city';
-            }
-
-            return $this->route->generate($route, $parameters, $absolute);
+    public function pathCity($route, $parameters = array(), $absolute = false)
+    {
+        if (empty($this->_city)) {
+            $this->_city = $this->request->getSession()->get('_city');
         }
 
-        public function currentChain()
-        {
-            $entity = $this->em->getRepository('MainBundle:Chain')->findOneById($this->request->attributes->get('chain_id'));
-
-            return $entity;
+        if ($this->_city !== 'kiev') {
+            $parameters = array('_city' => $this->_city) + $parameters;
+            $route = $route . '_city';
         }
 
-        public function getName()
-        {
-            return 'main_extension';
-        }
+        return $this->route->generate($route, $parameters, $absolute);
+    }
 
-        public function getMaxRating()
-        {
-            $entityCity = $this->currentCity();
-            $rating = 0;
-            $result = $this->em->createQuery('SELECT b FROM MainBundle:Branch b
+    public function currentChain()
+    {
+        $entity = $this->em->getRepository('MainBundle:Chain')->findOneById($this->request->attributes->get('chain_id'));
+
+        return $entity;
+    }
+
+    public function getName()
+    {
+        return 'main_extension';
+    }
+
+    public function getMaxRating()
+    {
+        $entityCity = $this->currentCity();
+        $rating = 0;
+        $result = $this->em->createQuery('SELECT b FROM MainBundle:Branch b
                 JOIN b.chain c
                 WHERE c.city_id = :city_id
                 AND b.lang = :lang
                 ORDER BY b.rating DESC
                 ')
-                ->setMaxResults(1)
-                ->setParameter('city_id', $entityCity->getId())
-                ->setParameter('lang', 'ru')
-                ->getResult();
-            if ($result) {
-                $rating = $result[0]->getRating();
-            }
-
-            return $rating;
+            ->setMaxResults(1)
+            ->setParameter('city_id', $entityCity->getId())
+            ->setParameter('lang', 'ru')
+            ->getResult();
+        if ($result) {
+            $rating = $result[0]->getRating();
         }
 
-        public function getMaxDeliveryRating()
-        {
-            $entityCity = $this->currentCity();
-            $rating = 0;
-            $result = $this->em->createQuery('SELECT c FROM MainBundle:Chain c
+        return $rating;
+    }
+
+    public function getMaxDeliveryRating()
+    {
+        $entityCity = $this->currentCity();
+        $rating = 0;
+        $result = $this->em->createQuery('SELECT SUM(branchs.rating) as max_rating FROM MainBundle:Chain c
+                JOIN c.branchs branchs
+                WHERE c.city_id = :city_id
+                AND c.lang = :lang
+                AND branchs.lang = :lang
+                AND  ( c.type = 3 OR c.type = 2 )
+                ORDER BY max_rating DESC
+                ')
+            ->setMaxResults(1)
+            ->setParameter('city_id', $entityCity->getId())
+            ->setParameter('lang', 'ru')
+            ->getResult();
+
+        if ( !empty( $result) ) {
+            $rating = $result[0]['max_rating'];
+        }
+
+        return $rating;
+    }
+
+    public function getMaxChainRating()
+    {
+        $entityCity = $this->currentCity();
+        $rating = 0;
+        $result = $this->em->createQuery('
+                SELECT c FROM MainBundle:Chain c
                 WHERE c.city_id = :city_id
                 AND c.lang = :lang
                 AND  ( c.type = 3 OR c.type = 1 )
                 ORDER BY c.rating_delivery DESC
                 ')
-                ->setMaxResults(1)
-                ->setParameter('city_id', $entityCity->getId())
-                ->setParameter('lang', 'ru')
-                ->getResult();
-            if ($result) {
-                $rating = $result[0]->getRatingDelivery();
-            }
 
-            return $rating;
+            ->setMaxResults(1)
+
+            ->setParameter('city_id', $entityCity->getId())
+            ->setParameter('lang', 'ru')
+
+            ->getResult();
+        if ($result) {
+            $rating = $result[0]->getRatingDelivery();
         }
 
+        return $rating;
     }
+
+
+}

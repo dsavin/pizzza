@@ -13,7 +13,7 @@
         </li>
     {% endif %}
     <li {% if menu == "comments" %}class="active"{% endif %}>
-        <a href="#"><strong>Отзывы</strong><span>(45)</span></a>
+        <a href="{{ path_city('_chain_comments',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Отзывы</strong><span>(45)</span></a>
     </li>
     <li {% if menu == "discount" %}class="active"{% endif %}>
         <a href="{{ path_city('_chain_discounts_list',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Акции</strong></a>

@@ -6,6 +6,8 @@
 {% set active = 3 %}
 
 {% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/main/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/main/js/comment.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -66,66 +68,42 @@
                     </div>
                 </div>
                 {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getPhotos}) }}
-                <div class="last-comment">
-                    <div class="heading">
-                        <h2>Отзывы о доставке от Мамамиа</h2>
-                        <a href="#">Все отзывы о Мамамиа</a>
+                {% if comments|length > 0 %}
+                    <div class="last-comment">
+                        <div class="heading">
+                            <h2>Отзывы о доставке от Мамамиа</h2>
+                            <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы о Мамамиа</a>
+                        </div>
+                        <ul>
+                            {% for comment in comments %}
+                                {{ include('MainBundle:Client:comment_item.html.twig', {'comment': comment, 'entity':entity }) }}
+                            {% endfor %}
+                        </ul>
                     </div>
-                    <ul>
-                        <li>
-                            <div class="meta">
-                                <strong class="name">Илья</strong>
-                                <ul class="stars">
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star ico-star-empty"></li>
-                                    <li class="ico-star ico-star-empty"></li>
-                                </ul>
-                                <em class="date">25 сентября, 2012</em>
-                                <a href="#" class="reply">Ответить</a>
-                            </div>
-                            <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. Идея была и остается хорошая – делать вкусную, тонкую, неаполитанскую пиццу наверно. Видимо популярность настолько выросла, что за качеством некому следить. Хочется больше качественного, ненавязчивого внимания к клиенту.</span>
-                        </li>
-                        <li>
-                            <div class="meta">
-                                <strong class="name">Марина</strong>
-                                <ul class="stars">
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                    <li class="ico-star"></li>
-                                </ul>
-                                <em class="date">5 сентября, 2012</em>
-                                <a href="#" class="reply">Ответить</a>
-                            </div>
-                            <span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>
-                        </li>
-                    </ul>
-                </div>
+                {% endif %}
                 <div class="add-comment">
                     <div class="heading">
                         <h2>Добавить отзыв</h2>
                     </div>
-                    <form action="#">
+                    <form action="{{ path('_add_comment',{ 'item':entity.id }) }}" method="POST" id="some_form">
                         <fieldset>
                             <div class="area">
-                                <div class="cols error">
-                                    <label for="name">Ваше имя</label>
-                                    <input class="text-input" id="name" type="text" value="" />
-                                    <span class="error-text">Укажите имя</span>
+                                <div class="cols">
+                                    <label for="name">Ваше имя <span>*</span></label>
+                                    <input class="text-input" id="name" type="text" value="Имя" name="name"/>
+                                    <input class="text-input" id="last_name" type="text" value="" name="last_name"/>
+                                    <span class="error-text"></span>
                                 </div>
-                                <div class="cols error">
-                                    <label for="email">Электронная почта</label>
-                                    <input class="text-input" id="email" type="text" value="" />
-                                    <span class="error-text">Укажите электронную почту</span>
+                                <div class="cols">
+                                    <label for="email">Электронная почта <span>*</span></label>
+                                    <input class="text-input" id="email" type="text" value="jdfg93sad2@gmail.com" name="email"/>
+                                    <span class="error-text"></span>
                                 </div>
                             </div>
-                            <div class="textarea error">
-                                <label for="comment">Отзыв (не менее 40 символов)</label>
-                                <textarea id="comment" cols="30" rows="10">Активый инпут.</textarea>
-                                <span class="error-text">Слишком короткий отзыв</span>
+                            <div class="textarea">
+                                <label for="comment">Отзыв <span>*</span></label>
+                                <textarea id="comment" cols="30" rows="10" name="text">Введите ваш комментарий</textarea>
+                                <span class="error-text"></span>
                             </div>
                             <div class="mark">
                                 <strong>Ваша оценка</strong>
@@ -137,17 +115,10 @@
                                     <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
                                 </ul>
                             </div>
-                            <div class="capcha">
-                                <label for="capcha">Введите сумму цифр</label>
-                                <div class="input error">
-                                    <span>3 + 2 =</span>
-                                    <input type="text" id="capcha" value="5" />
-                                    <span class="error-text">Неправда :)</span>
-                                </div>
-                            </div>
                             <div class="footer">
-                                <input type="submit" class="disabled-button" value="Добавить отзыв" />
-                                <div class="button-text">Чтобы добавить отзыв, вы должны <br />заполнить все поля правильно.</div>
+                                <input type="hidden" value="3" name="type">
+                                <input type="hidden" value="4" name="rating" id="stars_rating">
+                                <input type="submit" value="Добавить отзыв"/>
                             </div>
                         </fieldset>
                     </form>

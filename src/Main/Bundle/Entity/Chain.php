@@ -341,10 +341,8 @@ class Chain
 
 
     /**
-     * Set imageName
-     *
-     * @param string $url
-     * @return Chain
+     * @param $imageName
+     * @return $this
      */
     public function setImageName($imageName)
     {
@@ -563,11 +561,14 @@ class Chain
     }
 
     /**
-     * @param string $_locale
+     * @param $_locale
      * @return ArrayCollection
      */
-    public function getBranchsByLocale($_locale = 'ru')
+    public function getBranchsByLocale($_locale = false)
     {
+        if (!$_locale) {
+            $_locale = $this->getLang();
+        }
         $result = new ArrayCollection();
         foreach ($this->getBranchs() as $branch) {
             if ($branch->getLang() == $_locale) {
@@ -660,8 +661,12 @@ class Chain
         return $this->discounts;
     }
 
-    public function getDiscountsByLocale($_locale)
+    public function getDiscountsByLocale($_locale = false)
     {
+        if (!$_locale) {
+            $_locale = $this->getLang();
+        }
+
         $result = new ArrayCollection();
         foreach ($this->getDiscounts() as $discount) {
             if ($discount->getLang() == $_locale) {
@@ -829,6 +834,20 @@ class Chain
     public function getStarsByMaxRating($max_rating)
     {
         $stars = 5*($this->rating_delivery/$max_rating*100)/100;
+
+        return (int)$stars;
+    }
+
+    public function getStarsByMaxRatingBranches($max_rating)
+    {
+        $branches = $this->getBranchsByLocale($this->getLang());
+        $rating = 0;
+
+        foreach ( $branches as $branch ) {
+            $rating = $rating + $branch->getRating();
+        }
+
+        $stars = 5*($rating/$max_rating*100)/100;
 
         return (int)$stars;
     }

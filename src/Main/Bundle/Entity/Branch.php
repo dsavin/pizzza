@@ -161,6 +161,11 @@ class Branch
      */
     private $features;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CommentBranch", mappedBy="branch")
+     */
+    private $comments;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -170,6 +175,7 @@ class Branch
         $this->keywords = '';
         $this->lang = $lang;
         $this->id = 0;
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -482,10 +488,10 @@ class Branch
     }
 
     /**
-     * Set chain
+     * Set Chain
      *
-     * @param string $chain
-     * @return Branch
+     * @param Chain $chain
+     * @return $this
      */
     public function setChain( Chain $chain)
     {
@@ -646,4 +652,27 @@ class Branch
     {
         return trim($this->metro);
     }
+
+    /**
+     * @param ArrayCollection $comments
+     * @return $this
+     */
+    public function setComments(ArrayCollection $comments)
+    {
+        foreach ($comments as $comment) {
+            $comment->setBranch($this);
+        }
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection A Doctrine ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
 }

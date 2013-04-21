@@ -52,10 +52,15 @@
 
             $entitiesPhoto = $entity->getPhotos();
 
+            /** @var $commentRepository  */
+            $commentRepository = $em->getRepository('MainBundle:CommentBranch');
+            $comments = $commentRepository->findBy( array( 'chain' => $entityChain->getId(), 'branch' => $entity->getId() ), array('created_at'=>'DESC') );
+
             return array(
                 'entity'      => $entity,
                 'entityChain'   => $entityChain,
-                'entitiesPhoto' => $entitiesPhoto
+                'entitiesPhoto' => $entitiesPhoto,
+                'comments' => $comments
             );
         }
 
@@ -71,9 +76,11 @@
 
             $entities = $em->getRepository('MainBundle:Branch')->getListBranches($chain_url, $city->getId(), $request->getLocale() );
 
-            if (!$entities) {
+            /* Розделить на выборку сети и потом выборку всех заведений
+             *
+             * if (!$entities) {
                 throw $this->createNotFoundException('Нету такого заведения');
-            }
+            }*/
 
             return array(
                 'entities'      => $entities,

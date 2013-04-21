@@ -1,0 +1,20 @@
+<li id="comment_{{ comment.id }}">
+    <div class="meta">
+        <strong class="name">{{ comment.name }} <span>про</span></strong>
+        {% if comment.getType == 2 %}
+            <a href="#" class="link">сеть пиццерий {{ entity.name }}</a>
+        {% elseif comment.getType == 3  %}
+            <a href="#" class="link">Службу доставки</a>
+        {% elseif comment.getType == 4  %}
+            <a href="#" class="link">{{ comment.getBranch.getStreet }}</a>
+        {% endif %}
+        <ul class="stars">
+            {% for i in 1..5 %}
+                <li class="ico-star {% if i > comment.rating %} ico-star-empty {% endif %}"></li>
+            {% endfor %}
+        </ul>
+        <em class="date">{{ comment.createdAt|date('d.m.Y H:i') }}</em>
+        {#<a href="#" class="reply">Ответить</a>#}
+    </div>
+    <span class="text">{{ comment.text }}</span>
+</li>

@@ -1,0 +1,108 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
+{% set active = 3 %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/main/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/main/js/comment.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="#">Пиццерии</a></li>
+                    <li>{{ entity.name }}</li>
+                </ul>
+                {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entity}) }}
+            </div>
+            {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'comments', entityChain: entity}) }}
+            <div class="main-info">
+            {% if comments|length > 0 %}
+                <div class="last-comment">
+                    <ul>
+                        {% for comment in comments %}
+                            {{ include('MainBundle:Client:comment_item.html.twig', {'comment': comment, 'entity':entity }) }}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="add-comment">
+                <div class="heading">
+                    <h2>Добавить отзыв</h2>
+                </div>
+                <form action="{{ path('_add_comment',{ 'item':entity.id }) }}" method="POST" id="some_form">
+                    <fieldset>
+                        <div class="area">
+                            <div class="cols">
+                                <label for="name">Ваше имя <span>*</span></label>
+                                <input class="text-input" id="name" type="text" value="Имя" name="name"/>
+                                <input class="text-input" id="last_name" type="text" value="" name="last_name"/>
+                                <span class="error-text"></span>
+                            </div>
+                            <div class="cols">
+                                <label for="email">Электронная почта <span>*</span></label>
+                                <input class="text-input" id="email" type="text" value="jdfg93sad2@gmail.com" name="email"/>
+                                <span class="error-text"></span>
+                            </div>
+                        </div>
+                        <div class="textarea">
+                            <label for="comment">Отзыв <span>*</span></label>
+                            <textarea id="comment" cols="30" rows="10" name="text">Введите ваш комментарий</textarea>
+                            <span class="error-text"></span>
+                        </div>
+                        <div class="mark">
+                            <strong>Ваша оценка</strong>
+                            <ul class="star-rating">
+                                <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
+                                <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
+                                <li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>
+                                <li class="active"><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>
+                                <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
+                            </ul>
+                        </div>
+                        <div class="about">
+                            <strong>О чем ваш отзыв?</strong>
+                            <em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>
+                            <div class="row">
+                                <input id="radio1" class="radio" name="type" type="radio" checked="checked" value="2"/>
+                                <label for="radio1">Сеть пиццерий «Мамамиа»</label>
+                            </div>
+                            <div class="row">
+                                <input id="radio2" class="radio" name="type" type="radio" value="3"/>
+                                <label for="radio2">Служба доставки пиццы</label>
+                            </div>
+                            <div class="row" onclick="$(this).find('input').attr('checked',true)">
+                                <input id="radio3" class="radio" name="type" type="radio" value="4"/>
+                                <label for="radio3">Пиццерия по адресу:</label>
+                                <select id="radio3" class="select-adress" name="branch">
+                                    {% for branch in entity.getBranchsByLocale(_locale) %}
+                                        <option value="{{ branch.id }}">{{ branch.street }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="capcha">
+                            {#<label for="capcha">Введите сумму цифр <span>*</span></label>#}
+                            {#<div class="input">#}
+                                {#<span>3 + 2 =</span>#}
+                                {#<input type="text" id="capcha" value="5" />#}
+                            {#</div>#}
+                        </div>
+                        <div class="footer">
+                            <input type="hidden" value="4" name="rating" id="stars_rating">
+                            <input type="submit" value="Добавить отзыв"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

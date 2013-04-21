@@ -25,7 +25,7 @@
                     {% for entity in entities %}
                         <div class="gholder">
                             <div class="photo">
-                                {% if entity.getPhotos.first.getImageName %}
+                                {% if entity.getPhotos.count > 0 %}
                                     <img src="{{ vich_uploader_asset(entity.getPhotos.first, 'image') }}" width="83" height="60" alt="{{ entity.getPhotos.first.getAltTeg }}" />
                                     <div class="see">{{ entity.getPhotos.count }}</div>
                                 {% else %}

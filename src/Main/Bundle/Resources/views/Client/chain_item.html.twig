@@ -1,0 +1,72 @@
+<div class="gholder">
+    <div class="gframe">
+        <div class="images">
+            <div>
+                {% if entity.getImageName %}
+                    <img src="{{ vich_uploader_asset(entity, 'image') }}" width="96" height="46" alt="{{ entity.getImageName }}" class="thumb-heading"/>
+                {% else %}
+                    <img src="/images/88x35.png" width="96" height="46" alt="default site logo 96x46" class="thumb-heading"/>
+                {% endif %}
+            </div>
+        </div>
+        <div class="title">
+            <h3><span><a href="{{ path_city('_chain_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a></span></h3>
+            {% if entity.getBranchsByLocale|length == 1 %}
+                <a href="#" class="link-address">ул. Пушкинская, 7</a>
+            {% else %}
+                <div class="pizzzaz">
+                    <a href="#" class="click open_map"><span>{{ entity.getBranchsByLocale|length }} пиццерий</span></a>
+                    <div class="popup-pizzzaz">
+                        <div class="adrress">
+                            <div class="map"></div>
+                            <div class="list-address">
+                                <div class="scrollable-area">
+                                    <ul>
+                                        {% for branch in entity.getBranchsByLocale() %}
+                                            <li data-lat="{{ branch.lat }}"
+                                                data-lng="{{ branch.lng }}"
+                                                data-id="{{ branch.id }}"
+                                                id="li_branch_id_{{ branch.id }}"
+                                                class="li_branchs"
+                                                >
+                                                <div class="titles">
+                                                    <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}">{{ branch.street }}</a>
+                                                </div>
+                                                <div class="row">
+                                                    <ul class="stars">
+                                                        {% for i in 1..5 %}
+                                                            <li class="ico-star {% if i > branch.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <a class="comment-link" href="#">23</a>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="shadow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="popup-menu">
+            <a href="#" class="open">Open</a>
+            <ul class="menu">
+                <li><a href="#">Пиццерии</a></li>
+                <li><a href="#">Доставка</a></li>
+                <li><a href="#">Акции</a></li>
+                <li><a href="#">Отзывы</a></li>
+            </ul>
+        </div>
+        <div class="another">
+            <ul class="stars">
+                {% for i in 1..5 %}
+                    <li class="ico-star {% if i > entity.getStarsByMaxRatingBranches(maxRatingChain) %} ico-star-empty{% endif %}"></li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="comment-link">23</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,435 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 1 %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/main/js/chains.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+    <div id="content">
+        <div class="heading-page">
+            <ul class="breadcrumbs">
+                <li><a href="/">Главная</a></li>
+                <li>Доставка</li>
+            </ul>
+            <div class="gholder">
+                <h1>Доставка пиццы в Киеве</h1>
+            </div>
+            {#<form action="#" class="search">#}
+                {#<fieldset>#}
+                    {#<div class="cols-first">#}
+                        {#<label for="find" class="find">Найти</label>#}
+                        {#<div class="row">#}
+                            {#<input class="text-input" type="text" id="find" value="Название" />#}
+                            {#<input type="submit" value="Search" />#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="cols">#}
+                        {#<label for="short" class="short">Сортировать</label>#}
+                        {#<select id="short" class="select-short">#}
+                            {#<option>по рейтингу</option>#}
+                            {#<option>по рейтингу</option>#}
+                        {#</select>#}
+                    {#</div>#}
+                {#</fieldset>#}
+            {#</form>#}
+        </div>
+        <div class="top">
+            {#<div class="heading">#}
+                {#<span>Топ доставки</span>#}
+                {#<a href="#">Как попасть в топ?</a>#}
+            {#</div>#}
+            {#<div class="listing">#}
+                {#<div class="gholder">#}
+                    {#<div class="gframe">#}
+                        {#<div class="images">#}
+                            {#<div><img src="images/recomned-17.gif" width="90" height="36" alt="image description" /></div>#}
+                        {#</div>#}
+                        {#<div class="title">#}
+                            {#<h3><span><a href="#">Мамамиа</a></span></h3>#}
+                            {#<div class="pizzzaz">#}
+                                {#<a href="#" class="click"><span>7 пиццерий</span></a>#}
+                                {#<div class="popup-pizzzaz">#}
+                                    {#<div class="adrress">#}
+                                        {#<div class="map">#}
+                                            {#<img src="images/img-18.jpg" width="412" height="288" alt="image description" />#}
+                                        {#</div>#}
+                                        {#<div class="list-address">#}
+                                            {#<div class="scrollable-area">#}
+                                                {#<ul>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">ул. Набережно</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Московский, 20а</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Владимира...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">ул. Набережно...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                    {#<li>#}
+                                                        {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                        {#<div class="row">#}
+                                                            {#<ul class="stars">#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star"></li>#}
+                                                                {#<li class="ico-star ico-star-empty"></li>#}
+                                                            {#</ul>#}
+                                                            {#<a class="comment-link" href="#">23</a>#}
+                                                        {#</div>#}
+                                                    {#</li>#}
+                                                {#</ul>#}
+                                            {#</div>#}
+                                            {#<div class="shadow"></div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                        {#<div class="popup-menu">#}
+                            {#<a href="#" class="open">Open</a>#}
+                            {#<ul class="menu">#}
+                                {#<li><a href="#">Пиццерии</a></li>#}
+                                {#<li><a href="#">Доставка</a></li>#}
+                                {#<li><a href="#">Акции</a></li>#}
+                                {#<li><a href="#">Отзывы</a></li>#}
+                            {#</ul>#}
+                        {#</div>#}
+                        {#<div class="another">#}
+                            {#<ul class="stars">#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                            {#</ul>#}
+                            {#<a href="#" class="comment-link">17</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<div class="gholder">#}
+                {#<div class="gframe">#}
+                    {#<div class="images">#}
+                        {#<div><img src="images/recomned-13.gif" width="96" height="46" alt="image description" /></div>#}
+                    {#</div>#}
+                    {#<div class="title">#}
+                        {#<h3><span><a href="#">Соло пицца</a></span></h3>#}
+                        {#<div class="pizzzaz">#}
+                            {#<a href="#" class="click"><span>8 пиццерий</span></a>#}
+                            {#<div class="popup-pizzzaz">#}
+                                {#<div class="adrress">#}
+                                    {#<div class="map">#}
+                                        {#<img src="images/img-18.jpg" width="412" height="288" alt="image description" />#}
+                                    {#</div>#}
+                                    {#<div class="list-address">#}
+                                        {#<div class="scrollable-area">#}
+                                            {#<ul>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">ул. Набережно</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Московский, 20а</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Владимира...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">ул. Набережно...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Владимира, 104-Б</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                                {#<li>#}
+                                                    {#<div class="titles"><a href="#">просп. Моско...</a></div>#}
+                                                    {#<div class="row">#}
+                                                        {#<ul class="stars">#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star"></li>#}
+                                                            {#<li class="ico-star ico-star-empty"></li>#}
+                                                        {#</ul>#}
+                                                        {#<a class="comment-link" href="#">23</a>#}
+                                                    {#</div>#}
+                                                {#</li>#}
+                                            {#</ul>#}
+                                        {#</div>#}
+                                        {#<div class="shadow"></div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="popup-menu">#}
+                        {#<a href="#" class="open">Open</a>#}
+                        {#<ul class="menu">#}
+                            {#<li><a href="#">Доставка</a></li>#}
+                            {#<li><a href="#">Акции</a></li>#}
+                            {#<li><a href="#">Отзывы</a></li>#}
+                        {#</ul>#}
+                    {#</div>#}
+                    {#<div class="another">#}
+                        {#<ul class="stars">#}
+                            {#<li class="ico-star"></li>#}
+                            {#<li class="ico-star"></li>#}
+                            {#<li class="ico-star"></li>#}
+                            {#<li class="ico-star"></li>#}
+                            {#<li class="ico-star"></li>#}
+                        {#</ul>#}
+                        {#<a href="#" class="comment-link">12</a>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+            {#</div>#}
+        </div>
+        <div class="listing">
+            {% for entity in entities if entity.getBranchsByLocale|length > 0%}
+                {{ include('MainBundle:Client:chain_item.html.twig', {'entity': entity }) }}
+            {% endfor %}
+        </div>
+    </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}
