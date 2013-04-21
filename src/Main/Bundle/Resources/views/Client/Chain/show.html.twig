@@ -103,41 +103,43 @@
                 {#</div>#}
             </div>
             {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getAllBranchPhotos}) }}
-            <div class="maps">
-                <div class="heading">
-                    <h2>Пиццерии сети «{{ entity.name }}»  <span>({{ entity.getBranchsByLocale(_locale).count }})</span></h2>
-                    <a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети</a>
-                </div>
-                <div class="adrress">
-                    <div class="map" id="map-canvas"></div>
-                    <div class="list-address">
-                        <div class="scrollable-area">
-                            <ul>
-                                {% for branch in entity.getBranchsByLocale(_locale) %}
-                                    <li {% if loop.index == 1 %}class="list-address_in_hover"{% endif %}
-                                            data-lat="{{ branch.lat }}"
-                                            data-lng="{{ branch.lng }}"
-                                            id="li_branch_id_{{ branch.id }}"
-                                            >
-                                        <div class="titles">
-                                            <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}">{{ branch.street }}</a>
-                                        </div>
-                                        <div class="row">
-                                            <ul class="stars">
-                                                {% for i in 1..5 %}
-                                                    <li class="ico-star {% if i > branch.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
-                                                {% endfor %}
-                                            </ul>
-                                            <a class="comment-link" href="#">23</a>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+            {% if entity.getBranchsByLocale(_locale).count > 0 %}
+                <div class="maps">
+                    <div class="heading">
+                        <h2>Пиццерии сети «{{ entity.name }}»  <span>({{ entity.getBranchsByLocale(_locale).count }})</span></h2>
+                        <a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети</a>
+                    </div>
+                    <div class="adrress">
+                        <div class="map" id="map-canvas"></div>
+                        <div class="list-address">
+                            <div class="scrollable-area">
+                                <ul>
+                                    {% for branch in entity.getBranchsByLocale(_locale) %}
+                                        <li {% if loop.index == 1 %}class="list-address_in_hover"{% endif %}
+                                                data-lat="{{ branch.lat }}"
+                                                data-lng="{{ branch.lng }}"
+                                                id="li_branch_id_{{ branch.id }}"
+                                                >
+                                            <div class="titles">
+                                                <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}">{{ branch.street }}</a>
+                                            </div>
+                                            <div class="row">
+                                                <ul class="stars">
+                                                    {% for i in 1..5 %}
+                                                        <li class="ico-star {% if i > branch.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
+                                                    {% endfor %}
+                                                </ul>
+                                                <a class="comment-link" href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}#commentsList">{{ branch.getComments.count }}</a>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="shadow"></div>
                         </div>
-                        <div class="shadow"></div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
             {% if entity.getDiscountsByLocale(_locale).count > 0  %}
                 <div class="actions">
                     <div class="heading">
@@ -162,7 +164,7 @@
                 </div>
             {% endif %}
             {% if comments|length > 0 %}
-                <div class="last-comment">
+                <div class="last-comment" id="commentsList">
                     <div class="heading">
                         <h2>Последние отзывы</h2>
                         <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы</a>
@@ -219,15 +221,17 @@
                                 <input id="radio2" class="radio" name="type" type="radio" value="3"/>
                                 <label for="radio2">Служба доставки пиццы</label>
                             </div>
-                            <div class="row" onclick="$(this).find('input').attr('checked',true)">
-                                <input id="radio3" class="radio" name="type" type="radio" value="4"/>
-                                <label for="radio3">Пиццерия по адресу:</label>
-                                <select id="radio3" class="select-adress" name="branch">
-                                    {% for branch in entity.getBranchsByLocale(_locale) %}
-                                        <option value="{{ branch.id }}">{{ branch.street }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                            {% if entity.getBranchsByLocale(_locale).count > 0 %}
+                                <div class="row" onclick="$(this).find('input').attr('checked',true)">
+                                    <input id="radio3" class="radio" name="type" type="radio" value="4"/>
+                                    <label for="radio3">Пиццерия по адресу:</label>
+                                    <select id="radio3" class="select-adress" name="branch">
+                                        {% for branch in entity.getBranchsByLocale(_locale) %}
+                                            <option value="{{ branch.id }}">{{ branch.street }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="capcha">
                             {#<label for="capcha">Введите сумму цифр <span>*</span></label>#}

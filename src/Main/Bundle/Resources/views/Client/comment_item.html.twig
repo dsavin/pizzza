@@ -2,11 +2,11 @@
     <div class="meta">
         <strong class="name">{{ comment.name }} <span>про</span></strong>
         {% if comment.getType == 2 %}
-            <a href="#" class="link">сеть пиццерий {{ entity.name }}</a>
+            <a href="{{ path_city('_branches_all',{'chain_url':comment.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="link">сеть пиццерий {{ entity.name }}</a>
         {% elseif comment.getType == 3  %}
-            <a href="#" class="link">Службу доставки</a>
+            <a href="{{ path_city('_chain__delivery_single',{'chain_url':comment.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="link">Службу доставки</a>
         {% elseif comment.getType == 4  %}
-            <a href="#" class="link">{{ comment.getBranch.getStreet }}</a>
+            <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':comment.getChain.url,'branch_url':comment.getBranch.url}) }}" class="link">{{ comment.getBranch.getStreet }}</a>
         {% endif %}
         <ul class="stars">
             {% for i in 1..5 %}

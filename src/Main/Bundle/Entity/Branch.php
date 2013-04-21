@@ -611,8 +611,6 @@ class Branch
     }
 
     /**
-     * Add feature
-     *
      * @param Feature $feature
      */
     public function addFeature(Feature $feature)

@@ -7,7 +7,7 @@
         <li class="ico-star"></li>
         <li class="ico-star ico-star-empty"></li>
     </ul>
-    <div class="sum-comment"><div>Отзывов: <strong>54</strong></div></div>
+    <div class="sum-comment"><div>Отзывов: <strong>{{ get_count_comment_by_chain(entityChain.id) }}</strong></div></div>
     {% if entityChain.getImageName %}
         <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" class="thumb-heading"/>
     {% else %}

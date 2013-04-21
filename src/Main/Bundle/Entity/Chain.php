@@ -207,6 +207,16 @@ class Chain
      */
     private $photos;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CommentChain", mappedBy="chain")
+     */
+    private $commentsChain;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CommentDelivery", mappedBy="chain")
+     */
+    private $commentsDelivery;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -218,6 +228,8 @@ class Chain
 		$this->phones_delivery = '';
         $this->lang = $lang;
         $this->photos = new ArrayCollection();
+        $this->commentsChain = new ArrayCollection();
+        $this->commentsDelivery = new ArrayCollection();
     }
 
     /**
@@ -868,5 +880,21 @@ class Chain
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCommentsChain()
+    {
+        return $this->commentsChain;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCommentsDelivery()
+    {
+        return $this->commentsDelivery;
     }
 }

@@ -39,7 +39,7 @@
                                                             <li class="ico-star {% if i > branch.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
                                                         {% endfor %}
                                                     </ul>
-                                                    <a class="comment-link" href="#">23</a>
+                                                    <a class="comment-link" href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.url,'branch_url':branch.url}) }}#commentsList">{{ branch.getComments|length }}</a>
                                                 </div>
                                             </li>
                                         {% endfor %}
@@ -69,7 +69,7 @@
                     <li class="ico-star {% if i > entity.getStarsByMaxRatingBranches(maxRatingChain) %} ico-star-empty{% endif %}"></li>
                 {% endfor %}
             </ul>
-            <a href="#" class="comment-link">23</a>
+            <a href="{{ path_city('_chain_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}#commentsList" class="comment-link">{{ get_count_comment_by_chain(entity.id) }}</a>
         </div>
     </div>
 </div>

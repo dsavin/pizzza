@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 {% if comments|length > 0 %}
-                    <div class="last-comment">
+                    <div class="last-comment" id="commentsList">
                         <div class="heading">
                             <h2>Последние отзывы</h2>
                             <a href="{{ path_city('_chain_comments',{'chain_url':entity.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы о {{ entityChain.name }}</a>

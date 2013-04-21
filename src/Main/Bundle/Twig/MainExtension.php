@@ -43,7 +43,8 @@ class MainExtension extends \Twig_Extension
             'path_city'                       => new \Twig_Function_Method($this, 'pathCity'),
             'get_max_rating_by_city'          => new \Twig_Function_Method($this, 'getMaxRating'),
             'get_max_rating_delivery_by_city' => new \Twig_Function_Method($this, 'getMaxDeliveryRating'),
-            'get_max_rating_chain_by_city'    => new \Twig_Function_Method($this, 'getMaxChainRating')
+            'get_max_rating_chain_by_city'    => new \Twig_Function_Method($this, 'getMaxChainRating'),
+            'get_count_comment_by_chain'      => new \Twig_Function_Method($this, 'getCountCommentByChain')
         );
     }
 
@@ -129,7 +130,7 @@ class MainExtension extends \Twig_Extension
             ->setParameter('lang', 'ru')
             ->getResult();
 
-        if ( !empty( $result) ) {
+        if (!empty($result)) {
             $rating = $result[0]['max_rating'];
         }
 
@@ -161,5 +162,29 @@ class MainExtension extends \Twig_Extension
         return $rating;
     }
 
+    public function getCountCommentByChain($chain_id)
+    {
+        $result = $this->em->createQuery('
+                SELECT COUNT(comChain) as count_comment FROM MainBundle:CommentChain comChain
+                JOIN comChain.chain chainChian
+                WHERE chainChian.id = :chain_chain_id
+                ')
+            ->setMaxResults(1)
+            ->setParameter('chain_chain_id', $chain_id)
+            ->getResult();
+
+        $count = $result[0]['count_comment'];
+
+        $result = $this->em->createQuery('
+                SELECT COUNT(comChain) as count_comment FROM MainBundle:CommentDelivery comChain
+                JOIN comChain.chain chainChian
+                WHERE chainChian.id = :chain_chain_id
+                ')
+            ->setMaxResults(1)
+            ->setParameter('chain_chain_id', $chain_id)
+            ->getResult();
+
+        return $count+$result[0]['count_comment'];
+    }
 
 }

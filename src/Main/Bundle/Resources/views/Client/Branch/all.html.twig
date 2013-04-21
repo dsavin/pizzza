@@ -55,7 +55,7 @@
                                         <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
                                     {% endfor %}
                                 </ul>
-                                <a class="comment-link" href="#">17</a>
+                                <a class="comment-link" href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.getChain.url,'branch_url':entity.url}) }}#commentsList">{{ entity.getComments.count }}</a>
                             </div>
                         </div>
                     {% else %}

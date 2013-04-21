@@ -40,8 +40,8 @@
         </div>
         <div class="top">
             <div class="heading">
-                <span>Топ доставки</span>
-                <a href="#">Как попасть в топ?</a>
+                {#<span>Топ доставки</span>#}
+                {#<a href="#">Как попасть в топ?</a>#}
             </div>
             {#<div class="listing">#}
                 {#<div class="gholder">#}
@@ -164,7 +164,7 @@
                         <div class="title">
                             <h3>
                                 <span>
-                                    <a href="{{ path_city('_chain_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}">{{ entity.name }}</a>
+                                    <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}">{{ entity.name }}</a>
                                 </span>
                             </h3>
                             <div class="link-block">
@@ -211,7 +211,7 @@
                                     <a href="{{ path_city('_chain_discounts_list',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Акции</a>
                                 </li>
                                 <li>
-                                    <a href="#">Отзывы</a>
+                                    <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}#commentsList">Отзывы</a>
                                 </li>
                             </ul>
                         </div>
@@ -221,7 +221,7 @@
                                     <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRatingDelivery) %} ico-star-empty{% endif %}"></li>
                                 {% endfor %}
                             </ul>
-                            <a href="#" class="comment-link">23</a>
+                            <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}#commentsList" class="comment-link">{{ entity.getCommentsDelivery|length }}</a>
                         </div>
                     </div>
                 </div>

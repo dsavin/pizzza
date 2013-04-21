@@ -61,15 +61,15 @@
                                         <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRatingDelivery) %} ico-star-empty{% endif %}"></li>
                                     {% endfor %}
                                 </ul>
-                                <div class="com-total">16</div>
-                                <a href="#"><span>Оставить отзыв</span></a>
+                                <div class="com-total">{{ entity.getCommentsDelivery|length }}</div>
+                                <a href="#" onclick="return commentController.goToComments();" ><span>Оставить отзыв</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 {{ include('MainBundle:Client:photos_block.html.twig', {entitiesPhoto: entity.getPhotos}) }}
                 {% if comments|length > 0 %}
-                    <div class="last-comment">
+                    <div class="last-comment" id="commentsList">
                         <div class="heading">
                             <h2>Отзывы о доставке от Мамамиа</h2>
                             <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы о Мамамиа</a>
