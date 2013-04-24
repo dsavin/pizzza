@@ -36,7 +36,7 @@ class Branch
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\Column(name="rating", type="integer", nullable=true)
      */
     private $rating;
 
@@ -57,7 +57,7 @@ class Branch
     /**
      * @var string
      *
-     * @ORM\Column(name="keywords", type="string", length=255)
+     * @ORM\Column(name="keywords", type="string", length=255, nullable=true)
      */
     private $keywords;
 
@@ -71,49 +71,49 @@ class Branch
     /**
      * @var array
      *
-     * @ORM\Column(name="phones", type="json_array")
+     * @ORM\Column(name="phones", type="json_array", nullable=true)
      */
     private $phones;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="lat", type="decimal")
+     * @ORM\Column(name="lat", type="decimal", precision=8, scale=6)
      */
     private $lat;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="lng", type="decimal")
+     * @ORM\Column(name="lng", type="decimal", precision=8, scale=6)
      */
     private $lng;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="work_at", type="text")
+     * @ORM\Column(name="work_at", type="text", nullable=true)
      */
     private $work_at;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="social_text", type="string", length=255)
+     * @ORM\Column(name="social_text", type="string", length=255, nullable=true)
      */
     private $social_text;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="metro", type="string", length=255)
+     * @ORM\Column(name="metro", type="string", length=255, nullable=true)
      */
     private $metro;
 

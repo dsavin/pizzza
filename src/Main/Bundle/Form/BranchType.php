@@ -12,23 +12,19 @@ class BranchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('street')
-            ->add('rating')
-            ->add('title')
-            ->add('description')
-            ->add('keywords')
-            ->add('url')
-            ->add('phones')
-            ->add('metro')
-            ->add('text')
+            ->add('street', 'text', array('label' => 'адрес'))
+            ->add('rating', 'integer', array('label' => 'Рейтинг','data' => 0))
+            ->add('title', 'text', array('label' => 'Заголовок','required' => false, 'data'=>'New Title Street'))
+            ->add('description', 'text', array('label' => 'Дескрипшин','required' => false, 'data'=>'New Description Street'))
+            ->add('keywords', 'text', array('label' => 'Ключевые слова','required' => false, 'data'=>'New Keywords Street'))
+            ->add('url', 'text', array('label' => 'Урл'))
+            ->add('phones', 'text', array('label' => 'Телефоны','required' => false))
+            ->add('metro', 'text', array('label' => 'Метро','required' => false))
+            ->add('text', 'textarea', array('label' => 'Описание заведения','required' => false))
             ->add('lat')
             ->add('lng')
-            ->add('work_at')
-            ->add('social_text')
-//            ->add('features', 'entity', array(
-//                      'class' => 'MainBundle:Feature',
-//
-//                 ))
+            ->add('work_at', 'text', array('label' => 'Режим работы','required' => false))
+            ->add('social_text', 'text', array('label' => 'Текст для социалок','required' => false))
             ->add('features', 'entity', array(
                         'label' => 'Особенности',
                         'property' => 'alt_teg',

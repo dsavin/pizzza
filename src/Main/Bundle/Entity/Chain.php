@@ -78,7 +78,7 @@ class Chain
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -149,7 +149,7 @@ class Chain
     /**
      * @var string
      *
-     * @ORM\Column(name="social_text", type="string", length=255)
+     * @ORM\Column(name="social_text", type="string", length=255, nullable=true)
      */
     private $social_text;
 
@@ -163,14 +163,14 @@ class Chain
     /**
      * @var string
      *
-     * @ORM\Column(name="title_delivery", type="string", length=255)
+     * @ORM\Column(name="title_delivery", type="string", length=255, nullable=true)
      */
     private $title_delivery;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description_delivery", type="string", length=255)
+     * @ORM\Column(name="description_delivery", type="string", length=255, nullable=true)
      */
     private $description_delivery;
 
@@ -184,21 +184,21 @@ class Chain
     /**
      * @var integer
      *
-     * @ORM\Column(name="rating_delivery", type="integer")
+     * @ORM\Column(name="rating_delivery", type="integer", nullable=true)
      */
     private $rating_delivery;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="text_delivery", type="text")
+     * @ORM\Column(name="text_delivery", type="text", nullable=true)
      */
     private $text_delivery;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phones_delivery", type="text")
+     * @ORM\Column(name="phones_delivery", type="text", nullable=true)
      */
     private $phones_delivery;
 
