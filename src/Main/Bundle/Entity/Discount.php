@@ -51,21 +51,21 @@ class Discount
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="keywords", type="string", length=255)
+     * @ORM\Column(name="keywords", type="string", length=255, nullable=true)
      */
     private $keywords;
 
@@ -106,14 +106,14 @@ class Discount
     /**
      * @var string
      *
-     * @ORM\Column(name="short_text", type="text")
+     * @ORM\Column(name="short_text", type="text", nullable=true)
      */
     private $short_text;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -127,7 +127,7 @@ class Discount
     /**
      * @var string
      *
-     * @ORM\Column(name="time_work", type="string", length=255)
+     * @ORM\Column(name="time_work", type="string", length=255, nullable=true)
      */
     private $time_work;
 

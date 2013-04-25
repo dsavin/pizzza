@@ -1,0 +1,20 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+<h1>Publication creation</h1>
+
+<form action="{{ path('admin_publication_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_publication') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -4,11 +4,19 @@ namespace Main\Bundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
 /**
  * Publication
  *
- * @ORM\Table()
+ * @ORM\Table(name="publication")
  * @ORM\Entity(repositoryClass="Main\Bundle\Entity\PublicationRepository")
+ * @Vich\Uploadable
  */
 class Publication
 {
@@ -31,21 +39,21 @@ class Publication
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="keywords", type="string", length=255)
+     * @ORM\Column(name="keywords", type="string", length=255, nullable=true)
      */
     private $keywords;
 
@@ -80,17 +88,42 @@ class Publication
     /**
      * @var string
      *
-     * @ORM\Column(name="short_text", type="string", length=255)
+     * @ORM\Column(name="short_text", type="string", length=255, nullable=true)
      */
     private $short_text;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
+    /**
+     * @Vich\UploadableField(mapping="publication_image", fileNameProperty="imageName")
+     *
+     * @var File $image
+     */
+    protected $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, name="image_name", nullable=true)
+     *
+     * @var string $imageName
+     */
+    protected $imageName;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated_at")
+     * @var datetime $updated_at
+     */
+    private $updated_at;
+
+    public function __construct()
+    {
+        $this->updated_at = new \DateTime('now');
+        $this->created_at = new \DateTime('now');
+    }
 
     /**
      * Get id
@@ -330,5 +363,64 @@ class Publication
     public function getText()
     {
         return $this->text;
+    }
+
+    /**
+     * @param $imageName
+     * @return $this
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        if ($image instanceof UploadedFile) {
+            $this->updated_at = new \DateTime();
+        }
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    /**
+     * Set updated_at
+     *
+     * @param datetime $updated_at
+     * @return Publication
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
     }
 }
