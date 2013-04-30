@@ -4,6 +4,7 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route;
 
 $routes = array();
+$routes['_page_index'] = array('url' => '/', 'params' => array('_controller' => 'MainBundle:Client\Page:index'));
 $routes['_discounts_list'] = array('url' => '/discounts', 'params' => array('_controller' => 'MainBundle:Client\Discount:list'));
 $routes['_chain_discounts_list'] = array('url' => '/discounts/{chain_url}', 'params' => array('_controller' => 'MainBundle:Client\Chain:discounts'));
 $routes['_delivery_list'] = array('url' => '/delivery', 'params' => array('_controller' => 'MainBundle:Client\Chain:deliveryList'));

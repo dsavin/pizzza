@@ -13,7 +13,7 @@ class BranchType extends AbstractType
     {
         $builder
             ->add('street', 'text', array('label' => 'адрес'))
-            ->add('rating', 'integer', array('label' => 'Рейтинг', 'data' => 0))
+            ->add('rating', 'integer', array('label' => 'Рейтинг'))
             ->add('title', 'text', array('label' => 'Заголовок', 'required' => false))
             ->add('description', 'text', array('label' => 'Дескрипшин', 'required' => false))
             ->add('keywords', 'text', array('label' => 'Ключевые слова', 'required' => false))

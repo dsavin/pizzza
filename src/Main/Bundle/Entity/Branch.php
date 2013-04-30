@@ -576,6 +576,9 @@ class Branch
 
     public function getStarsByMaxRating($max_rating)
     {
+        if (!$max_rating) {
+            return $max_rating;
+        }
         $stars = 5*($this->rating/$max_rating*100)/100;
 
         return (int)$stars;

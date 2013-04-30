@@ -1,0 +1,32 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <h3>Страницы</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Lang</th>
+                <th>Status</th>
+                <th>
+                    <a class="btn btn-primary" href="{{ path('admin_page_new') }}">Добавить</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.lang }}</td>
+                <td>{{ entity.status }}</td>
+                <td>
+                    <div>
+                        <a class="btn" href="{{ path('admin_page_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a>
+                        <a class="btn" href="{{ entity.url }}"><i class="icon-eye-open"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,562 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
+{% set active = 100 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div id="main">
+        <div class="promo">
+            {% render "MainBundle:Client/PageLayout:indexSlider" with {  } %}
+    <div class="aside">
+        <div class="tabs-area best">
+            <ul class="tabset-best">
+                <li class="active"><a href="#tab-1">Лучшие <br/>пиццерии</a></li>
+                <li><a href="#tab-2">Лучшая <br/>доставка</a></li>
+            </ul>
+            <div class="tab-list">
+                <div class="tab" id="tab-1">
+                    <div class="list">
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3><a href="#">Мамамиа</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">10</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3><a href="#">Везувио</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star ico-star-empty"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">23</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3><a href="#">New York Street Pizza</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star ico-star-half"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">5</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3><a href="#">Империя Пиццы</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">9</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3><a href="#">Виллабаджо</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">12</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab" id="tab-2">
+                    <div class="list">
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    <img src="images/recomned-11.gif" width="36" height="14" alt="image description"/>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <h3><a href="#">Мамамиа</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">10</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    <img src="images/recomned-10.gif" width="38" height="18" alt="image description"/>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <h3><a href="#">Везувио</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star ico-star-empty"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">23</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    <img src="images/recomned-09.gif" width="32" height="25" alt="image description"/>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <h3><a href="#">New York Street Pizza</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star ico-star-half"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">5</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    <img src="images/recomned-08.gif" width="38" height="21" alt="image description"/>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <h3><a href="#">Империя Пиццы</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">9</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    <img src="images/recomned-07.gif" width="38" height="17" alt="image description"/>
+                                </div>
+                            </div>
+                            <div class="frame">
+                                <h3><a href="#">Виллабаджо</a></h3>
+
+                                <div class="footer">
+                                    <ul class="stars">
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                        <li class="ico-star"></li>
+                                    </ul>
+                                    <a href="#" class="comment-link">12</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="recomend">
+        <div class="heading">
+            <h2>Мы рекомендуем</h2>
+        </div>
+        <ul>
+            <li>
+                <div class="images"><img src="images/recomned-01.gif" width="71" height="70" alt="image description"/>
+                </div>
+                <h3><a href="#">Domino’s</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">17</a>
+                </div>
+            </li>
+            <li>
+                <div class="images"><img src="images/recomned-02.gif" width="106" height="70" alt="image description"/>
+                </div>
+                <h3><a href="#">Мамамиа</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">22</a>
+                </div>
+            </li>
+            <li>
+                <div class="images"><img src="images/recomned-03.gif" width="118" height="70" alt="image description"/>
+                </div>
+                <h3><a href="#">Империя пиццы</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">12</a>
+                </div>
+            </li>
+            <li>
+                <div class="images"><img src="images/recomned-04.gif" width="112" height="70" alt="image description"/>
+                </div>
+                <h3><a href="#">Везувио</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">10</a>
+                </div>
+            </li>
+            <li>
+                <div class="images"><img src="images/recomned-05.gif" width="114" height="70" alt="image description"/>
+                </div>
+                <h3><a href="#">Adriano Pizza</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">21</a>
+                </div>
+            </li>
+            <li>
+                <div class="images"><img src="images/recomned-06.gif" width="46" height="50" alt="image description"/>
+                </div>
+                <h3><a href="#">New York Street ...</a></h3>
+
+                <div class="footer">
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                    </ul>
+                    <a href="#" class="comment-link">17</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="action">
+        <div class="heading">
+            <h2>Акции пиццерий</h2>
+            <a href="#">Все акции</a>
+        </div>
+        <div class="tabs-area">
+            <ul class="action-tabset">
+                <li class="active"><a href="#tab-10">1</a></li>
+                <li><a href="#tab-11">2</a></li>
+                <li><a href="#tab-12">3</a></li>
+            </ul>
+            <div class="tab-list">
+                <div class="tab" id="tab-10">
+                    <div class="area">
+                        <div class="block">
+                            <img src="images/img-05.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-06.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Живая пицца от Il Molino</a></h3>
+                            <a href="#" class="cat">Il Molino</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-07.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Супер-скидка 20 % от Pizza House на все меню</a></h3>
+                            <a href="#" class="cat">Pizza House</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-08.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab" id="tab-11">
+                    <div class="area">
+                        <div class="block">
+                            <img src="images/img-05.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-08.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-06.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Живая пицца от Il Molino</a></h3>
+                            <a href="#" class="cat">Il Molino</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-08.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab" id="tab-12">
+                    <div class="area">
+                        <div class="block">
+                            <img src="images/img-06.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Живая пицца от Il Molino</a></h3>
+                            <a href="#" class="cat">Il Molino</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-07.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Супер-скидка 20 % от Pizza House на все меню</a></h3>
+                            <a href="#" class="cat">Pizza House</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-08.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
+                            <a href="#" class="cat">Е-pizza</a>
+                        </div>
+                        <div class="block">
+                            <img src="images/img-06.jpg" width="200" height="117" alt="image description"/>
+
+                            <h3><a href="#">Живая пицца от Il Molino</a></h3>
+                            <a href="#" class="cat">Il Molino</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="public">
+        <div class="last-news">
+            <div class="heading">
+                <h2>Последние публикации</h2>
+                <a href="#">Все публикации</a>
+            </div>
+            <div class="center">
+                <div class="article">
+                    <img src="images/img-04.jpg" width="200" height="117" alt="image description"/>
+
+                    <h3><a href="#">Рецепт океанской пиццы</a></h3>
+
+                    <p>Один из лучших рецептов уходящего года предоставлен для вас самой лучшей пиццерией города, в
+                        которой вас непременно научат готовить уникальную океанскую пиццу ...</p>
+
+                    <div class="meta">
+                        <div class="cat"><a href="#">Рецепты</a></div>
+                        <em class="date">12 октября, 2012</em>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <h3><a href="#">Как придать блюдам пикантный вкус, или ...</a></h3>
+
+                        <div class="cat">
+                            <a href="#">Рецепты</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3><a href="#">Обнаружены новые сорта пиццы в Domino’s</a></h3>
+
+                        <div class="cat">
+                            <a href="#">Новости</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3><a href="#">Как приготовить салат</a></h3>
+
+                        <div class="cat">
+                            <a href="#">Статьи</a>
+                        </div>
+                    </li>
+                    <li>
+                        <h3><a href="#">Обновление нашего сайта</a></h3>
+
+                        <div class="cat">
+                            <a href="#">Сайт</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="last-comment">
+            <div class="heading">
+                <h2>Последние отзывы</h2>
+            </div>
+            <ul>
+                <li>
+                    <div class="meta">
+                        <strong class="name">Илья <span>—</span></strong>
+                        <a href="#" class="link">Мамамиа</a>
+                        <ul class="stars">
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star ico-star-half"></li>
+                            <li class="ico-star ico-star-empty"></li>
+                        </ul>
+                        <em class="date">18 декабря, 2012</em>
+                    </div>
+                    <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто.Очень вкусно готовят, хорошое обслуживание, являюсь клиентом уже почти 6 лет ...</span>
+                    <a href="#" class="read">Читать отзыв</a>
+                </li>
+                <li>
+                    <div class="meta">
+                        <strong class="name">Марина <span>—</span></strong>
+                        <a href="#" class="link">Domino’s</a>
+                        <ul class="stars">
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star ico-star-empty"></li>
+                            <li class="ico-star ico-star-empty"></li>
+                        </ul>
+                        <em class="date">25 сентября, 2012</em>
+                    </div>
+                    <span class="text">операторы - хамы, вместо обьяснения меню перебевают и грубят! узнать про меню не реально, вас все время перебивают Очень вкусно готовят, хорошое обслуживание,  ...</span>
+                    <a href="#" class="read">Читать отзыв</a>
+                </li>
+                <li>
+                    <div class="meta">
+                        <strong class="name">Анатолий <span>—</span></strong>
+                        <a href="#" class="link">Империя пиццы</a>
+                        <ul class="stars">
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                            <li class="ico-star"></li>
+                        </ul>
+                        <em class="date">18 сентября, 2012</em>
+                    </div>
+                    <span class="text">Очень вкусно готовят, хорошое обслуживание,Очень вкусно готовят, хорошое обслуживание, являюсь клиентом уже почти 6 лет.  являюсь клиентом уже почти 6 лет. Один только минус,  ...</span>
+                    <a href="#" class="read">Читать отзыв</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="social-plugin">
+        <div class="heading">
+            <h2>Мы в социальных сетях</h2>
+        </div>
+        <div class="row">
+            <div class="facebook">
+                <img src="images/img-02.jpg" width="460" height="209" alt="image description"/>
+            </div>
+            <div class="vk">
+                <img src="images/img-03.jpg" width="460" height="209" alt="image description"/>
+            </div>
+        </div>
+    </div>
+    <div class="main-text">
+        <div class="heading">
+            <h2>О проекте</h2>
+        </div>
+        <div class="text">
+            <div class="cols">
+                <p>Британцы создали новий вид пиццы специально для тех, кто всегда оставляет корочку от пиццы. До того в
+                    самой популярной в мире пиццерии Pizza Hut пиццайолы придумали пиццу, где сыра намного больше в
+                    корже. Таким образом, они хотели привлекать внимание клиентов не только начинкой пиццы, но и самим
+                    коржом. Однако, краи пиццы все равно оставались на тарелках.</p>
+            </div>
+            <div class="cols">
+                <p>Позже была создана идея ложить в пиццу горячие сосиски, то есть ставить их в толстую корочку, по
+                    кругу пиццы. Новый способ приготовления пиццы понравится американцам, так как пицца-доги ранее
+                    выпускались в фирменных пиццевых заведениях Великобритании. Но тогда этот способ изготовления пиццы
+                    до США еще не дошел.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

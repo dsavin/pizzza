@@ -1,0 +1,24 @@
+{% if pageCount > 1 %}
+    {% set _city = app.request.attributes.get('_city') %}
+    {% set _locale = app.request.attributes.get('_locale') %}
+    <div class="paging">
+        {% if previous is defined %}
+            <a href="{{ path(route, query|merge({(pageParameterName): previous,'_city':_city,'_locale':_locale})) }}" class="prev">Prev</a>
+        {% endif %}
+
+        <ul>
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li>
+                        <a href="{{ path(route, query|merge({(pageParameterName): page,'_city':_city,'_locale':_locale})) }}">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% if next is defined %}
+            <a href="{{ path(route, query|merge({(pageParameterName): next,'_city':_city,'_locale':_locale})) }}" class="next">Next</a>
+        {% endif %}
+    </div>
+{% endif %}
