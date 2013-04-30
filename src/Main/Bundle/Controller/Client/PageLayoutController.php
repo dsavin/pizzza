@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PageLayoutController extends Controller
 {
-    public function indexTopAction()
+    public function indexDiscountsAction()
     {
 
-        return $this->render('MainBundle:Clinet/PageLayout:top.html.twig',
+        return $this->render('MainBundle:Client/PageLayout:discounts.html.twig',
                              array(
                              ));
     }
@@ -28,7 +28,23 @@ class PageLayoutController extends Controller
     public function indexRecommendedAction()
     {
 
-        return $this->render('MainBundle:PageLayout:sidebar.html.twig',
+        return $this->render('MainBundle:Client/PageLayout:recommended.html.twig',
+                             array(
+                             ));
+    }
+
+    public function indexPublicationAction()
+    {
+
+        return $this->render('MainBundle:Client/PageLayout:publication.html.twig',
+                             array(
+                             ));
+    }
+
+    public function lastCommentAction()
+    {
+
+        return $this->render('MainBundle:Client/PageLayout:lastComment.html.twig',
                              array(
                              ));
     }

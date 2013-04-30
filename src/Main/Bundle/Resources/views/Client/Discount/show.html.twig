@@ -17,7 +17,7 @@
                         <a href="\">Главная</a>
                     </li>
                     <li>
-                        <a href="#">Акции</a>
+                        <a href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a>
                     </li>
                     <li>
                         <a href="{{ path_city('_chain_single',{'chain_url':entityChain.url, '_city':_city,'_locale':_locale}) }}">{{ entityChain.getName }}</a>

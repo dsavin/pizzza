@@ -14,14 +14,14 @@ use Main\Bundle\Form\PageType;
 /**
  * Page controller.
  *
- * @Route("/admin/page")
  */
 class PageController extends BaseController
 {
     /**
      * Lists all Page entities.
      *
-     * @Route("/", name="admin_page")
+     * @Route("/admin/page/", name="admin_page", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/page/", name="admin_page_city")
      * @Template()
      */
     public function indexAction()
@@ -36,33 +36,10 @@ class PageController extends BaseController
     }
 
     /**
-     * Finds and displays a Page entity.
-     *
-     * @Route("/{id}/show", name="admin_page_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MainBundle:Page')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
      * Displays a form to create a new Page entity.
      *
-     * @Route("/new", name="admin_page_new")
+     * @Route("/admin/page/new", name="admin_page_new", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/page/new", name="admin_page_new_city")
      * @Template()
      */
     public function newAction()
@@ -79,11 +56,12 @@ class PageController extends BaseController
     /**
      * Creates a new Page entity.
      *
-     * @Route("/create", name="admin_page_create")
+     * @Route("/admin/page/create", name="admin_page_create", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/page/create", name="admin_page_create_city")
      * @Method("POST")
      * @Template("MainBundle:Page:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction($_city, Request $request)
     {
         $entity  = new Page();
         $form = $this->createForm(new PageType(), $entity);
@@ -97,7 +75,7 @@ class PageController extends BaseController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_page_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrlCity('admin_page', array('_city' => $_city)));
         }
 
         return array(
@@ -109,7 +87,8 @@ class PageController extends BaseController
     /**
      * Displays a form to edit an existing Page entity.
      *
-     * @Route("/{id}/edit", name="admin_page_edit")
+     * @Route("/admin/page/{id}/edit", name="admin_page_edit", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/page/{id}/edit", name="admin_page_edit_city")
      * @Template()
      */
     public function editAction($id)
@@ -123,33 +102,30 @@ class PageController extends BaseController
         }
 
         $editForm = $this->createForm(new PageType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
      * Edits an existing Page entity.
      *
-     * @Route("/{id}/update", name="admin_page_update")
+     * @Route("/admin/page/{id}/update", name="admin_page_update", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/page/{id}/update", name="admin_page_update_city")
      * @Method("POST")
      * @Template("MainBundle:Page:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('MainBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new PageType(), $entity);
         $editForm->bind($request);
 
@@ -163,41 +139,6 @@ class PageController extends BaseController
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
-    }
-
-    /**
-     * Deletes a Page entity.
-     *
-     * @Route("/{id}/delete", name="admin_page_delete")
-     * @Method("POST")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MainBundle:Page')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_page'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
     }
 }

@@ -72,7 +72,7 @@
             <div class="heading-page">
                 <ul class="breadcrumbs">
                     <li><a href="/">Главная</a></li>
-                    <li><a href="#">Пиццерии</a></li>
+                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
                     <li>{{ entity.name }}</li>
                 </ul>
                 {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entity}) }}
