@@ -72,7 +72,7 @@ class PageLayoutController extends Controller
         foreach ($topChains as $v) {
             $ids[] = $v['id'];
         }
-        $topChains = $chainRepositiory->findBy(array('id'=>$ids));;
+        $topChains = $chainRepositiory->findBy(array('id'=>$ids));
 
         return $this->render('MainBundle:Client/PageLayout:top.html.twig',
                              array(

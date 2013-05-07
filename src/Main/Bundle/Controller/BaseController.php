@@ -4,12 +4,16 @@ namespace Main\Bundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Main\Bundle\Entity\Lang;
 use Main\Bundle\Entity\City;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Acl\Exception\Exception;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 //method who use all
 class BaseController extends Controller
@@ -111,5 +115,23 @@ class BaseController extends Controller
     {
 
         return $this->getDoctrine()->getEntityManager();
+    }
+
+    /**
+     * @return array
+     * @Route("/admin/cache_clear", name="admin_clear_product_cache")
+     */
+    public function clearCacheConsoleAction()
+    {
+
+        $appDir = $this->get('kernel')->getRootDir();
+        try {
+            exec("php ".$appDir."/console cache:clear --env=prod");
+            $this->addAjaxResponce('succec',true);
+        } catch (Exception $e) {
+            $this->addAjaxResponce('error',$e->getMessage());
+        }
+
+        return new JsonResponse($this->ajaxResponce);
     }
 }

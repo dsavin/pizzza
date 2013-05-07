@@ -10,7 +10,22 @@
         {% block stylesheets %}{% endblock %}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+        <script>
+            var clearCache = function()
+            {
+                $.post(
+                    '{{ path('admin_clear_product_cache') }}',
+                        function() {
+                            console.log("success");
+                        }
+                )
+                .done(function() { console.log("second success"); })
+                .fail(function() { console.log("error"); })
+                .always(function() { console.log("finished"); });
 
+                return false;
+            }
+        </script>
         <!--[if lt IE 8]>
         <meta http-equiv="refresh" content="0; url=html/index.html" />
         <![endif]-->
@@ -60,6 +75,7 @@
                                 <li><a href="{{ path('city') }}">Города</a></li>
                                 <li><a href="{{ path_city('admin_page',{'_city':_city}) }}">Страницы</a></li>
                                 <li><a href="{{ path('admin_feature') }}">Особенности</a></li>
+                                <li><a href="{{ path('admin_clear_product_cache') }}" onclick="return clearCache()">Очистить кеш</a></li>
                         </ul>
                     </div><!--/.well -->
                 </div><!--/span-->
