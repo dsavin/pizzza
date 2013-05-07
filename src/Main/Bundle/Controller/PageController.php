@@ -117,7 +117,7 @@ class PageController extends BaseController
      * @Method("POST")
      * @Template("MainBundle:Page:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $_city)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MainBundle:Page')->find($id);
@@ -133,7 +133,7 @@ class PageController extends BaseController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_page_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrlCity('admin_page_edit', array('id' => $id,'_city'=>$_city)));
         }
 
         return array(

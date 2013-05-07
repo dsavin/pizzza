@@ -1,29 +1,21 @@
-<div class="slideshow">
-    <div class="slideset">
-        <div class="slide active">
-            <div class="text">
-                <h2>Мы знаем, кто привозит <span>лучшую пиццу</span></h2>
-                <em>Рейтинг служб доставки пиццы по всему Киеву</em>
-            </div>
-            <img src="images/img.png" width="377" height="294" alt="image description"/>
+{% if entities|length > 0 %}
+    <div class="slideshow">
+        <div class="slideset">
+            {% for entity in entities %}
+                <div class="slide active">
+                    <div class="text">
+                        <h2>{{ entity.title }}</h2>
+                        <em>{{ entity.text }}</em>
+                    </div>
+                    {%-if entity.getImageName is not null-%}
+                        <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}" style="width: 377px; max-height: 294px;"/>
+                    {%-endif-%}
+                </div>
+            {% endfor %}
         </div>
-        <div class="slide">
-            <div class="text">
-                <h2>Он догадывается <span>лучшую пиццу</span></h2>
-                <em>Рейтинг служб доставки пиццы по всему Киеву</em>
-            </div>
-            <img src="images/img.png" width="377" height="294" alt="image description"/>
-        </div>
-        <div class="slide">
-            <div class="text">
-                <h2>Я не знаю кто привозит <span>лучшую пиццу</span></h2>
-                <em>Рейтинг служб доставки пиццы по всему Киеву</em>
-            </div>
-            <img src="images/img.png" width="377" height="294" alt="image description"/>
+        <div class="buttons">
+            <a href="#" class="btn-prev">prev</a>
+            <a href="#" class="btn-next">next</a>
         </div>
     </div>
-    <div class="buttons">
-        <a href="#" class="btn-prev">prev</a>
-        <a href="#" class="btn-next">next</a>
-    </div>
-</div>
+{% endif %}

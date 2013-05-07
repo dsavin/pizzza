@@ -117,12 +117,11 @@ class MainExtension extends \Twig_Extension
     {
         $entityCity = $this->currentCity();
         $rating = 0;
-        $result = $this->em->createQuery('SELECT SUM(branchs.rating) as max_rating FROM MainBundle:Chain c
-                JOIN c.branchs branchs
+        $result = $this->em->createQuery('
+                SELECT c.rating_delivery as max_rating FROM MainBundle:Chain c
                 WHERE c.city_id = :city_id
                 AND c.lang = :lang
-                AND branchs.lang = :lang
-                AND  ( c.type = 3 OR c.type = 2 )
+                AND  ( c.type = 3 OR c.type = 1 )
                 ORDER BY max_rating DESC
                 ')
             ->setMaxResults(1)
@@ -142,11 +141,15 @@ class MainExtension extends \Twig_Extension
         $entityCity = $this->currentCity();
         $rating = 0;
         $result = $this->em->createQuery('
-                SELECT c FROM MainBundle:Chain c
+                SELECT SUM(b.rating) as smm FROM MainBundle:Chain c
+                JOIN c.branchs b
                 WHERE c.city_id = :city_id
                 AND c.lang = :lang
-                AND  ( c.type = 3 OR c.type = 1 )
-                ORDER BY c.rating_delivery DESC
+                AND b.lang = :lang
+                AND b.parent is null
+                AND  ( c.type = 3 OR c.type = 2 )
+                GROUP BY c.id
+                ORDER BY smm DESC
                 ')
 
             ->setMaxResults(1)
@@ -155,8 +158,9 @@ class MainExtension extends \Twig_Extension
             ->setParameter('lang', 'ru')
 
             ->getResult();
+
         if ($result) {
-            $rating = $result[0]->getRatingDelivery();
+            $rating = $result[0]['smm'];
         }
 
         return $rating;

@@ -77,6 +77,9 @@ vich_uploader:
         publication_image:
             uri_prefix: /uploads/images/publication
             upload_destination: %kernel.root_dir%/../www/uploads/images/publication
+        slider_image:
+            uri_prefix: /uploads/images/slider
+            upload_destination: %kernel.root_dir%/../www/uploads/images/slider
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

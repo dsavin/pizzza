@@ -1,0 +1,57 @@
+<div class="aside">
+    <div class="tabs-area best">
+        <ul class="tabset-best">
+            <li class="active"><a href="#tab-1">Лучшие <br/>пиццерии</a></li>
+            <li><a href="#tab-2">Лучшая <br/>доставка - {{ maxRatingDelivery }}</a></li>
+        </ul>
+        <div class="tab-list">
+            <div class="tab" id="tab-1">
+                <div class="list">
+                    {% for entity in topChains %}
+                        <div class="sub-list">
+                        <div class="frame">
+                            <h3><a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a></h3>
+
+                            <div class="footer">
+                                <ul class="stars">
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRatingBranches(maxRatingChain) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="comment-link">{{ get_count_comment_by_chain(entity.id) }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab" id="tab-2">
+                <div class="list">
+
+                    <div class="sub-list">
+                        <div class="holder">
+                            <div class="images">
+                                <img src="images/recomned-11.gif" width="36" height="14" alt="image description"/>
+                            </div>
+                        </div>
+                        <div class="frame">
+                            <h3><a href="#">Мамамиа</a></h3>
+
+                            <div class="footer">
+                                <ul class="stars">
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                    <li class="ico-star"></li>
+                                </ul>
+                                <a href="#" class="comment-link">10</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

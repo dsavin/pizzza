@@ -80,7 +80,7 @@
             $pagination = $paginator->paginate(
                 $queryDiscouts,
                 $this->get('request')->query->get('page', 1)/*page number*/,
-                1/*limit per page*/
+                20/*limit per page*/
             );
             $pagination->setTemplate('MainBundle:PageLayout:sliding.html.twig');
 

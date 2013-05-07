@@ -56,4 +56,30 @@ class ChainRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getChainByMaxRating($city_id, $lang, $limit = false)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+                SELECT c.id, SUM(b.rating) as summ FROM MainBundle:Chain c
+                JOIN c.branchs b
+                WHERE c.city_id = :city_id
+                AND c.lang = :lang
+                AND b.lang = :lang
+                AND  ( c.type = 3 OR c.type = 2 )
+                ORDER BY summ DESC
+                ')
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang', $lang)
+            ;
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        $result = $query->getArrayResult();
+
+        return $result;
+    }
 }

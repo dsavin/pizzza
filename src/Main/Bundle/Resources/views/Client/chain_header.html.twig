@@ -1,11 +1,13 @@
+{% set ratingChain = entityChain.getStarsByMaxRatingBranches(maxRatingChain) %}
+{% if entityChain.getType == 1 %}
+    {% set ratingChain = entityChain.getStarsByMaxRating(maxRatingDelivery) %}
+{% endif %}
 <div class="gholder">
     <h1>{{ entityChain.name }}</h1>
     <ul class="stars">
-        <li class="ico-star"></li>
-        <li class="ico-star"></li>
-        <li class="ico-star"></li>
-        <li class="ico-star"></li>
-        <li class="ico-star ico-star-empty"></li>
+        {% for i in 1..5 %}
+            <li class="ico-star {% if i > ratingChain %} ico-star-empty{% endif %}"></li>
+        {% endfor %}
     </ul>
     <div class="sum-comment"><div>Отзывов: <strong>{{ get_count_comment_by_chain(entityChain.id) }}</strong></div></div>
     {% if entityChain.getImageName %}

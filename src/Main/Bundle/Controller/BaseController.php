@@ -107,4 +107,9 @@ class BaseController extends Controller
         return $this->generateUrl($route, $parameters);
     }
 
+    public function getEm()
+    {
+
+        return $this->getDoctrine()->getEntityManager();
+    }
 }

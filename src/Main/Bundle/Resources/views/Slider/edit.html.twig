@@ -1,0 +1,18 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <h3>Редактирование слайдера</h3>
+    
+    <form action="{{ path_city('admin_slider_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        {%-if entity.getImageName is not null-%}
+            <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.url }}" style="width: 150px; max-height: 200px;"/>
+        {%-endif-%}
+        <br/><br/>
+        <button class="btn btn-success" type="submit">Сохранить</button>
+    </form>
+    
+    <div>
+        <a class="btn btn-info" href="{{ path_city('admin_slider') }}">К списку</a>
+    </div>
+{% endblock %}
