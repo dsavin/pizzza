@@ -3,7 +3,7 @@
 namespace Main\Bundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Main\Bundle\Entity\Chain;
 /**
  * ChainRepository
  *
@@ -68,6 +68,7 @@ class ChainRepository extends EntityRepository
                 AND c.lang = :lang
                 AND b.lang = :lang
                 AND  ( c.type = 3 OR c.type = 2 )
+                GROUP BY c.id
                 ORDER BY summ DESC
                 ')
             ->setParameter('city_id', $city_id)
@@ -79,6 +80,55 @@ class ChainRepository extends EntityRepository
         }
 
         $result = $query->getArrayResult();
+
+        return $result;
+    }
+
+    public function getTopDeliveryRating($city_id, $lang, $limit = false)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+                SELECT c FROM MainBundle:Chain c
+                WHERE c.city_id = :city_id
+                AND c.lang = :lang
+                AND  ( c.type = 3 OR c.type = 1 )
+                ORDER BY c.rating_delivery DESC
+                ')
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang', $lang)
+        ;
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+    public function getRecommendByLimit($city_id, $lang, $limit = false)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+                SELECT c FROM MainBundle:Chain c
+                WHERE c.city_id = :city_id
+                AND c.lang = :lang
+                AND c.recommend = :recom
+                ORDER BY c.rating_delivery DESC
+                ')
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang', $lang)
+            ->setParameter('recom', Chain::RECOMMEND_ON)
+        ;
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        $result = $query->getResult();
 
         return $result;
     }

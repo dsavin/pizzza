@@ -30,6 +30,9 @@ class Chain
     const TYPE_BRANCHES = 2;
     const TYPE_BOTH = 3;
 
+    const RECOMMEND_OFF = 0;
+    const RECOMMEND_ON = 1;
+
     /**
      * @var integer
      *
@@ -217,6 +220,13 @@ class Chain
      */
     private $commentsDelivery;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="recommend", type="smallint")
+     */
+    private $recommend;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -230,6 +240,7 @@ class Chain
         $this->photos = new ArrayCollection();
         $this->commentsChain = new ArrayCollection();
         $this->commentsDelivery = new ArrayCollection();
+        $this->recommend = self::RECOMMEND_OFF;
     }
 
     /**
@@ -896,5 +907,28 @@ class Chain
     public function getCommentsDelivery()
     {
         return $this->commentsDelivery;
+    }
+
+    /**
+     * Set recommend
+     *
+     * @param integer $recommend
+     * @return Chain
+     */
+    public function setRecommend($recommend)
+    {
+        $this->recommend = $recommend;
+
+        return $this;
+    }
+
+    /**
+     * Get recommend
+     *
+     * @return integer
+     */
+    public function getRecommend()
+    {
+        return $this->recommend;
     }
 }

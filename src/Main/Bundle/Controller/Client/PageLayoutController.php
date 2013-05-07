@@ -32,11 +32,22 @@ class PageLayoutController extends Controller
                              ));
     }
 
-    public function indexRecommendedAction()
+    public function indexRecommendedAction($maxRatingDelivery, $maxRatingChain)
     {
+        $request = $this->getRequest();
+        $city = $this->getCurrentCity();
+        $em = $this->getEm();
+
+        /** @var ChainRepository $chainRepositiory  */
+        $chainRepositiory = $em->getRepository('MainBundle:Chain');
+
+        $etities = $chainRepositiory->getRecommendByLimit($city->getId(), $request->getLocale(), 6);
 
         return $this->render('MainBundle:Client/PageLayout:recommended.html.twig',
                              array(
+                                  'maxRatingDelivery' => $maxRatingDelivery,
+                                  'maxRatingChain' => $maxRatingChain,
+                                  'etities' => $etities
                              ));
     }
 
@@ -66,19 +77,33 @@ class PageLayoutController extends Controller
         /** @var ChainRepository $chainRepositiory  */
         $chainRepositiory = $em->getRepository('MainBundle:Chain');
 
-        $topChains = $chainRepositiory->getChainByMaxRating($city->getId(), $request->getLocale(), 5);
-        $ids = array();
-
-        foreach ($topChains as $v) {
-            $ids[] = $v['id'];
-        }
-        $topChains = $chainRepositiory->findBy(array('id'=>$ids));
+        $topDelivery = $chainRepositiory->getTopDeliveryRating($city->getId(), $request->getLocale(), 5);
+        $topChains = $this->getTopChain($city->getId(), $request->getLocale(), 5);
 
         return $this->render('MainBundle:Client/PageLayout:top.html.twig',
                              array(
                                   'maxRatingDelivery' => $maxRatingDelivery,
                                   'maxRatingChain' => $maxRatingChain,
-                                  'topChains' => $topChains
+                                  'topChains' => $topChains,
+                                  'topDelivery' => $topDelivery
                              ));
+    }
+
+    public function getTopChain($city_id, $lang, $limit)
+    {
+        $em = $this->getEm();
+
+
+        /** @var ChainRepository $chainRepositiory  */
+        $chainRepositiory = $em->getRepository('MainBundle:Chain');
+
+        $topChains = $chainRepositiory->getChainByMaxRating($city_id, $lang, $limit);
+        $ids = array();
+
+        foreach ($topChains as $v) {
+            $ids[] = $v['id'];
+        }
+
+        return $chainRepositiory->findBy(array('id'=>$ids));
     }
 }
