@@ -13,9 +13,23 @@ class PageLayoutController extends Controller
 {
     public function indexDiscountsAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $city = $this->getCurrentCity();
+        $paginator  = $this->get('knp_paginator');
+
+        $queryDiscouts = $em->getRepository('MainBundle:Discount')->getAllWithChainByCity($city->getId(),
+                                                                                          $request->getLocale());
+
+        $pagination = $paginator->paginate(
+            $queryDiscouts,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            12/*limit per page*/
+        );
 
         return $this->render('MainBundle:Client/PageLayout:discounts.html.twig',
                              array(
+                                  'pagination' => $pagination
                              ));
     }
 
