@@ -126,11 +126,11 @@ class BaseController extends Controller
 
         $appDir = $this->get('kernel')->getRootDir();
         try {
-            exec("chmod -R 777 ".$appDir."/console/cache/prod");
-            exec("chmod -R 777 ".$appDir."/console/cache/dev");
+            exec("chmod -R 777 ".$appDir."/console/cache/prod/");
+            exec("chmod -R 777 ".$appDir."/console/cache/dev/");
 
             exec("php ".$appDir."/console cache:clear --env=prod --no-debug");
-            $this->addAjaxResponce('succec',  "chmod -R 777 ".$appDir."/console/cache/dev/");
+            $this->addAjaxResponce('succec',  "chmod -R 777 ".$appDir."/console/cache/prod/");
         } catch (Exception $e) {
             $this->addAjaxResponce('error',$e->getMessage());
         }
