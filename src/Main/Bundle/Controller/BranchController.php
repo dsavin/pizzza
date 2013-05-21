@@ -107,10 +107,10 @@ class BranchController extends Controller
         $editForm = $this->createForm(new BranchType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
+//        var_dump($entity->getLat());exit;
         if ($request->isMethod("POST")) {
             $editForm->bind($request);
 
-//            var_dump($entity->getFeatures()->count());exit;
 
             if ($editForm->isValid()) {
                 $em->persist($entity);

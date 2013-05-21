@@ -1,0 +1,15 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block javascripts %}
+{% endblock %}
+{%- set chain = current_chain()-%}
+{% block body %}
+    <h3>Добавляем категорию</h3>
+
+    <form action="{{ path('admin_type_publication_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button class="btn btn-success" type="submit">Сохранить</button>
+        </p>
+    </form>
+    <a class="btn btn-info" href="{{ path('admin_type_publication') }}">К списку</a>
+{% endblock %}
