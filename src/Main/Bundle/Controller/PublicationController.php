@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Main\Bundle\Entity\Publication;
+use Main\Bundle\Entity\News;
+use Main\Bundle\Entity\Recipe;
 use Main\Bundle\Form\PublicationType;
 
 use Symfony\Component\HttpFoundation\Tests\RequestContentProxy;
@@ -32,7 +34,7 @@ class PublicationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MainBundle:Publication')->findAll();
+        $entities = $em->getRepository('MainBundle:News')->findAll();
 
         return array(
             'entities' => $entities,
@@ -42,14 +44,18 @@ class PublicationController extends Controller
     /**
      * Displays a form to create a new Publication entity.
      *
-     * @Route("/publication/new", name="admin_publication_new", defaults={"_city" = "kiev"})
-     * @Route("/{_city}/publication/new", name="admin_publication_new_city")
+     * @Route("/publication/new/{id}", name="admin_publication_new", defaults={"_city" = "kiev", "id"=0})
+     * @Route("/{_city}/publication/new/{id}", name="admin_publication_new_city", defaults={"id"=0})
      * @Template()
      */
-    public function newAction(Request $request, $_city)
+    public function newAction(Request $request, $_city, $id)
     {
+        $city = $this->getCurrentCity();
         $em = $this->getDoctrine()->getManager();
-        $entity = new Publication();
+        $entity = new News();
+        if ($id) {
+            $entity = $em->getRepository('MainBundle:News')->find($id);
+        }
         $form   = $this->createForm(new PublicationType(), $entity);
 
         if ($request->isMethod("POST")) {
@@ -57,8 +63,9 @@ class PublicationController extends Controller
 
             if ($form->isValid()) {
                 $entity->setLang($request->getLocale());
-
+                $entity->setCityId($city->getId());
                 $em->persist($entity);
+
                 $em->flush();
 
                 return $this->redirect($this->generateUrlCity('admin_publication', array('_city' => $_city, '_locale' => $request->getLocale())));
@@ -68,68 +75,70 @@ class PublicationController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'id' => $id
         );
     }
 
 
+    //RECIPE ---------------------//
+
+
+
     /**
-     * Displays a form to edit an existing Publication entity.
+     * Lists all Recipe entities.
      *
-     * @Route("/{id}/publication/edit", name="admin_publication_edit", defaults={"_city" = "kiev"})
-     * @Route("/{_city}/{id}/publication/edit", name="admin_publication_edit_city")
-     * @Template()
+     * @Route("/recipe", name="admin_recipe", defaults={"_city" = "kiev"})
+     * @Route("/{_city}/recipe", name="admin_recipe_city")
+     * @Template("MainBundle:Publication:index.html.twig")
      */
-    public function editAction($id)
+    public function indexRecipeAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MainBundle:Publication')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Publication entity.');
-        }
-
-        $editForm = $this->createForm(new PublicationType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $entities = $em->getRepository('MainBundle:Recipe')->findAll();
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entities' => $entities,
         );
     }
 
+
+
     /**
-     * Deletes a Publication entity.
+     * Displays a form to create a new Recipe entity.
      *
-     * @Route("/{id}/delete", name="admin_publication_delete")
-     * @Method("POST")
+     * @Route("/recipe/new/{id}", name="admin_recipe_new", defaults={"_city" = "kiev", "id"=0})
+     * @Route("/{_city}/recipe/new/{id}", name="admin_recipe_new_city", defaults={"id"=0})
+     * @Template("MainBundle:Publication:new.html.twig")
      */
-    public function deleteAction(Request $request, $id)
+    public function newRecipeAction(Request $request, $_city, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $city = $this->getCurrentCity();
+        $em = $this->getDoctrine()->getManager();
+        $entity = new Recipe();
+        if ($id) {
+            $entity = $em->getRepository('MainBundle:Recipe')->find($id);
+        }
+        $form   = $this->createForm(new PublicationType(), $entity);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MainBundle:Publication')->find($id);
+        if ($request->isMethod("POST")) {
+            $form->bind($request);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Publication entity.');
+            if ($form->isValid()) {
+                $entity->setLang($request->getLocale());
+                $entity->setCityId($city->getId());
+                $em->persist($entity);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrlCity('admin_recipe', array('_city' => $_city, '_locale' => $request->getLocale())));
             }
-
-            $em->remove($entity);
-            $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_publication'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+            'id' => $id
+        );
     }
 }

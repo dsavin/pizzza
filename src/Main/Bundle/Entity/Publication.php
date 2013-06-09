@@ -16,10 +16,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @ORM\Table(name="publication")
  * @ORM\Entity(repositoryClass="Main\Bundle\Entity\PublicationRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="smallint")
+ * @ORM\DiscriminatorMap({2 = "News", 3 = "Recipe"})
  * @Vich\Uploadable
  */
 class Publication
 {
+
+    const TYPE_PUBLICATION = 1;
+    const TYPE_NEWS = 2;
+    const TYPE_RECIPE = 3;
+
     /**
      * @var integer
      *
@@ -254,7 +262,7 @@ class Publication
      * Set lang
      *
      * @param string $lang
-     * @return Publication
+     * @return Publication|News|Recipe
      */
     public function setLang($lang)
     {
@@ -422,5 +430,15 @@ class Publication
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return self::TYPE_PUBLICATION;
     }
 }

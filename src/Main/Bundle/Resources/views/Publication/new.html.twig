@@ -1,20 +1,21 @@
 {% extends "MainBundle:PageLayout:base_admin.html.twig" %}
 {%- set chain = current_chain() -%}
 {% block body %}
-<h1>Publication creation</h1>
-
-<form action="{{ path('admin_publication_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_publication') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <h3>Добавляем новость</h3>
+    
+    <form action="{{ path_city('admin_publication_new', {id:id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        {% if entity.getImageName %}
+            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="100" alt="{{ entity.getImageName }}" class="thumb" />
+        {% endif %}
+        <br/>
+        <br/>
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        </p>
+    </form>
+    
+    <div>
+        <a class="btn btn-info" href="{{ path_city('admin_publication') }}">К списку</a>
+    </div>
 {% endblock %}
