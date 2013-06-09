@@ -2,6 +2,7 @@
 
 namespace Main\Bundle\Controller;
 
+use JMS\DiExtraBundle\Tests\Functional\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,6 +15,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
 
 //method who use all
 class BaseController extends Controller
@@ -123,18 +127,16 @@ class BaseController extends Controller
      */
     public function clearCacheConsoleAction()
     {
+        $input = new ArgvInput(array('cache:clear','--env=prod','--no-debug'));
+        $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
+        $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
 
-        $appDir = $this->get('kernel')->getRootDir();
-        try {
-            exec("chmod -R 777 ".$appDir."/console/cache/prod/");
-            exec("chmod -R 777 ".$appDir."/console/cache/dev/");
+        $kernel = new \AppKernel($env, $debug);
+        $application = new Application($kernel);
+        ob_start();
+        $o = ob_get_clean();
+        $application->run($input);
 
-            exec("php ".$appDir."/console cache:clear --env=prod --no-debug");
-            $this->addAjaxResponce('succec',  "chmod -R 777 ".$appDir."/console/cache/prod/");
-        } catch (Exception $e) {
-            $this->addAjaxResponce('error',$e->getMessage());
-        }
-
-        return new JsonResponse($this->ajaxResponce);
+        return new JsonResponse($o);
     }
 }
