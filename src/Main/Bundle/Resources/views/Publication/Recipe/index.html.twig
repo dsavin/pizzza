@@ -1,0 +1,35 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <h3>Список рецептов</h3>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Url</th>
+                <th></th>
+                <th></th>
+                <th>
+                    <a href="{{ path_city('admin_recipe_new') }}" class="btn btn-primary">Добавить</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.url }}</td>
+                <td>{{ entity.shortText }}</td>
+                <td>{{ entity.lang }}</td>
+                <td>
+                    <div>
+                        <a target="_blank" href="" class="btn"><i class="icon-eye-open"></i></a>
+                        <a href="{{ path_city('admin_recipe_new', { 'id': entity.id }) }}" class="btn"><i class="icon-edit"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -13,6 +13,7 @@ use Main\Bundle\Entity\Publication;
 use Main\Bundle\Entity\News;
 use Main\Bundle\Entity\Recipe;
 use Main\Bundle\Form\PublicationType;
+use Main\Bundle\Form\RecipeType;
 
 use Symfony\Component\HttpFoundation\Tests\RequestContentProxy;
 
@@ -89,7 +90,7 @@ class PublicationController extends Controller
      *
      * @Route("/recipe", name="admin_recipe", defaults={"_city" = "kiev"})
      * @Route("/{_city}/recipe", name="admin_recipe_city")
-     * @Template("MainBundle:Publication:index.html.twig")
+     * @Template("MainBundle:Publication\Recipe:index.html.twig")
      */
     public function indexRecipeAction()
     {
@@ -109,7 +110,7 @@ class PublicationController extends Controller
      *
      * @Route("/recipe/new/{id}", name="admin_recipe_new", defaults={"_city" = "kiev", "id"=0})
      * @Route("/{_city}/recipe/new/{id}", name="admin_recipe_new_city", defaults={"id"=0})
-     * @Template("MainBundle:Publication:new.html.twig")
+     * @Template("MainBundle:Publication\Recipe:new.html.twig")
      */
     public function newRecipeAction(Request $request, $_city, $id)
     {
@@ -119,7 +120,7 @@ class PublicationController extends Controller
         if ($id) {
             $entity = $em->getRepository('MainBundle:Recipe')->find($id);
         }
-        $form   = $this->createForm(new PublicationType(), $entity);
+        $form   = $this->createForm(new RecipeType(), $entity);
 
         if ($request->isMethod("POST")) {
             $form->bind($request);
