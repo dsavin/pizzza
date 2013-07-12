@@ -20,8 +20,10 @@
             <tr>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.url }}</td>
-                <td>{{ entity.shortText }}</td>
-                <td>{{ entity.lang }}</td>
+                <td></td>
+                <td>
+                    <a href="{{ path_city('admin_recipe_ingredients', { 'id': entity.id }) }}" class="btn-mini">Ингридиенты</a>
+                </td>
                 <td>
                     <div>
                         <a target="_blank" href="" class="btn"><i class="icon-eye-open"></i></a>

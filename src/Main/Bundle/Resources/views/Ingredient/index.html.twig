@@ -1,0 +1,40 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <h3>Ингридиенты</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Статус</th>
+            <th></th>
+            <th>
+                <a class="btn btn-primary" href="{{ path('admin_ingredient_new') }}">Добавить</a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>
+                    {% if entity.status == 1 %}
+                        видна
+                    {% else %}
+                        скрыта
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.getImageName %}
+                        <img src="{{ vich_uploader_asset(entity, 'image') }}" width="10" alt="{{ entity.getImageName }}" class="thumb" />
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn" href="{{ path('admin_ingredient_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

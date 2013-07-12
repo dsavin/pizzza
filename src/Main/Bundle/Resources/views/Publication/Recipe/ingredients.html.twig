@@ -1,0 +1,29 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{%- set chain = current_chain() -%}
+{% block body %}
+    <style>
+        label {
+            float: left;
+            margin-right: 15px;
+        }
+    </style>
+    <h3>Редактирование ингредиенов рецепта {{ entityRecipe.name }}</h3>
+    
+    <form action="{{ path_city('admin_recipe_ingredients', {id:id}) }}" method="post">
+        {% for ingredient in entitiesIngridient %}
+            <div>
+                <label>{{ ingredient.name }}</label>
+                <input type="text" value="{% for entity in entitiesRecipeIngredients %}{% if entity.ingredient.id == ingredient.id %}{{ entity.count }}{% endif %}{% endfor %}" name="count[{{ ingredient.id }}]"/>
+            </div>
+        {% endfor %}
+        <br/>
+        <br/>
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        </p>
+    </form>
+    
+    <div>
+        <a class="btn btn-info" href="{{ path_city('admin_recipe') }}">К списку рецептов</a>
+    </div>
+{% endblock %}

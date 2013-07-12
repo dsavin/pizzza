@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Main\Bundle\Entity\RecipeIngredients;
+
 /**
  * Ingredient
  *
@@ -66,7 +68,7 @@ class Ingredient
     private $updated_at;
 
     /**
-     * @Vich\UploadableField(mapping="feature", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="ingredient", fileNameProperty="imageName")
      *
      * @var File $image
      */
@@ -79,9 +81,16 @@ class Ingredient
      */
     protected $imageName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RecipeIngredients", mappedBy="ingredient")
+     **/
+    private $recipes;
+
     public function __construct($lang = 'ru')
     {
         $this->updated_at = new \DateTime();
+        $this->lang = $lang;
+        $this->recipes = new ArrayCollection();
     }
 
     /**
@@ -244,5 +253,28 @@ class Ingredient
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Add recipe
+     *
+     * @param RecipeIngredients $recipe
+     * @return $this
+     */
+    public function addRecipe(RecipeIngredients $recipe)
+    {
+        $this->recipes[] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return Collection
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
     }
 }

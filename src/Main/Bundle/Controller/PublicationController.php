@@ -14,6 +14,8 @@ use Main\Bundle\Entity\News;
 use Main\Bundle\Entity\Recipe;
 use Main\Bundle\Form\PublicationType;
 use Main\Bundle\Form\RecipeType;
+use Main\Bundle\Entity\RecipeIngredients;
+use Main\Bundle\Entity\Ingredient;
 
 use Symfony\Component\HttpFoundation\Tests\RequestContentProxy;
 
@@ -139,6 +141,54 @@ class PublicationController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'id' => $id
+        );
+    }
+
+    /**
+     *
+     *
+     * @Route("/recipe/ingredients/{id}", name="admin_recipe_ingredients", defaults={"_city" = "kiev", "id"=0})
+     * @Route("/{_city}/recipe/ingredients/{id}", name="admin_recipe_ingredients_city", defaults={"id"=0})
+     * @Template("MainBundle:Publication\Recipe:ingredients.html.twig")
+     */
+    public function editRecipeIngredientsAction(Request $request, $_city, $id)
+    {
+        $city = $this->getCurrentCity();
+        $em = $this->getDoctrine()->getManager();
+        $entityRecipe = $em->getRepository('MainBundle:Recipe')->find($id);
+        $entitiesIngridient = $em->getRepository('MainBundle:Ingredient')->getAllWithIndex();
+        $entitiesRecipeIngredients = $em->getRepository('MainBundle:RecipeIngredients')->findBy(array('recipe'=>$id));
+
+        if ($request->isMethod("POST")) {
+            $counts = $request->request->get('count');
+
+            foreach ($entitiesRecipeIngredients as $entityRI) {
+                if (isset($counts[$entityRI->getIngredient()->getId()]) && !empty($counts[$entityRI->getIngredient()->getId()])) {
+                    $entityRI->getIngredient()->getId();
+
+                }
+                $em->remove($entityRI);
+            }
+
+            $em->flush();
+
+            foreach ($counts as $k=>$val) {
+//                $entity = new RecipeIngredients($entityRecipe, $entitiesIngridient[$k]);
+//                $entity->setLang($request->getLocale());
+//                $entity->setCount($val);
+//                $em->persist($entity);
+            }
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrlCity('admin_recipe', array('_city' => $_city, '_locale' => $request->getLocale())));
+        }
+
+        return array(
+            'entityRecipe' => $entityRecipe,
+            'entitiesIngridient'   => $entitiesIngridient,
+            'entitiesRecipeIngredients' => $entitiesRecipeIngredients,
             'id' => $id
         );
     }

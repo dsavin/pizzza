@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class IngredientRepository extends EntityRepository
 {
+
+    /**
+     * @return array
+     */
+    public function getAllWithIndex()
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+            SELECT
+              ingr
+            FROM
+              Main\Bundle\Entity\Ingredient ingr
+            INDEX BY
+              ingr.id
+        ');
+
+        return $query->getResult();
+    }
 }

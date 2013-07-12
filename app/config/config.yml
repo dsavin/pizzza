@@ -71,6 +71,9 @@ vich_uploader:
         feature:
             uri_prefix: /uploads/images/features
             upload_destination: %kernel.root_dir%/../www/uploads/images/features
+        ingredient:
+            uri_prefix: /uploads/images/ingredient
+            upload_destination: %kernel.root_dir%/../www/uploads/images/ingredient
         photo_pizzeria_delivery:
             uri_prefix: /uploads/images/pizzeria/delivery
             upload_destination: %kernel.root_dir%/../www/uploads/images/pizzeria/delivery
