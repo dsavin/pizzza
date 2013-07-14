@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 4 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Публикации</a></li>
+                    <li>Новости</li>
+                </ul>
+                <div class="gholder">
+                    <h1>Новости</h1>
+                </div>
+            </div>
+            <ul class="navigation">
+                <li class="active"><a href="#"><strong>Новости</strong></a></li>
+                <li><a href="#"><strong>Рецепты</strong></a></li>
+                <li><a href="#"><strong>Статьи</strong></a></li>
+                <li><a href="#"><strong>Обзоры</strong></a></li>
+            </ul>
+            <div class="main-info">
+                <div class="actions-list publication">
+                    {% for entity in pagination %}
+                        <div class="gholder">
+                            <img src="images/img-28.jpg" width="191" height="125" alt="image description" class="thumb"/>
+
+                            <div class="holder">
+                                <h2><a href="#">Как придать блюдам пикантный вкус, или путешествие в мир специй</a></h2>
+
+                                <p>Для придания блюдам и напиткам изысканных вкусовых качеств в кулинарии различных стран
+                                    мира используют пряности и специи. С их помощью одни и те же блюда могут приобретать
+                                    различный вкус. Пряности и специи нельзя путать с пищевыми добавками, например, уксусом,
+                                    сахаром или солью.</p>
+
+                                <div class="meta">
+                                    <em class="date">12 октября, 2012</em>
+                                    <a href="#" class="cat"><span>Рецепты</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {#{{ knp_pagination_render(pagination) }}#}
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

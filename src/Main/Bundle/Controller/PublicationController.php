@@ -164,20 +164,21 @@ class PublicationController extends Controller
             $counts = $request->request->get('count');
 
             foreach ($entitiesRecipeIngredients as $entityRI) {
-                if (isset($counts[$entityRI->getIngredient()->getId()]) && !empty($counts[$entityRI->getIngredient()->getId()])) {
-                    $entityRI->getIngredient()->getId();
-
-                }
+//                if (isset($counts[$entityRI->getIngredient()->getId()]) && !empty($counts[$entityRI->getIngredient()->getId()])) {
+//                    $entityRI->getIngredient()->getId();
+//
+//                }
                 $em->remove($entityRI);
             }
 
             $em->flush();
 
             foreach ($counts as $k=>$val) {
-//                $entity = new RecipeIngredients($entityRecipe, $entitiesIngridient[$k]);
-//                $entity->setLang($request->getLocale());
-//                $entity->setCount($val);
-//                $em->persist($entity);
+                if (empty($val)) continue;
+                $entity = new RecipeIngredients($entityRecipe, $entitiesIngridient[$k]);
+                $entity->setLang($request->getLocale());
+                $entity->setCount($val);
+                $em->persist($entity);
             }
 
             $em->flush();
