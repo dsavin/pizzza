@@ -41,9 +41,15 @@ class PublicationController extends Controller
             throw $this->createNotFoundException('Нету такой новости');
         }
 
+        $entities = $em->getRepository('MainBundle:Publication')->findMoreEntities(array(
+                                                                                    'id'     => $entity->getId(),
+                                                                                    'city_id' => $city->getId(),
+                                                                                    'lang'    => $request->getLocale()
+                                                                                ));
 
         return array(
-            'entity'       => $entity
+            'entity'       => $entity,
+            'entities' => $entities
         );
     }
 
@@ -57,7 +63,7 @@ class PublicationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $city = $this->getCityByUrl($_city);
 
-        $pagination = $em->getRepository('MainBundle:News')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()));
+        $pagination = $em->getRepository('MainBundle:News')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()), array('id'=>'DESC'));
 
         return array(
             'pagination' => $pagination

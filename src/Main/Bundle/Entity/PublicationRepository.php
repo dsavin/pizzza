@@ -12,4 +12,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class PublicationRepository extends EntityRepository
 {
+
+    /**
+     * @param array $vars
+     * @return array
+     */
+    public function findMoreEntities(array $vars)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('n')
+            ->from('MainBundle:News', 'n')
+
+            ->where('n.lang = :lang')
+            ->andWhere('n.city_id = :city_id')
+            ->andWhere('n.id < :id')
+
+            ->setParameter('city_id', $vars['city_id'])
+            ->setParameter('lang', $vars['lang'])
+            ->setParameter('id', $vars['id'])
+
+            ->orderBy('n.id','DESC')
+
+            ->setMaxResults(3)
+        ;
+
+        return $query->getQuery()->getResult();
+    }
 }

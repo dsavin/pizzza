@@ -39,10 +39,14 @@
 
             <div class="drop">
                 <ul>
-                    <li><a href="#">Новости</a></li>
-                    <li><a href="#">Рецепты</a></li>
-                    <li><a href="#">Статьи</a></li>
-                    <li><a href="#">Обзоры</a></li>
+                    <li>
+                        <a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a>
+                    </li>
+                    <li>
+                        <a href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">Рецепты</a>
+                    </li>
+                    {#<li><a href="#">Статьи</a></li>#}
+                    {#<li><a href="#">Обзоры</a></li>#}
                 </ul>
             </div>
         </li>
