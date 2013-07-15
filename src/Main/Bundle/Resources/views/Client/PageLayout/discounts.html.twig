@@ -11,7 +11,7 @@
                 {% for item in pagination %}
                     {% if loop.index == j %}
                         <li {% if loop.first %}class="active"{% endif %}>
-                            <a href="#tab-{{ j }}">{{ i }}</a>
+                            <a href="#tab-5{{ j }}">{{ i }}</a>
                         </li>
                         {% set j = j+4 %}
                         {% set i = i+1 %}
@@ -22,7 +22,7 @@
             <div class="tab-list">
                 {% for item in pagination %}
                     {% if loop.index == j %}
-                        <div class="tab" id="tab-{{ j }}">
+                        <div class="tab" id="tab-5{{ j }}">
                         <div class="area">
                         {% set j = j+4 %}
                     {% endif %}

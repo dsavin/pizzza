@@ -37,7 +37,7 @@ class PublicationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MainBundle:News')->findAll();
+        $entities = $em->getRepository('MainBundle:News')->findBy(array(),array('id'=>'DESC'));
 
         return array(
             'entities' => $entities,
@@ -98,7 +98,7 @@ class PublicationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MainBundle:Recipe')->findAll();
+        $entities = $em->getRepository('MainBundle:Recipe')->findBy(array(),array('id'=>'DESC'));
 
         return array(
             'entities' => $entities,

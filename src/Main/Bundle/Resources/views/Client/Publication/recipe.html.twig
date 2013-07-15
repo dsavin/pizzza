@@ -17,7 +17,7 @@
                         <a href="/">Главная</a>
                     </li>
                     <li>
-                        <a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a>
+                        <a href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">Рецепты</a>
                     </li>
                     <li>{{ entity.name }}</li>
                 </ul>
@@ -42,16 +42,18 @@
             {% if entities|length > 0 %}
                 <div class="another-article">
                     <div class="heading">
-                        <h2>Предыдущие новости</h2>
+                        <h2>Предыдущие рецепты</h2>
                     </div>
                     <div class="content">
                         {% for public in entities %}
                             <div class="block">
                                 {% if public.getImageName %}
-                                    <img src="{{ vich_uploader_asset(public, 'image') }}" width="191" height="117" alt="{{ public.getImageName }}" class="thumb" />
+                                    <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">
+                                        <img src="{{ vich_uploader_asset(public, 'image') }}" width="191" height="117" alt="{{ public.getImageName }}" class="thumb" />
+                                    </a>
                                 {% endif %}
                                 <h3>
-                                    <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">{{ public.name }}</a>
+                                    <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">{{ public.name }}</a>
                                 </h3>
                                 <em class="date">{{ public.createdAt|date('d.m.Y') }}</em>
                             </div>

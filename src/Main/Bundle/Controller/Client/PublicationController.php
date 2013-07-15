@@ -73,17 +73,48 @@ class PublicationController extends Controller
     /**
      * Publication
      *
-     * @Template("MainBundle:Client\Publication:newsList.html.twig")
+     * @Template()
      */
-    public function recipeListAction($_city, Request $request)
+    public function recipesListAction($_city, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $city = $this->getCityByUrl($_city);
 
-        $pagination = $em->getRepository('MainBundle:Recipe')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()));
+        $pagination = $em->getRepository('MainBundle:Recipe')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()), array('id'=>'DESC'));
 
         return array(
             'pagination' => $pagination
+        );
+    }
+
+    /**
+     * Displays a recipe entity.
+     *
+     * @Template()
+     */
+    public function recipeAction($_city, $url, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->getCityByUrl($_city);
+
+        $entity = $em->getRepository('MainBundle:Recipe')->findOneBy(array(
+            'url'     => $url,
+            'city_id' => $city->getId(),
+            'lang'    => $request->getLocale()
+        ));
+        if (!$entity) {
+            throw $this->createNotFoundException('Нету такой новости');
+        }
+
+        $entities = $em->getRepository('MainBundle:Publication')->findMoreRecipeEntities(array(
+            'id'     => $entity->getId(),
+            'city_id' => $city->getId(),
+            'lang'    => $request->getLocale(),
+        ));
+
+        return array(
+            'entity'       => $entity,
+            'entities' => $entities
         );
     }
 }
