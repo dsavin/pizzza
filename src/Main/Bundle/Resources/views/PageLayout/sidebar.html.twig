@@ -1,270 +1,134 @@
+{% set maxRatingDelivery = get_max_rating_delivery_by_city() %}
+{% set maxRatingChain = get_max_rating_chain_by_city() %}
 <div id="sidebar">
     <div class="tabs-area best">
         <ul class="tabset-best">
-            <li class="active"><a href="#tab-111">Лучшие <br/>пиццерии</a></li>
-            <li><a href="#tab-222">Лучшая <br/>доставка</a></li>
+            <li class="active"><a href="#tab-111">Лучшие <br/>пиццерии - {{ maxRatingChain }}</a></li>
+            <li><a href="#tab-222">Лучшая <br/>доставка - {{ maxRatingDelivery }}</a></li>
         </ul>
         <div class="tab-list">
             <div class="tab" id="tab-111">
                 <div class="list">
-                    <div class="sub-list">
-                        <div class="frame">
-                            <h3><a href="#">Мамамиа</a></h3>
-                            <span class="web">улица. текст</span>
+                    {% for entity in topChains %}
+                        <div class="sub-list">
+                            <div class="frame">
+                                <h3>
+                                    <a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a>
+                                </h3>
+                            </div>
+                            <div class="footer">
+                                <ul class="stars">
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRatingBranches(maxRatingChain) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="comment-link">{{ get_count_comment_by_chain(entity.id) }}</a>
+                            </div>
                         </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">10</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="frame">
-                            <h3><a href="#">Везувио</a></h3>
-                            <span class="web">улица. текст</span>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star ico-star-empty"></li>
-                            </ul>
-                            <a href="#" class="comment-link">23</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="frame">
-                            <h3><a href="#">New York Street ...</a></h3>
-                            <span class="web">улица. текст</span>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star ico-star-half"></li>
-                            </ul>
-                            <a href="#" class="comment-link">5</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="frame">
-                            <h3><a href="#">Империя Пиццы</a></h3>
-                            <span class="web">улица. текст</span>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">9</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="frame">
-                            <h3><a href="#">Виллабаджо</a></h3>
-                            <span class="web">улица. текст</span>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">12</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="tab" id="tab-222">
                 <div class="list">
-                    <div class="sub-list">
-                        <div class="holder">
-                            <div class="images">
-                                <img src="/images/recomned-11.gif" width="36" height="14" alt="image description"/>
+                    {% for entity in topDelivery %}
+                        <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    {% if entity.getImageName %}
+                                        <img src="{{ vich_uploader_asset(entity, 'image') }}" width="36" height="14" alt="{{ entity.getImageName }}"/>
+                                    {% else %}
+                                        <img src="/images/88x35.png" width="36" height="14" alt="default site logo 36x14"/>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                            <div class="frame">
+                                <h3>
+                                    <a href="{{ path_city('_chain__delivery_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a>
+                                </h3>
+                                {#<a href="#" class="web">mamamia.ia</a>#}
+                            </div>
+                            <div class="footer">
+                                <ul class="stars">
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRatingDelivery) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="comment-link">{{ get_count_comment_by_chain(entity.id) }}</a>
                             </div>
                         </div>
-                        <div class="frame">
-                            <h3><a href="#">Мамамиа</a></h3>
-                            <a href="#" class="web">mamamia.ia</a>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">10</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="holder">
-                            <div class="images">
-                                <img src="/images/recomned-10.gif" width="38" height="18" alt="image description"/>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <h3><a href="#">Везувио</a></h3>
-                            <a href="#" class="web">mamamia.ia</a>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star ico-star-empty"></li>
-                            </ul>
-                            <a href="#" class="comment-link">23</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="holder">
-                            <div class="images">
-                                <img src="/images/recomned-09.gif" width="32" height="25" alt="image description"/>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <h3><a href="#">New York Street ...</a></h3>
-                            <a href="#" class="web">mamamia.ia</a>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star ico-star-half"></li>
-                            </ul>
-                            <a href="#" class="comment-link">5</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="holder">
-                            <div class="images">
-                                <img src="/images/recomned-08.gif" width="38" height="21" alt="image description"/>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <h3><a href="#">Империя Пиццы</a></h3>
-                            <a href="#" class="web">mamamia.ia</a>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">9</a>
-                        </div>
-                    </div>
-                    <div class="sub-list">
-                        <div class="holder">
-                            <div class="images">
-                                <img src="/images/recomned-07.gif" width="38" height="17" alt="image description"/>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <h3><a href="#">Виллабаджо</a></h3>
-                            <a href="#" class="web">mamamia.ia</a>
-                        </div>
-                        <div class="footer">
-                            <ul class="stars">
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                                <li class="ico-star"></li>
-                            </ul>
-                            <a href="#" class="comment-link">12</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    <div class="last-comment">
-        <div class="heading">
-            <h2>Последние отзывы</h2>
-        </div>
-        <ul>
-            <li>
-                <div class="meta">
-                    <strong class="name">Илья <span> —</span></strong>
-                    <a href="#" class="link">Мамамиа</a>
-                </div>
-                <span class="text">Помнится на-и наги очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое,...</span>
 
-                <div class="footer">
-                    <ul class="stars">
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star ico-star-half"></li>
-                        <li class="ico-star ico-star-empty"></li>
-                    </ul>
-                    <a href="#" class="read">Читать отзыв</a>
-                </div>
-            </li>
-            <li>
-                <div class="meta">
-                    <strong class="name">Марина <span> —</span></strong>
-                    <a href="#" class="link">Domino’s</a>
-                </div>
-                <span class="text">операторы - хамы, вместо обьяснения меню перебевают и грубят! узнать про меню не реально вас все время перебивают и ...</span>
 
-                <div class="footer">
-                    <ul class="stars">
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star ico-star-empty"></li>
-                        <li class="ico-star ico-star-empty"></li>
-                    </ul>
-                    <a href="#" class="read">Читать отзыв</a>
-                </div>
-            </li>
-            <li>
-                <div class="meta">
-                    <strong class="name">Анатолий <span> —</span></strong>
-                    <a href="#" class="link">Империя пиццы</a>
-                </div>
-                <span class="text">Очень вкусно готовят хорошое обслуживание, являюсь клиентом уже почти 6 лет Один только минус, в бортнычи...</span>
+    {#<div class="last-comment">#}
+        {#<div class="heading">#}
+            {#<h2>Последние отзывы</h2>#}
+        {#</div>#}
+        {#<ul>#}
+            {#<li>#}
+                {#<div class="meta">#}
+                    {#<strong class="name">Илья <span> —</span></strong>#}
+                    {#<a href="#" class="link">Мамамиа</a>#}
+                {#</div>#}
+                {#<span class="text">Помнится на-и наги очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое,...</span>#}
 
-                <div class="footer">
-                    <ul class="stars">
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                    </ul>
-                    <a href="#" class="read">Читать отзыв</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="widget_plugin">
-        <img src="/images/img-09.jpg" width="288" height="286" alt="image description"/>
-    </div>
-    <div class="widget_plugin">
-        <img src="/images/img-10.jpg" width="288" height="286" alt="image description"/>
-    </div>
+                {#<div class="footer">#}
+                    {#<ul class="stars">#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star ico-star-half"></li>#}
+                        {#<li class="ico-star ico-star-empty"></li>#}
+                    {#</ul>#}
+                    {#<a href="#" class="read">Читать отзыв</a>#}
+                {#</div>#}
+            {#</li>#}
+            {#<li>#}
+                {#<div class="meta">#}
+                    {#<strong class="name">Марина <span> —</span></strong>#}
+                    {#<a href="#" class="link">Domino’s</a>#}
+                {#</div>#}
+                {#<span class="text">операторы - хамы, вместо обьяснения меню перебевают и грубят! узнать про меню не реально вас все время перебивают и ...</span>#}
+
+                {#<div class="footer">#}
+                    {#<ul class="stars">#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star ico-star-empty"></li>#}
+                        {#<li class="ico-star ico-star-empty"></li>#}
+                    {#</ul>#}
+                    {#<a href="#" class="read">Читать отзыв</a>#}
+                {#</div>#}
+            {#</li>#}
+            {#<li>#}
+                {#<div class="meta">#}
+                    {#<strong class="name">Анатолий <span> —</span></strong>#}
+                    {#<a href="#" class="link">Империя пиццы</a>#}
+                {#</div>#}
+                {#<span class="text">Очень вкусно готовят хорошое обслуживание, являюсь клиентом уже почти 6 лет Один только минус, в бортнычи...</span>#}
+
+                {#<div class="footer">#}
+                    {#<ul class="stars">#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                        {#<li class="ico-star"></li>#}
+                    {#</ul>#}
+                    {#<a href="#" class="read">Читать отзыв</a>#}
+                {#</div>#}
+            {#</li>#}
+        {#</ul>#}
+    {#</div>#}
+    {#<div class="widget_plugin">#}
+        {#<img src="/images/img-09.jpg" width="288" height="286" alt="image description"/>#}
+    {#</div>#}
+    {#<div class="widget_plugin">#}
+        {#<img src="/images/img-10.jpg" width="288" height="286" alt="image description"/>#}
+    {#</div>#}
 </div>

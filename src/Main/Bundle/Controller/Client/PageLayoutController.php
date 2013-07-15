@@ -107,7 +107,6 @@ class PageLayoutController extends Controller
     {
         $em = $this->getEm();
 
-
         /** @var ChainRepository $chainRepositiory  */
         $chainRepositiory = $em->getRepository('MainBundle:Chain');
 

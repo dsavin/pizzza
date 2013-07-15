@@ -12,7 +12,9 @@
     <div id="main">
         <div class="promo">
             {% render "MainBundle:Client/PageLayout:indexSlider" with {  } %}
-            {% render "MainBundle:Client/PageLayout:indexTop" with { 'maxRatingDelivery': maxRatingDelivery, 'maxRatingChain': maxRatingChain } %}
+            <div class="aside">
+                {% render "MainBundle:Client/PageLayout:indexTop" with { 'maxRatingDelivery': maxRatingDelivery, 'maxRatingChain': maxRatingChain } %}
+            </div>
         </div>
         {% render "MainBundle:Client/PageLayout:indexRecommended" with { 'maxRatingDelivery': maxRatingDelivery, 'maxRatingChain': maxRatingChain } %}
         {% render "MainBundle:Client/PageLayout:indexDiscounts" with {  } %}

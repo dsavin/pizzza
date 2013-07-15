@@ -48,7 +48,9 @@
                         {% for public in entities %}
                             <div class="block">
                                 {% if public.getImageName %}
-                                    <img src="{{ vich_uploader_asset(public, 'image') }}" width="191" height="117" alt="{{ public.getImageName }}" class="thumb" />
+                                    <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">
+                                        <img src="{{ vich_uploader_asset(public, 'image') }}" width="191" height="117" alt="{{ public.getImageName }}" class="thumb" />
+                                    </a>
                                 {% endif %}
                                 <h3>
                                     <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">{{ public.name }}</a>
