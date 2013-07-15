@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.getTitle }}{% endblock %}
+{% block description %}{{ entity.getDescription }}{% endblock %}
+{% block keywords %}{{ entity.getKeywords }}{% endblock %}
+
+{% set _city = app.request.session.get('_city') %}
+
+{% set active = 3 %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

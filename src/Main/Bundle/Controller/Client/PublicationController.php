@@ -23,46 +23,27 @@ class PublicationController extends Controller
 {
 
     /**
-     * Displays a Discount entity.
+     * Displays a News entity.
      *
      * @Template()
      */
-    public function showAction($_city, $chain_url, $dis_url, Request $request)
+    public function newsAction($_city, $url, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $city = $this->getCityByUrl($_city);
 
-        $entityChain = $em->getRepository('MainBundle:Chain')->findOneBy(array(
-                                                                              'url'     => $chain_url,
+        $entity = $em->getRepository('MainBundle:News')->findOneBy(array(
+                                                                              'url'     => $url,
                                                                               'city_id' => $city->getId(),
                                                                               'lang'    => $request->getLocale()
                                                                          ));
-        if (!$entityChain) {
-            throw $this->createNotFoundException('Нету тут такой сети');
+        if (!$entity) {
+            throw $this->createNotFoundException('Нету такой новости');
         }
 
-        $entityDiscount = $em->getRepository('MainBundle:Discount')->findOneBy(array(
-                                                                                    'chain'   => $entityChain->getId(),
-                                                                                    'city_id' => $city->getId(),
-                                                                                    'lang'    => $request->getLocale(),
-                                                                                    'url'     => $dis_url
-                                                                               ));
-
-        if (!$entityDiscount) {
-            throw $this->createNotFoundException('Нету такой акции');
-        }
-
-        $entitiesDiscounts = $em->getRepository('MainBundle:Discount')->findSameDiscount(array(
-                                                                                              'chain'     => $entityChain->getId(),
-                                                                                              'city_id'   => $city->getId(),
-                                                                                              'lang'      => $request->getLocale(),
-                                                                                              'not_in_id' => $entityDiscount->getId()
-                                                                                         ));
 
         return array(
-            'entityChain'       => $entityChain,
-            'entityDiscount'    => $entityDiscount,
-            'entitiesDiscounts' => $entitiesDiscounts
+            'entity'       => $entity
         );
     }
 

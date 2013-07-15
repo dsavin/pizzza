@@ -22,28 +22,36 @@
                 </div>
             </div>
             <ul class="navigation">
-                <li class="active"><a href="#"><strong>Новости</strong></a></li>
-                <li><a href="#"><strong>Рецепты</strong></a></li>
-                <li><a href="#"><strong>Статьи</strong></a></li>
-                <li><a href="#"><strong>Обзоры</strong></a></li>
+                <li class="active">
+                    <a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">
+                        <strong>Новости</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">
+                        <strong>Рецепты</strong>
+                    </a>
+                </li>
+                {#<li><a href="#"><strong>Статьи</strong></a></li>#}
+                {#<li><a href="#"><strong>Обзоры</strong></a></li>#}
             </ul>
             <div class="main-info">
                 <div class="actions-list publication">
                     {% for entity in pagination %}
                         <div class="gholder">
-                            <img src="images/img-28.jpg" width="191" height="125" alt="image description" class="thumb"/>
-
+                            {% if entity.getImageName %}
+                                <img src="{{ vich_uploader_asset(entity, 'image') }}" width="191" height="125" alt="{{ entity.getImageName }}" class="thumb" />
+                            {% else %}
+                                <img src="images/img-19.jpg" width="191" height="125" alt="image description" class="thumb" />
+                            {% endif %}
                             <div class="holder">
-                                <h2><a href="#">Как придать блюдам пикантный вкус, или путешествие в мир специй</a></h2>
-
-                                <p>Для придания блюдам и напиткам изысканных вкусовых качеств в кулинарии различных стран
-                                    мира используют пряности и специи. С их помощью одни и те же блюда могут приобретать
-                                    различный вкус. Пряности и специи нельзя путать с пищевыми добавками, например, уксусом,
-                                    сахаром или солью.</p>
-
+                                <h2>
+                                    <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">{{ entity.name }}</a>
+                                </h2>
+                                <p>{{ entity.shortText }}</p>
                                 <div class="meta">
-                                    <em class="date">12 октября, 2012</em>
-                                    <a href="#" class="cat"><span>Рецепты</span></a>
+                                    <em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>
+                                    {#<a href="#" class="cat"><span>Рецепты</span></a>#}
                                 </div>
                             </div>
                         </div>

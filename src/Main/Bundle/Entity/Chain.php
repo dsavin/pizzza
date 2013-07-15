@@ -866,6 +866,8 @@ class Chain
         $branches = $this->getBranchsByLocale($this->getLang());
         $rating = 0;
 
+        if (!$max_rating) $max_rating = 1;
+
         foreach ( $branches as $branch ) {
             $rating = $rating + $branch->getRating();
         }
