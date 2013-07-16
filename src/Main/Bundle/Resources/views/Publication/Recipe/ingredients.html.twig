@@ -10,13 +10,16 @@
     <h3>Редактирование ингредиенов рецепта {{ entityRecipe.name }}</h3>
     
     <form action="{{ path_city('admin_recipe_ingredients', {id:id}) }}" method="post">
-        {% for ingredient in entitiesIngridient %}
-            <div>
-                <label>{{ ingredient.name }}</label>
-                <input type="text" value="{% for entity in entitiesRecipeIngredients %}{% if entity.ingredient.id == ingredient.id %}{{ entity.count }}{% endif %}{% endfor %}" name="count[{{ ingredient.id }}]"/>
-            </div>
-        {% endfor %}
-        <br/>
+        <table>
+            {% for ingredient in entitiesIngridient %}
+                <tr>
+                    <td>{{ ingredient.name }}</td>
+                    <td>
+                        <input type="text" value="{% for entity in entitiesRecipeIngredients %}{% if entity.ingredient.id == ingredient.id %}{{ entity.count }}{% endif %}{% endfor %}" name="count[{{ ingredient.id }}]"/>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
         <br/>
         <p>
             <button type="submit" class="btn btn-success">Сохранить</button>
