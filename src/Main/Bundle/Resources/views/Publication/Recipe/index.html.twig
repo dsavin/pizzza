@@ -26,7 +26,7 @@
                 </td>
                 <td>
                     <div>
-                        <a target="_blank" href="" class="btn"><i class="icon-eye-open"></i></a>
+                        <a target="_blank" href="{{ path_city('_recipe_single',{'_city':_city,'_locale':app.request.getLocale(), 'url': entity.url }) }}" class="btn"><i class="icon-eye-open"></i></a>
                         <a href="{{ path_city('admin_recipe_new', { 'id': entity.id }) }}" class="btn"><i class="icon-edit"></i></a>
                     </div>
                 </td>
