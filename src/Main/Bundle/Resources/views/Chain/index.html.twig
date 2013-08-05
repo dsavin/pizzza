@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>Название</th>
-                <th>Url</th>
+                <th></th>
                 <th></th>
                 <th>Филиалы</th>
                 <th>Акции</th>
@@ -18,8 +18,12 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path_city('admin_chain_edit', { 'id': entity.id }) }}">{{ entity.GetName }}</a></td>
-                <td>{{ entity.url }}</td>
+                <td>
+                    <a href="{{ path_city('admin_chain_edit', { 'id': entity.id }) }}">{{ entity.GetName }}</a>
+                </td>
+                <td>
+                    <a href="{{ path_city('admin_chain_comments', { 'chain_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Комментарии</a>
+                </td>
                 <td>
                     {%- if entity.getChildren.count > 0-%}
                         <a href="{{ path_city('admin_chain_edit', { 'id': entity.getChildren.first.id, '_locale':'en' }) }}">en</a>

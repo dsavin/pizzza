@@ -1,0 +1,73 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block body %}
+    <h3>Комментарии к - {{ entity.getName }}</h3>
+    <table class="table table-hover" id="comments_table">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>E-mail</th>
+                <th>Рейтинг</th>
+                <th>Создано в</th>
+                <th>Текст</th>
+                <th>Пользователь</th>
+                <th>
+                    <a href="#" onclick="return comment.addNewFieldsForComment();">add</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.name }}</td>
+                    <td>{{ comment.email }}</td>
+                    <td>{{ comment.rating }}</td>
+                    <td>{{ comment.createdAt|date('d.m.Y H:i') }}</td>
+                    <td>{{ comment.text }}</td>
+                    <td>{{ comment.userIp }}</td>
+                    <td>
+                        <div>
+                            <a href="#" class="btn btn-success">save</a>
+                            <a href="#" class="btn btn-danger">x</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        var commentController = function()
+        {
+            this.init = function()
+            {
+
+                return false;
+            }
+
+            this.addNewFieldsForComment = function()
+            {
+                var tbody = $('#comments_table').find('tbody');
+
+                var tr =
+                '<tr>'+
+                    '<td>sdfg</td>'+
+                    '<td>sdfg</td>'+
+                    '<td>sdfg</td>'+
+                    '<td>sdfg</td>'+
+                    '<td>sdfg</td>'+
+                    '<td>sdfg</td>'+
+                    '<td>'+
+                        '<div>'+
+                            '<a href="#" class="btn btn-success">save</a>'+
+                            '<a href="#" class="btn btn-danger">x</a>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
+
+                tbody.append(tr);
+
+                return false;
+            }
+        }
+        var comment = new commentController();
+    </script>
+{% endblock %}
