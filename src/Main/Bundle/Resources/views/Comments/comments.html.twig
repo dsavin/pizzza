@@ -1,0 +1,114 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+{% block body %}
+    <h3>Комментарии к - {{ entity.getName }}</h3>
+    <table class="table table-hover" id="comments_table">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>E-mail</th>
+                <th>Рейтинг</th>
+                <th>Создано в</th>
+                <th>Текст</th>
+                <th>Пользователь</th>
+                <th>
+                    <a href="#" onclick="return comment.addNewFieldsForComment();">add</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody style="font-size: 10px;">
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.name }}</td>
+                    <td>{{ comment.email }}</td>
+                    <td>{{ comment.rating }}</td>
+                    <td>{{ comment.createdAt|date('d.m.Y H:i') }}</td>
+                    <td>{{ comment.text }}</td>
+                    <td>{{ comment.userIp }}</td>
+                    <td>
+                        <div>
+                            {#<a href="#" class="btn btn-success">save</a>#}
+                            {#<a href="#" class="btn btn-danger">x</a>#}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        var commentController = function()
+        {
+            this.init = function()
+            {
+
+                return false;
+            }
+
+            this.addNewFieldsForComment = function()
+            {
+                var tbody = $('#comments_table').find('tbody');
+
+                var tr =
+                '<tr>'+
+                    '<td><input type="text" name="name" style="width: 100px;"></td>'+
+                    '<td><input type="email" name="email" style="width: 100px;"></td>'+
+                    '<td><select name="rating" style="width: 40px;"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>'+
+                    '<td><input type="date" name="date" style="width: 100px;"></td>'+
+                    '<td><textarea name="text" style="width: 100px;"></textarea></td>'+
+                    '<td></td>'+
+                    '<td>'+
+                        '<div>'+
+                            '<a href="#" class="btn btn-success" onclick="return comment.saveComment(this)">save</a><br/>'+
+                            '<a href="#" class="btn btn-danger" onclick="return comment.canselComment(this)">x</a>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
+
+                tbody.append(tr);
+
+                return false;
+            }
+
+            this.saveComment = function(e)
+            {
+                var tr = $(e).parent().parent().parent();
+                var name = tr.find('input[name=name]');
+                var email = tr.find('input[name=email]');
+                var date = tr.find('input[name=date]');
+                var rating = tr.find('select[name=rating]');
+                var text = tr.find('textarea[name=text]');
+
+                var args = {
+                    name: name.val().trim(),
+                    email: email.val().trim(),
+                    date: date.val().trim(),
+                    rating: rating.val().trim(),
+                    text: text.val().trim()
+                };
+
+                $.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
+                        function(data){
+                            console.log(data);
+                        }, "json")
+                        .done(function(data){
+                            if (data.success) {
+                                name.parent().html(args.name);
+                                email.parent().html(args.email);
+                                date.parent().html(args.date);
+                                rating.parent().html(args.rating);
+                                text.parent().html(args.text);
+                            }
+                        });
+
+                return false;
+            }
+
+            this.canselComment = function(e)
+            {
+                $(e).parent().parent().parent().remove();
+
+                return false;
+            }
+        }
+        var comment = new commentController();
+    </script>
+{% endblock %}
