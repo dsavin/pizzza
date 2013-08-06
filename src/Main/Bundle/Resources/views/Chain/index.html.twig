@@ -23,6 +23,7 @@
                 </td>
                 <td>
                     <a href="{{ path_city('admin_chain_comments', { 'chain_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Комментарии</a>
+                    <a href="{{ path_city('admin_delivery_comments', { 'chain_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Ком. доств.</a>
                 </td>
                 <td>
                     {%- if entity.getChildren.count > 0-%}

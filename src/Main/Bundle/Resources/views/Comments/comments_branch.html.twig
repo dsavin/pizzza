@@ -1,6 +1,6 @@
 {% extends "MainBundle:PageLayout:base_admin.html.twig" %}
 {% block body %}
-    <h3>Комментарии к - {{ entity.getName }}</h3>
+    <h3>Комментарии к - {{ entity.getName }} - {{ branch.street }}</h3>
     <table class="table table-hover" id="comments_table">
         <thead>
             <tr>
@@ -85,7 +85,7 @@
                     text: text.val().trim()
                 };
 
-                $.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
+                $.post("{{ path_city('admin_branch_comments_add', { 'chain_id': entity.id, 'branch_id': branch.id, '_locale':'ru' }) }}", args,
                         function(data){
                             console.log(data);
                         }, "json")

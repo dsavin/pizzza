@@ -85,7 +85,7 @@
                     text: text.val().trim()
                 };
 
-                $.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
+                $.post("{{ path_city('admin_delivery_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
                         function(data){
                             console.log(data);
                         }, "json")
