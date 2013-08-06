@@ -17,3 +17,7 @@ app/config/parameters.yml
 LICENSE
 README.md
 UPGRADE.md
+
+app/SymfonyRequirements.php
+app/check.php
+www/config.php
