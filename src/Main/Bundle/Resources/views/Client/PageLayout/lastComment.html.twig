@@ -3,53 +3,23 @@
         <h2>Последние отзывы</h2>
     </div>
     <ul>
-        <li>
-            <div class="meta">
-                <strong class="name">Илья <span>—</span></strong>
-                <a href="#" class="link">Мамамиа</a>
-                <ul class="stars">
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star ico-star-half"></li>
-                    <li class="ico-star ico-star-empty"></li>
-                </ul>
-                <em class="date">18 декабря, 2012</em>
-            </div>
-            <span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто.Очень вкусно готовят, хорошое обслуживание, являюсь клиентом уже почти 6 лет ...</span>
-            <a href="#" class="read">Читать отзыв</a>
-        </li>
-        <li>
-            <div class="meta">
-                <strong class="name">Марина <span>—</span></strong>
-                <a href="#" class="link">Domino’s</a>
-                <ul class="stars">
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star ico-star-empty"></li>
-                    <li class="ico-star ico-star-empty"></li>
-                </ul>
-                <em class="date">25 сентября, 2012</em>
-            </div>
-            <span class="text">операторы - хамы, вместо обьяснения меню перебевают и грубят! узнать про меню не реально, вас все время перебивают Очень вкусно готовят, хорошое обслуживание,  ...</span>
-            <a href="#" class="read">Читать отзыв</a>
-        </li>
-        <li>
-            <div class="meta">
-                <strong class="name">Анатолий <span>—</span></strong>
-                <a href="#" class="link">Империя пиццы</a>
-                <ul class="stars">
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                    <li class="ico-star"></li>
-                </ul>
-                <em class="date">18 сентября, 2012</em>
-            </div>
-            <span class="text">Очень вкусно готовят, хорошое обслуживание,Очень вкусно готовят, хорошое обслуживание, являюсь клиентом уже почти 6 лет.  являюсь клиентом уже почти 6 лет. Один только минус,  ...</span>
-            <a href="#" class="read">Читать отзыв</a>
-        </li>
+        {% for entity in entities %}
+            <li>
+                <div class="meta">
+                    <strong class="name">{{ entity.name }} <span>—</span></strong>
+                    <a href="{{ path_city('_chain_single',{'chain_url':entity.chain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="link">{{ entity.chain.name }}</a>
+                    <ul class="stars">
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star"></li>
+                        <li class="ico-star ico-star-half"></li>
+                        <li class="ico-star ico-star-empty"></li>
+                    </ul>
+                    <em class="date">{{ entity.createdAt | date('d.m.Y H:i') }}</em>
+                </div>
+                <span class="text">{{ entity.text |slice(0, 400) }} {% if entity.text|length > 400 %}...{% endif %}</span>
+                <a href="{{ path_city('_chain_comments',{'chain_url':entity.chain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}#comment_{{ entity.id }}" class="read">Читать отзыв</a>
+            </li>
+        {% endfor %}
     </ul>
 </div>

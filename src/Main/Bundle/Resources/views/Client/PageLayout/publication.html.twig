@@ -1,51 +1,58 @@
+{% set _city = app.request.session.get('_city') %}
+{% set _locale = app.request.session.get('_locale') %}
 <div class="last-news">
     <div class="heading">
         <h2>Последние публикации</h2>
-        <a href="#">Все публикации</a>
+        {#<a href="#">Все публикации</a>#}
     </div>
     <div class="center">
         <div class="article">
-            <img src="images/img-04.jpg" width="200" height="117" alt="image description"/>
 
-            <h3><a href="#">Рецепт океанской пиццы</a></h3>
+            {% set urlF = '/' %}
+            {% set urlCatF = '/' %}
+            {% set entityF =  entities[0] %}
+            {% if entityF.type == types.news %}
+                {% set url = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
+                {% set urlCat = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
+            {% elseif entityF.type == types.recipe %}
+                {% set url = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
+                {% set urlCat = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
+            {% endif %}
+            {% if entityF.getImageName %}
+                <img src="{{ vich_uploader_asset(entityF, 'image')| apply_filter('publication_index') }}" style="max-width: 200px;" height="117" alt="{{ entityF.getImageName }}"/>
+            {% endif %}
+            <h3>
+                <a href="{{ urlF }}">{{ entityF.name }}</a>
+            </h3>
 
-            <p>Один из лучших рецептов уходящего года предоставлен для вас самой лучшей пиццерией города, в
-                которой вас непременно научат готовить уникальную океанскую пиццу ...</p>
+            <p>{{ entityF.shortText }} ...</p>
 
             <div class="meta">
-                <div class="cat"><a href="#">Рецепты</a></div>
-                <em class="date">12 октября, 2012</em>
+                <div class="cat"><a href="{{ urlCatF }}">{{ entityF.getTypeName }}</a></div>
+                <em class="date">{{ entityF.createdAt| date('d.m.Y H:i') }}</em>
             </div>
         </div>
         <ul>
-            <li>
-                <h3><a href="#">Как придать блюдам пикантный вкус, или ...</a></h3>
+            {% for entity in entities|slice(1, 4) %}
+                {% set url = '/' %}
+                {% set urlCat = '/' %}
+                {% if entity.type == types.news %}
+                    {% set url = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
+                    {% set urlCat = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
+                {% elseif entity.type == types.recipe %}
+                    {% set url = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
+                    {% set urlCat = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
+                {% endif %}
+                <li>
+                    <h3>
+                        <a href="{{ url }}">{{ entity.name }}</a>
+                    </h3>
 
-                <div class="cat">
-                    <a href="#">Рецепты</a>
-                </div>
-            </li>
-            <li>
-                <h3><a href="#">Обнаружены новые сорта пиццы в Domino’s</a></h3>
-
-                <div class="cat">
-                    <a href="#">Новости</a>
-                </div>
-            </li>
-            <li>
-                <h3><a href="#">Как приготовить салат</a></h3>
-
-                <div class="cat">
-                    <a href="#">Статьи</a>
-                </div>
-            </li>
-            <li>
-                <h3><a href="#">Обновление нашего сайта</a></h3>
-
-                <div class="cat">
-                    <a href="#">Сайт</a>
-                </div>
-            </li>
+                    <div class="cat">
+                        <a href="{{ urlCat }}">{{ entity.getTypeName }}</a>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>

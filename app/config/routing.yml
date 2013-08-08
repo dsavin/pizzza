@@ -12,3 +12,7 @@ _client:
 
 _client_php:
     resource: "@MainBundle/Resources/config/client1.php"
+
+_imagine:
+    resource: .
+    type:     imagine

@@ -23,6 +23,8 @@ class AppKernel extends Kernel
 
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

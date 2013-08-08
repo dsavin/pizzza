@@ -68,4 +68,26 @@ class PublicationRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getAllWithLimit(array $vars)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('p')
+            ->from('MainBundle:Publication', 'p')
+
+            ->where('p.lang = :lang')
+            ->andWhere('p.city_id = :city_id')
+
+            ->setParameter('city_id', $vars['city_id'])
+            ->setParameter('lang', $vars['lang'])
+
+            ->orderBy('p.id','DESC')
+
+            ->setMaxResults($vars['limit'])
+        ;
+
+        return $query->getQuery()->getResult();
+    }
 }

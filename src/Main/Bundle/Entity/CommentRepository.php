@@ -63,7 +63,17 @@ class CommentRepository extends EntityRepository
         return $result;
     }
 
-//    public function getComment
+    public function getAllWithLimit(array $data)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+            ->select('c')
+            ->from('MainBundle:Comment', 'c')
+            ->orderBy('c.created_at','DESC')
+        ;
 
+        $query->setMaxResults($data['limit']);
 
+        return $query->getQuery()->getResult();
+    }
 }

@@ -6,8 +6,8 @@ use Main\Bundle\Controller\BaseController as Controller;
 
 use Main\Bundle\Entity\ChainRepository;
 use Main\Bundle\Entity\Slider;
-
-
+use Main\Bundle\Entity\Publication;
+use Main\Bundle\Entity\Comment;
 
 class PageLayoutController extends Controller
 {
@@ -67,17 +67,28 @@ class PageLayoutController extends Controller
 
     public function indexPublicationAction()
     {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+        $city = $this->getCurrentCity();
+        $entities = $em->getRepository('MainBundle:Publication')->getAllWithLimit(array('lang'=>$request->getLocale(), 'city_id' => $city->getId(), 'limit' => 5));
 
         return $this->render('MainBundle:Client/PageLayout:publication.html.twig',
                              array(
+                                 'entities' => $entities,
+                                 'types' => array('news' => Publication::TYPE_NEWS, 'recipe' => Publication::TYPE_RECIPE)
                              ));
     }
 
     public function lastCommentAction()
     {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+        $city = $this->getCurrentCity();
+        $entities = $em->getRepository('MainBundle:Comment')->getAllWithLimit(array('lang'=>$request->getLocale(), 'city_id' => $city->getId(), 'limit' => 3));
 
         return $this->render('MainBundle:Client/PageLayout:lastComment.html.twig',
                              array(
+                                 'entities' => $entities
                              ));
     }
 

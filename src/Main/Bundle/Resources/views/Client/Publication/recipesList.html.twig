@@ -41,7 +41,7 @@
                         <div class="gholder">
                             {% if entity.getImageName %}
                                 <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">
-                                    <img src="{{ vich_uploader_asset(entity, 'image') }}" width="191" height="125" alt="{{ entity.getImageName }}" class="thumb" />
+                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ entity.getImageName }}" class="thumb" />
                                 </a>
                             {% else %}
                                 <img src="images/img-19.jpg" width="191" height="125" alt="image description" class="thumb" />

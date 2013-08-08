@@ -33,7 +33,7 @@
                             {#<a href="#" class="cat"><span>Рецепты</span></a>#}
                         </div>
                         {% if entity.getImageName %}
-                            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="626" height="261" alt="{{ entity.getImageName }}" class="thumb" />
+                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />
                         {% endif %}
                         {{ entity.text|raw }}
                     </div>

@@ -441,4 +441,20 @@ class Publication
     {
         return self::TYPE_PUBLICATION;
     }
+
+    public function getTypeName()
+    {
+        $name = 'Публикация';
+
+        switch ($this->getType()) {
+            case self::TYPE_NEWS:
+                $name = 'Новость';
+                break;
+            case self::TYPE_RECIPE:
+                $name = 'Рецепт';
+                break;
+        }
+
+        return $name;
+    }
 }

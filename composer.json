@@ -21,7 +21,9 @@
         "kriswallsmith/assetic": "1.1.*@dev",
 
         "vich/uploader-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "dev-master"
+        "knplabs/knp-paginator-bundle": "dev-master",
+
+        "avalanche123/imagine-bundle": "2.1.2"
     },
     "scripts": {
         "post-install-cmd": [
