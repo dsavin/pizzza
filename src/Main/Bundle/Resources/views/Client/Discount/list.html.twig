@@ -31,7 +31,7 @@
                             {% endif %}
                             <div class="holder">
                                 <h2>
-                                    <a href="{{ path_city('_discount_single', { 'chain_url': entity.getChain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.name }}</a>
+                                    <a href="{{ path_city('_discount_single', { 'chain_url': entity.getChain.url, 'dis_url': entity.url, '_city':_city,'_locale':_locale }) }}">{{ entity.name }}</a>
                                 </h2>
                                 <p>{{ entity.shortText }}</p>
                                 <div class="meta">

@@ -9,6 +9,7 @@ $routes['_news_list'] = array('url' => '/public', 'params' => array('_controller
 $routes['_recipe_list'] = array('url' => '/recipes', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipesList'));
 $routes['_news_single'] = array('url' => '/public/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
 $routes['_recipe_single'] = array('url' => '/recipes/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipe'));
+$routes['_discount_single'] = array('url' => '/discount/{chain_url}/{dis_url}', 'params' => array('_controller' => 'MainBundle:Client\Discount:show'));
 $routes['_discounts_list'] = array('url' => '/discounts', 'params' => array('_controller' => 'MainBundle:Client\Discount:list'));
 $routes['_chain_discounts_list'] = array('url' => '/discounts/{chain_url}', 'params' => array('_controller' => 'MainBundle:Client\Chain:discounts'));
 $routes['_delivery_list'] = array('url' => '/delivery', 'params' => array('_controller' => 'MainBundle:Client\Chain:deliveryList'));

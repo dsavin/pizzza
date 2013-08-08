@@ -83,7 +83,7 @@ class PublicationRepository extends EntityRepository
             ->setParameter('city_id', $vars['city_id'])
             ->setParameter('lang', $vars['lang'])
 
-            ->orderBy('p.id','DESC')
+            ->orderBy('p.created_at','DESC')
 
             ->setMaxResults($vars['limit'])
         ;

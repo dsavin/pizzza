@@ -12,14 +12,16 @@
             {% set urlCatF = '/' %}
             {% set entityF =  entities[0] %}
             {% if entityF.type == types.news %}
-                {% set url = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
-                {% set urlCat = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
+                {% set urlF = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
+                {% set urlCatF = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
             {% elseif entityF.type == types.recipe %}
-                {% set url = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
-                {% set urlCat = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
+                {% set urlF = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
+                {% set urlCatF = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
             {% endif %}
             {% if entityF.getImageName %}
-                <img src="{{ vich_uploader_asset(entityF, 'image')| apply_filter('publication_index') }}" style="max-width: 200px;" height="117" alt="{{ entityF.getImageName }}"/>
+                <a href="{{ urlF }}">
+                    <img src="{{ vich_uploader_asset(entityF, 'image')| apply_filter('publication_index') }}" style="max-width: 200px;" height="117" alt="{{ entityF.getImageName }}"/>
+                </a>
             {% endif %}
             <h3>
                 <a href="{{ urlF }}">{{ entityF.name }}</a>
