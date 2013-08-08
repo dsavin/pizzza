@@ -6,6 +6,7 @@ vendor/*
 */logs/*
 */cache/*
 www/uploads/*
+www/media/*
 www/bundles/*
 
 # Configuration files

@@ -85,20 +85,16 @@ vich_uploader:
             upload_destination: %kernel.root_dir%/../www/uploads/images/slider
 
 avalanche_imagine:
-    source_root:  %kernel.root_dir%/../www
-    web_root:     %kernel.root_dir%/../www
-    cache_prefix: media/cache
-    driver:       gd
     filters:
         publication_page:
             type:    relative_resize
-            options: { heighten: 261, mode: outbound, cache_type: public, cache_expires: 2 weeks }
+            options: { heighten: 261, mode: outbound }
         publication_list:
             type:    relative_resize
-            options: { heighten: 125, mode: outbound, cache_type: public, cache_expires: 2 weeks }
+            options: { heighten: 125, mode: outbound}
         publication_index:
             type:    relative_resize
-            options: { heighten: 117, mode: outbound, cache_type: public, cache_expires: 2 weeks }
+            options: { heighten: 117, mode: outbound }
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
