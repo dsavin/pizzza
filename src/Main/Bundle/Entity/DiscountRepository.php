@@ -18,8 +18,9 @@
             $em = $this->getEntityManager();
 
             $query = $em->createQueryBuilder()
-                ->select('d')
+                ->select('d','ch')
                 ->from('MainBundle:Discount','d')
+                ->join('d.chain','ch')
                 ->where('d.chain = :chain')
                 ->andWhere('d.city_id = :city_id')
                 ->andWhere('d.lang = :lang')
@@ -27,6 +28,31 @@
                 ->setParameters($data)
                 ->setMaxResults(3)
                 ;
+
+            return $query->getQuery()->getResult();
+        }
+
+        /**
+         * Выборка акций других пиццерий
+         *
+         * @param array $data
+         * @return array
+         */
+        public function findOthers(array $data)
+        {
+            $em = $this->getEntityManager();
+
+            $query = $em->createQueryBuilder()
+                ->select('d','ch')
+                ->from('MainBundle:Discount','d')
+                ->join('d.chain','ch')
+                ->where('d.chain <> :chain')
+                ->andWhere('d.city_id = :city_id')
+                ->andWhere('d.lang = :lang')
+                ->andWhere('d.id > :not_in_id')
+                ->setParameters($data)
+                ->setMaxResults(3)
+            ;
 
             return $query->getQuery()->getResult();
         }

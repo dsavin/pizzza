@@ -34,7 +34,7 @@
                     <div class="single-article">
                         <div class="time">{{ entityDiscount.getTimeWork }}</div>
                         {% if entityDiscount.getImageName %}
-                            <img src="{{ vich_uploader_asset(entityDiscount, 'image') }}" width="596" height="290" alt="{{ entityDiscount.getImageName }}" class="thumb" />
+                            <img src="{{ vich_uploader_asset(entityDiscount, 'image') | apply_filter('discount_page') }}" width="596" alt="{{ entityDiscount.getImageName }}" class="thumb" />
                         {% endif %}
                         <p>{{ entityDiscount.getText }}</p>
                     </div>
@@ -49,7 +49,9 @@
                         {% for entity in entitiesDiscounts %}
                             <div class="block">
                                 {% if entity.getImageName %}
-                                    <img src="{{ vich_uploader_asset(entity, 'image') }}" width="191" height="127" alt="{{ entity.getImageName }}" />
+                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
+                                {% else %}
+                                    <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
                                 {% endif %}
                                 <h3>
                                     <a href="{{ path_city('_discount_single', { 'chain_url': entityChain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.getName }}</a>
@@ -61,30 +63,24 @@
             {% endif %}
             <div class="another-article">
                 <div class="heading">
-                    <h2>Похожие акции</h2>
+                    <h2>Интересные акции</h2>
                 </div>
                 <div class="content">
-                    <div class="block">
-                        <img src="/images/img-20.jpg" width="191" height="127" alt="image description" />
-                        <h3><a href="#">Живая пицца от Il Molino</a></h3>
-                        <div class="name">
-                            <a href="#">Il Molino</a>
+                    {% for entity in entitiesOthers %}
+                        <div class="block">
+                            {% if entity.getImageName %}
+                                <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
+                            {% else %}
+                                <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
+                            {% endif %}
+                            <h3>
+                                <a href="{{ path_city('_discount_single', { 'chain_url': entity.chain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.getName }}</a>
+                            </h3>
+                            <div class="name">
+                                <a href="{{ path_city('_chain_single',{'chain_url':entity.chain.url, '_city':_city,'_locale':_locale}) }}">{{ entity.chain.name }}</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="block">
-                        <img src="/images/img-21.jpg" width="191" height="127" alt="image description" />
-                        <h3><a href="#">Супер-скидка 20 % от Pizza House на все меню</a></h3>
-                        <div class="name">
-                            <a href="#">Pizza House</a>
-                        </div>
-                    </div>
-                    <div class="block">
-                        <img src="/images/img-19.jpg" width="191" height="127" alt="image description" />
-                        <h3><a href="#">Бесплатная ночная доставка от Е-pizza</a></h3>
-                        <div class="name">
-                            <a href="#">E-Pizza</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -56,10 +56,18 @@
                                                                                                   'not_in_id'     => $entityDiscount->getId()
                                                                                              ));
 
+            $entitiesOthers = $em->getRepository('MainBundle:Discount')->findOthers(array(
+                                                                                        'chain'   => $entityChain->getId(),
+                                                                                        'city_id' => $city->getId(),
+                                                                                        'lang'    => $request->getLocale(),
+                                                                                        'not_in_id'     => $entityDiscount->getId()
+                                                                                    ));
+
             return array(
                 'entityChain'    => $entityChain,
                 'entityDiscount' => $entityDiscount,
-                'entitiesDiscounts' => $entitiesDiscounts
+                'entitiesDiscounts' => $entitiesDiscounts,
+                'entitiesOthers' => $entitiesOthers
             );
         }
 
