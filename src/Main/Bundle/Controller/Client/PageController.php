@@ -36,7 +36,6 @@ class PageController extends Controller
             throw $this->createNotFoundException('Нету тут такой Страницы');
         }
 
-
         return array(
             'entity'    => $entity,
         );

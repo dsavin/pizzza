@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Main\Bundle\Entity\City;
 use Main\Bundle\Entity\Chain;
+use Main\Bundle\Entity\Branch;
+use Main\Bundle\Entity\Comment;
 
 class PageLayoutController extends Controller
 {
@@ -26,10 +28,17 @@ class PageLayoutController extends Controller
 
     public function headerAction($active = 0)
     {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
+        $city = $this->getCurrentCity();
+        $comments = $em->getRepository('MainBundle:Comment')->findAll();
+        $branchesCount = $em->getRepository('MainBundle:Branch')->getCountBranch($city->getId(), $request->getLocale());
 
         return $this->render('MainBundle:PageLayout:header.html.twig',
                              array(
-                                  'active' => $active
+                                 'active' => $active,
+                                 'commentsCount' => count($comments),
+                                 'branchesCount' => $branchesCount
                              ));
     }
 
@@ -54,10 +63,13 @@ class PageLayoutController extends Controller
         $topDelivery = $chainRepositiory->getTopDeliveryRating($city->getId(), $request->getLocale(), 5);
         $topChains = $this->getTopChain($city->getId(), $request->getLocale(), 5);
 
+        $entities = $em->getRepository('MainBundle:Comment')->getAllWithLimit(array('lang'=>$request->getLocale(), 'city_id' => $city->getId(), 'limit' => 3));
+
         return $this->render('MainBundle:PageLayout:sidebar.html.twig',
                              array(
                                  'topChains' => $topChains,
-                                 'topDelivery' => $topDelivery
+                                 'topDelivery' => $topDelivery,
+                                 'entities' => $entities
                              ));
     }
 

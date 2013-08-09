@@ -1,8 +1,8 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
 {% set active = 1 %}
 
 {% block javascripts %}
@@ -15,10 +15,10 @@
         <div class="heading-page">
             <ul class="breadcrumbs">
                 <li><a href="/">Главная</a></li>
-                <li>Доставка</li>
+                <li>Пиццерии</li>
             </ul>
             <div class="gholder">
-                <h1>Доставка пиццы в Киеве</h1>
+                <h1>Пиццерии в Киеве</h1>
             </div>
             {#<form action="#" class="search">#}
                 {#<fieldset>#}

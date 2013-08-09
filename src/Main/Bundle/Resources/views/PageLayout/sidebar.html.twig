@@ -35,9 +35,9 @@
                             <div class="holder">
                                 <div class="images">
                                     {% if entity.getImageName %}
-                                        <img src="{{ vich_uploader_asset(entity, 'image') }}" width="36" height="14" alt="{{ entity.getImageName }}"/>
+                                        <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="{{ entity.getImageName }}"/>
                                     {% else %}
-                                        <img src="/images/88x35.png" width="36" height="14" alt="default site logo 36x14"/>
+                                        <img src="{{ 'images/303x208.png' | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="default site logo 36x14"/>
                                     {% endif %}
                                 </div>
 
@@ -62,73 +62,49 @@
             </div>
         </div>
     </div>
+    <div class="last-comment">
+        <div class="heading">
+            <h2>Последние отзывы</h2>
+        </div>
+        <ul>
+            {% for entity in entities %}
+                <li>
+                    <div class="meta">
+                        <strong class="name">{{ entity.name }} <span>—</span></strong>
+                        <a href="{{ path_city('_chain_single',{'chain_url':entity.chain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="link">{{ entity.chain.name }}</a>
+                    </div>
+                    <span class="text">{{ entity.text |slice(0, 400) }} {% if entity.text|length > 400 %}...{% endif %}</span>
 
+                    <div class="footer">
+                        <ul class="stars">
+                            {% for i in 1..5 %}
+                                <li class="ico-star {% if i > entity.rating %} ico-star-empty{% endif %}"></li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{{ path_city('_chain_comments',{'chain_url':entity.chain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}#comment_{{ entity.id }}" class="read">Читать отзыв</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="widget_plugin">
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-like-box" data-href="https://www.facebook.com/pizZza.com.ua" data-width="288" data-height="286" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+    </div>
+    <div class="widget_plugin">
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?98"></script>
 
-    {#<div class="last-comment">#}
-        {#<div class="heading">#}
-            {#<h2>Последние отзывы</h2>#}
-        {#</div>#}
-        {#<ul>#}
-            {#<li>#}
-                {#<div class="meta">#}
-                    {#<strong class="name">Илья <span> —</span></strong>#}
-                    {#<a href="#" class="link">Мамамиа</a>#}
-                {#</div>#}
-                {#<span class="text">Помнится на-и наги очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое,...</span>#}
-
-                {#<div class="footer">#}
-                    {#<ul class="stars">#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star ico-star-half"></li>#}
-                        {#<li class="ico-star ico-star-empty"></li>#}
-                    {#</ul>#}
-                    {#<a href="#" class="read">Читать отзыв</a>#}
-                {#</div>#}
-            {#</li>#}
-            {#<li>#}
-                {#<div class="meta">#}
-                    {#<strong class="name">Марина <span> —</span></strong>#}
-                    {#<a href="#" class="link">Domino’s</a>#}
-                {#</div>#}
-                {#<span class="text">операторы - хамы, вместо обьяснения меню перебевают и грубят! узнать про меню не реально вас все время перебивают и ...</span>#}
-
-                {#<div class="footer">#}
-                    {#<ul class="stars">#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star ico-star-empty"></li>#}
-                        {#<li class="ico-star ico-star-empty"></li>#}
-                    {#</ul>#}
-                    {#<a href="#" class="read">Читать отзыв</a>#}
-                {#</div>#}
-            {#</li>#}
-            {#<li>#}
-                {#<div class="meta">#}
-                    {#<strong class="name">Анатолий <span> —</span></strong>#}
-                    {#<a href="#" class="link">Империя пиццы</a>#}
-                {#</div>#}
-                {#<span class="text">Очень вкусно готовят хорошое обслуживание, являюсь клиентом уже почти 6 лет Один только минус, в бортнычи...</span>#}
-
-                {#<div class="footer">#}
-                    {#<ul class="stars">#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                        {#<li class="ico-star"></li>#}
-                    {#</ul>#}
-                    {#<a href="#" class="read">Читать отзыв</a>#}
-                {#</div>#}
-            {#</li>#}
-        {#</ul>#}
-    {#</div>#}
-    {#<div class="widget_plugin">#}
-        {#<img src="/images/img-09.jpg" width="288" height="286" alt="image description"/>#}
-    {#</div>#}
-    {#<div class="widget_plugin">#}
-        {#<img src="/images/img-10.jpg" width="288" height="286" alt="image description"/>#}
-    {#</div>#}
+        <!-- VK Widget -->
+        <div id="vk_groups"></div>
+        <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "288", height: "286", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 22914399);
+        </script>
+    </div>
 </div>

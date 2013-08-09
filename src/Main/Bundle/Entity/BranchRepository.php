@@ -34,4 +34,46 @@ class BranchRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getCountBranch($city_id, $_locale)
+    {
+        $em = $this->getEntityManager();
+
+//        $query = $em->createQueryBuilder()
+//            ->select('b')
+//            ->from('MainBundle:Branch', 'b')
+//            ->join('b.chain','c')
+//
+//            ->where('c.url = :chain_url')
+//            ->andWhere('c.city_id = :city_id')
+//            ->andWhere('c.lang = :lang')
+//            ->andWhere('b.lang = :lang')
+//
+//            ->setParameter('chain_url', $chain_url)
+//            ->setParameter('city_id',$city_id)
+//            ->setParameter('lang',$_locale)
+//        ;
+
+        $query = $em->createQuery('
+            SELECT
+                COUNT(b.id)
+            FROM
+                MainBundle:Branch b
+            JOIN
+                b.chain c
+            WHERE
+                c.city_id = :city_id
+            AND
+                c.lang = :lang
+            AND
+                b.lang = :lang
+                ');
+        $query
+            ->setParameter('city_id',$city_id)
+            ->setParameter('lang',$_locale);
+
+        $count = $query->getSingleScalarResult();
+
+        return $count;
+    }
+
 }

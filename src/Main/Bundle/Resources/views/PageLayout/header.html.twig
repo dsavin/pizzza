@@ -2,7 +2,9 @@
 {% set _locale = app.request.session.get('_locale') %}
 <div id="header">
     <div class="top-images">
-        <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
+        <a href="http://pizzza.com.ua/discount/dominos/haleny_v%D1%96vtorok">
+            <img src="/images/small-banner.png" width="192" height="80" alt="image description"/>
+        </a>
         <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
         <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
         <img src="/images/img-01.jpg" width="192" height="80" alt="image description"/>
@@ -17,11 +19,11 @@
             <em>Все о пиццериях <br/>и доставке пиццы в Киеве</em>
         </div>
         <div class="header-sum comment-sum">
-            <span>395</span>
+            <span>{{ commentsCount }}</span>
             <em>комментариев <br/> от посетителей</em>
         </div>
         <div class="header-sum catalog-sum">
-            <span>128</span>
+            <span>{{ branchesCount }}</span>
             <em>пиццерий <br/>в каталоге</em>
         </div>
     </div>

@@ -18,7 +18,7 @@ class SliderType extends AbstractType
             ->add('image', 'file', array(
                                         'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                                         'property_path' => 'image',
-                                        'required' => true,
+                                        'required' => false,
                                         'label'=>'Картинка'
                                    ))
         ;

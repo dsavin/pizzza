@@ -3,12 +3,18 @@
         <div class="slideset">
             {% for entity in entities %}
                 <div class="slide active">
-                    <div class="text">
-                        <h2>{{ entity.title }}</h2>
-                        <em>{{ entity.text }}</em>
-                    </div>
+                    {#<div class="text">#}
+                    {#<h2>{{ entity.title }}</h2>#}
+                    {#<em>{{ entity.text }}</em>#}
+                    {#</div>#}
                     {%-if entity.getImageName is not null-%}
-                        <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}" style="width: 377px; max-height: 294px;"/>
+                        {% if entity.url|length > 1%}
+                            <a href="{{ entity.url }}">
+                                <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}"/>
+                            </a>
+                        {% else %}
+                            <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}"/>
+                        {% endif %}
                     {%-endif-%}
                 </div>
             {% endfor %}

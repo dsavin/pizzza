@@ -31,9 +31,9 @@
                         <div class="holder">
                             <div class="images">
                                 {% if entity.getImageName %}
-                                    <img src="{{ vich_uploader_asset(entity, 'image') }}" width="36" height="14" alt="{{ entity.getImageName }}"/>
+                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="{{ entity.getImageName }}"/>
                                 {% else %}
-                                    <img src="/images/88x35.png" width="36" height="14" alt="default site logo 36x14"/>
+                                    <img src="{{ 'images/303x208.png' | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="default site logo 36x14"/>
                                 {% endif %}
                             </div>
 

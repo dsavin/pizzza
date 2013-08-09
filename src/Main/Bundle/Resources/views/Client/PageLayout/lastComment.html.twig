@@ -9,11 +9,9 @@
                     <strong class="name">{{ entity.name }} <span>—</span></strong>
                     <a href="{{ path_city('_chain_single',{'chain_url':entity.chain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="link">{{ entity.chain.name }}</a>
                     <ul class="stars">
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star"></li>
-                        <li class="ico-star ico-star-half"></li>
-                        <li class="ico-star ico-star-empty"></li>
+                        {% for i in 1..5 %}
+                            <li class="ico-star {% if i > entity.rating %} ico-star-empty{% endif %}"></li>
+                        {% endfor %}
                     </ul>
                     <em class="date">{{ entity.createdAt | date('d.m.Y H:i') }}</em>
                 </div>

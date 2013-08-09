@@ -8,9 +8,9 @@
                 <li>
                     <div class="images">
                         {% if entity.getImageName %}
-                            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="71" height="70" alt="{{ entity.getImageName }}"/>
+                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_recommend') }}" alt="{{ entity.getImageName }}"/>
                         {% else %}
-                            <img src="/images/71x70.png" width="71" height="70" alt="default site logo 71x70"/>
+                            <img src="{{ 'images/303x208.png' | apply_filter('chain_recommend') }}" width="71" height="70" alt="default site logo 71x70"/>
                         {% endif %}
                     </div>
                     {% if entity.type == 3 or entity.type == 2 %}

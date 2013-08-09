@@ -3,9 +3,9 @@
         <div class="images">
             <div>
                 {% if entity.getImageName %}
-                    <img src="{{ vich_uploader_asset(entity, 'image') }}" width="96" height="46" alt="{{ entity.getImageName }}"/>
+                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_list') }}" style="max-width: 96px" height="46" alt="{{ entity.getImageName }}"/>
                 {% else %}
-                    <img src="/images/88x35.png" width="96" height="46" alt="default site logo 96x46"/>
+                    <img src="{{ 'images/303x208.png' | apply_filter('chain_list') }}" style="max-width: 96px" height="46" alt="default site logo 96x46"/>
                 {% endif %}
             </div>
         </div>

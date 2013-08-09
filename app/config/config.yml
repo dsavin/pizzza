@@ -99,6 +99,19 @@ avalanche_imagine:
         publication_index:
             type:    relative_resize
             options: { heighten: 117, mode: outbound }
+        chain_recommend:
+            type:    relative_resize
+            options: { heighten: 70, mode: outbound }
+        chain_list:
+            type:    relative_resize
+            options: { heighten: 46, mode: outbound }
+        chain_top:
+            type:    relative_resize
+            options: { heighten: 14, mode: outbound }
+
+        discount_index:
+            type:    relative_resize
+            options: { heighten: 117, mode: outbound }
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

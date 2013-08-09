@@ -28,9 +28,9 @@
                     {% endif %}
                     <div class="block">
                         {% if item.getImageName %}
-                            <img src="{{ vich_uploader_asset(item, 'image') }}" width="200" height="117" alt="{{ item.getImageName }}"/>
+                            <img src="{{ vich_uploader_asset(item, 'image') | apply_filter('discount_index') }}" style="max-width: 200px" height="117" alt="{{ item.getImageName }}"/>
                         {% else %}
-                            <img src="images/img-19.jpg" width="200" height="117" alt="image description"/>
+                            <img src="{{ 'images/303x208.png' | apply_filter('discount_index') }}" width="200" height="117" alt="image description"/>
                         {% endif %}
 
                         <h3><a href="{{ path_city('_discount_single', { 'chain_url': item.getChain.url, 'dis_url': item.url, '_city':app.request.attributes.get('_city') }) }}">{{ item.name }}</a></h3>
