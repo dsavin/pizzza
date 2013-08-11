@@ -13,8 +13,8 @@
         <div id="content">
             <div class="heading-page">
                 <ul class="breadcrumbs">
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Публикации</a></li>
+                    <li><a href="/">Главная</a></li>
+                    <li>Публикации</li>
                     <li>Рецепты</li>
                 </ul>
                 <div class="gholder">
@@ -39,13 +39,13 @@
                 <div class="actions-list publication">
                     {% for entity in pagination %}
                         <div class="gholder">
-                            {% if entity.getImageName %}
-                                <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">
+                            <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">
+                                {% if entity.getImageName %}
                                     <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ entity.getImageName }}" class="thumb" />
-                                </a>
-                            {% else %}
-                                <img src="images/img-19.jpg" width="191" height="125" alt="image description" class="thumb" />
-                            {% endif %}
+                                {% else %}
+                                    <img src="{{ 'images/303x208.png' | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="image description" class="thumb" />
+                                {% endif %}
+                            </a>
                             <div class="holder">
                                 <h2>
                                     <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">{{ entity.name }}</a>

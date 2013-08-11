@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
-
 /**
  * Page controller.
  *
@@ -18,7 +17,7 @@ class PageController extends Controller
 {
 
     /**
-     * Displays a Discount entity.
+     * Index page
      *
      * @Template()
      */
@@ -28,16 +27,46 @@ class PageController extends Controller
         $city = $this->getCityByUrl($_city);
 
         $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
-                                                                              'name'     => 'index',
-                                                                              'city_id' => $city->getId(),
-                                                                              'lang'    => $request->getLocale()
-                                                                         ));
+                                                                        'name'    => 'index',
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
         if (!$entity) {
             throw $this->createNotFoundException('Нету тут такой Страницы');
         }
 
         return array(
-            'entity'    => $entity,
+            'entity' => $entity,
+        );
+    }
+
+    /**
+     * Displays branches on map.
+     *
+     * @Template()
+     */
+    public function mapAction($_city, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->getCityByUrl($_city);
+
+        $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                        'name'    => 'map',
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+        if (!$entity) {
+            throw $this->createNotFoundException('Нету тут такой Страницы');
+        }
+
+        $chains = $em->getRepository('MainBundle:Chain')->findBy(array(
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+
+        return array(
+            'entity' => $entity,
+            'chains' => $chains
         );
     }
 }

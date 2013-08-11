@@ -27,15 +27,16 @@
                         {% set j = j+4 %}
                     {% endif %}
                     <div class="block">
-                        {% if item.getImageName %}
-                            <img src="{{ vich_uploader_asset(item, 'image') | apply_filter('discount_index') }}" style="max-width: 200px" height="117" alt="{{ item.getImageName }}"/>
-                        {% else %}
-                            <img src="{{ 'images/303x208.png' | apply_filter('discount_index') }}" width="200" height="117" alt="image description"/>
-                        {% endif %}
-
+                        <a href="{{ path_city('_discount_single', { 'chain_url': item.getChain.url, 'dis_url': item.url, '_city':app.request.attributes.get('_city') }) }}">
+                            {% if item.getImageName %}
+                                <img src="{{ vich_uploader_asset(item, 'image') | apply_filter('discount_index') }}" style="max-width: 200px" height="117" alt="{{ item.getImageName }}"/>
+                            {% else %}
+                                <img src="{{ 'images/303x208.png' | apply_filter('discount_index') }}" width="200" height="117" alt="image description"/>
+                            {% endif %}
+                        </a>
                         <h3><a href="{{ path_city('_discount_single', { 'chain_url': item.getChain.url, 'dis_url': item.url, '_city':app.request.attributes.get('_city') }) }}">{{ item.name }}</a></h3>
                         {% if item.getChain.type == 3 or item.getChain.type == 2 %}
-                            <a href="{{ path_city('_branches_all',{'chain_url':item.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="cat">{{ item.getChain.Name }}</a>
+                            <a href="{{ path_city('_chain_single',{'chain_url':item.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="cat">{{ item.getChain.Name }}</a>
                         {% else %}
                             <a href="{{ path_city('_chain__delivery_single',{'chain_url':item.getChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" class="cat">{{ item.getChain.Name }}</a>
                         {% endif %}

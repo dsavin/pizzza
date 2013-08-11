@@ -26,6 +26,8 @@ class CommentController extends Controller
             $data = $request->request->all();
             $lastName = trim($data['last_name']);
 
+            $city = $this->getCurrentCity();
+
             if (!empty($lastName)) {
                 $this->addAjaxResponceError('Робот скатина');
                 goto end;
@@ -70,8 +72,15 @@ class CommentController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $htmlView = $this->renderView('MainBundle:Client:comment_item.html.twig',
+                                        array(
+                                             'comment' => $entity,
+                                             '_city' => $city->getUrl(),
+                                             '_locale' => $request->getLocale()
+                                        ));
+
             $this->addAjaxResponce('success', true);
-            $this->addAjaxResponce('html', $this->renderView('MainBundle:Client:comment_item.html.twig',array('comment' => $entity)));
+            $this->addAjaxResponce('html', $htmlView);
             $this->addAjaxResponce('id', $entity->getId());
 
         }

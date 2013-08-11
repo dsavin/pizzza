@@ -1,0 +1,98 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
+{% set active = 5 %}
+
+{% block javascripts %}
+    <script>
+        var map;
+        var openedWindow = false;
+        function setMap()
+        {
+            {% for chain in chains %}
+                {% for branch in chain.getBranchsByLocale(_locale) %}
+                    {% if loop.index == 1 %}
+                        var mapOptions = {
+                            center:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
+                            zoom:13,
+                            mapTypeId:google.maps.MapTypeId.ROADMAP,
+                            scrollwheel:false
+                        };
+                        map = new google.maps.Map(document.getElementById("map-canvas"),
+                                mapOptions);
+                    {% endif %}
+                    var marker = new google.maps.Marker({
+                        map:map,
+                        position:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
+                        icon: new google.maps.MarkerImage(
+                                '/images/marker.png',
+                                new google.maps.Size(27,28)
+                        )
+                    });
+                    attachSecretMessage(marker,'{{ branch.street }}', {{ branch.id }});
+                {% endfor %}
+            {% endfor %}
+        }
+        function attachSecretMessage(marker, str, id)
+        {
+            var infowindow = new google.maps.InfoWindow(
+                    {
+                        content: '<b>'+str+'</b>'
+                    });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                if (openedWindow)
+                    openedWindow.close();
+                openedWindow = infowindow;
+                infowindow.open(map, marker);
+                map.setCenter(marker.getPosition());
+            });
+        }
+        $(document).ready(function(){
+            setMap();
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div id="main">
+        <div class="main">
+            <div id="content" class="map-content">
+                <div class="heading-page">
+                    <ul class="breadcrumbs">
+                        <li><a href="/">Главная</a></li>
+                        <li>Карта</li>
+                    </ul>
+                    <div class="gholder">
+                        <h1>Все пиццерии на карте Киева</h1>
+                        {#<form action="#" class="search-map">#}
+                            {#<fieldset>#}
+                                {#<label for="search-map">Найти на карте</label>#}
+                                {#<div class="row">#}
+                                    {#<input type="text" value="Название" id="search-map" />#}
+                                    {#<input type="submit" value="Search" />#}
+                                {#</div>#}
+                            {#</fieldset>#}
+                        {#</form>#}
+                    </div>
+                </div>
+                <div class="map-page">
+                    <div class="placeholder-map" id="map-canvas">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if entity.text != '' %}
+            <div class="main-text">
+                <div class="heading">
+                    <h2>О проекте</h2>
+                </div>
+                <div class="text">
+                    {{ entity.text }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

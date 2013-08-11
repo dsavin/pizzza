@@ -47,11 +47,13 @@
                     <div class="content">
                         {% for public in entities %}
                             <div class="block">
-                                {% if public.getImageName %}
-                                    <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">
-                                        <img src="{{ vich_uploader_asset(public, 'image') }}" width="191" height="117" alt="{{ public.getImageName }}" class="thumb" />
-                                    </a>
-                                {% endif %}
+                                <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">
+                                    {% if public.getImageName %}
+                                        <img src="{{ vich_uploader_asset(public, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ public.getImageName }}" class="thumb" />
+                                    {% else %}
+                                        <img src="{{ 'images/303x208.png' | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="image description" class="thumb" />
+                                    {% endif %}
+                                </a>
                                 <h3>
                                     <a href="{{ path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': public.url }) }}">{{ public.name }}</a>
                                 </h3>

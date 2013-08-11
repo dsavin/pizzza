@@ -7,14 +7,16 @@
             {% for entity in etities %}
                 <li>
                     <div class="images">
-                        {% if entity.getImageName %}
-                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_recommend') }}" alt="{{ entity.getImageName }}"/>
-                        {% else %}
-                            <img src="{{ 'images/303x208.png' | apply_filter('chain_recommend') }}" width="71" height="70" alt="default site logo 71x70"/>
-                        {% endif %}
+                        <a href="{{ path_city('_chain_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">
+                            {% if entity.getImageName %}
+                                <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_recommend') }}" alt="{{ entity.getImageName }}"/>
+                            {% else %}
+                                <img src="{{ 'images/303x208.png' | apply_filter('chain_recommend') }}" width="71" height="70" alt="default site logo 71x70"/>
+                            {% endif %}
+                        </a>
                     </div>
                     {% if entity.type == 3 or entity.type == 2 %}
-                        <h3><a href="{{ path_city('_branches_all',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a></h3>
+                        <h3><a href="{{ path_city('_chain_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a></h3>
                         <div class="footer">
                             <ul class="stars">
                                 {% for i in 1..5 %}

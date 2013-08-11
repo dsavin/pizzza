@@ -24,11 +24,13 @@
                 <div class="actions-list aktsii">
                     {% for entity in pagination %}
                         <div class="gholder">
-                            {% if entity.getImageName %}
-                                <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" class="thumb" />
-                            {% else %}
-                                <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
-                            {% endif %}
+                            <a href="{{ path_city('_discount_single', { 'chain_url': entity.getChain.url, 'dis_url': entity.url, '_city':_city,'_locale':_locale }) }}">
+                                {% if entity.getImageName %}
+                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" class="thumb" />
+                                {% else %}
+                                    <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
+                                {% endif %}
+                            </a>
                             <div class="holder">
                                 <h2>
                                     <a href="{{ path_city('_discount_single', { 'chain_url': entity.getChain.url, 'dis_url': entity.url, '_city':_city,'_locale':_locale }) }}">{{ entity.name }}</a>

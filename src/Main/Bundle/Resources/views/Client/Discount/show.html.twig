@@ -48,11 +48,13 @@
                     <div class="content">
                         {% for entity in entitiesDiscounts %}
                             <div class="block">
-                                {% if entity.getImageName %}
-                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
-                                {% else %}
-                                    <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
-                                {% endif %}
+                                <a href="{{ path_city('_discount_single', { 'chain_url': entityChain.url, 'dis_url': entity.url, '_city':_city }) }}">
+                                    {% if entity.getImageName %}
+                                        <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
+                                    {% else %}
+                                        <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
+                                    {% endif %}
+                                </a>
                                 <h3>
                                     <a href="{{ path_city('_discount_single', { 'chain_url': entityChain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.getName }}</a>
                                 </h3>
@@ -68,11 +70,13 @@
                 <div class="content">
                     {% for entity in entitiesOthers %}
                         <div class="block">
-                            {% if entity.getImageName %}
-                                <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
-                            {% else %}
-                                <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
-                            {% endif %}
+                            <a href="{{ path_city('_discount_single', { 'chain_url': entity.chain.url, 'dis_url': entity.url, '_city':_city }) }}">
+                                {% if entity.getImageName %}
+                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ entity.getImageName }}" />
+                                {% else %}
+                                    <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
+                                {% endif %}
+                            </a>
                             <h3>
                                 <a href="{{ path_city('_discount_single', { 'chain_url': entity.chain.url, 'dis_url': entity.url, '_city':_city }) }}">{{ entity.getName }}</a>
                             </h3>

@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Route;
 
 $routes = array();
 $routes['_page_index'] = array('url' => '/', 'params' => array('_controller' => 'MainBundle:Client\Page:index'));
+$routes['_page_map'] = array('url' => '/map', 'params' => array('_controller' => 'MainBundle:Client\Page:map'));
 $routes['_news_list'] = array('url' => '/public', 'params' => array('_controller' => 'MainBundle:Client\Publication:newsList'));
 $routes['_recipe_list'] = array('url' => '/recipes', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipesList'));
 $routes['_news_single'] = array('url' => '/public/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
