@@ -11,8 +11,8 @@
     </ul>
     <div class="sum-comment"><div>Отзывов: <strong>{{ get_count_comment_by_chain(entityChain.id) }}</strong></div></div>
     {% if entityChain.getImageName %}
-        <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" class="thumb-heading"/>
+        <img src="{{ vich_uploader_asset(entityChain, 'image') | apply_filter('chain_header') }}" style="max-width: 88px" height="35" alt="{{ entityChain.getImageName }}" class="thumb-heading"/>
     {% else %}
-        <img src="/images/88x35.png" width="88" height="35" alt="default site logo 88x35" class="thumb-heading"/>
+        <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 88px;" height="35" alt="default site logo 88x35" class="thumb-heading"/>
     {% endif %}
 </div>

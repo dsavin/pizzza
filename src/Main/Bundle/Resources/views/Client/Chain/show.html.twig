@@ -3,7 +3,7 @@
 {% block title %}{{ entity.title }}{% endblock %}
 {% block description %}{{ entity.description }}{% endblock %}
 {% block keywords %}{{ entity.keywords }}{% endblock %}
-{% set active = 3 %}
+{% set active = 1 %}
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/main/js/jquery.form.js') }}"></script>
@@ -80,12 +80,17 @@
             {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'all', entityChain: entity}) }}
             <div class="main-info">
             <div class="story">
-                <div class="images">
+                <div class="images" style="height: auto;">
                     <div>
+                        {#{% if entity.getImageName %}#}
+                            {#<img src="{{ vich_uploader_asset(entity, 'image') }}" width="175" height="69" alt="{{ entity.getImageName }}" />#}
+                        {#{% else %}#}
+                            {#<img src="/images/88x35.png" width="175" height="35" alt="default site logo 175x69" />#}
+                        {#{% endif %}#}
                         {% if entity.getImageName %}
-                            <img src="{{ vich_uploader_asset(entity, 'image') }}" width="175" height="69" alt="{{ entity.getImageName }}" />
+                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_page') }}"  width="175" alt="{{ entity.getImageName }}"/>
                         {% else %}
-                            <img src="/images/88x35.png" width="175" height="35" alt="default site logo 175x69" />
+                            <img src="{{ 'images/303x208.png' | apply_filter('chain_page') }}" width="175" alt="default site logo 88x35"/>
                         {% endif %}
                     </div>
                 </div>

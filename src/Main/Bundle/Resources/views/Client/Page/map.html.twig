@@ -11,17 +11,19 @@
         var openedWindow = false;
         function setMap()
         {
+            {% set i = 1 %}
             {% for chain in chains %}
                 {% for branch in chain.getBranchsByLocale(_locale) %}
-                    {% if loop.index == 1 %}
+                    {% if loop.index == 1 and i == 1 %}
                         var mapOptions = {
-                            center:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
+                            center:new google.maps.LatLng(50.450181,30.523096),
                             zoom:13,
                             mapTypeId:google.maps.MapTypeId.ROADMAP,
                             scrollwheel:false
                         };
                         map = new google.maps.Map(document.getElementById("map-canvas"),
                                 mapOptions);
+                        {% set i = 2 %}
                     {% endif %}
                     var marker = new google.maps.Marker({
                         map:map,
@@ -31,15 +33,15 @@
                                 new google.maps.Size(27,28)
                         )
                     });
-                    attachSecretMessage(marker,'{{ branch.street }}', {{ branch.id }});
+                    attachSecretMessage(marker,'{{ branch.street }}', '{{ chain.name }}', "{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':chain.url,'branch_url':branch.url}) }}");
                 {% endfor %}
             {% endfor %}
         }
-        function attachSecretMessage(marker, str, id)
+        function attachSecretMessage(marker, str, chainName, url)
         {
             var infowindow = new google.maps.InfoWindow(
                     {
-                        content: '<b>'+str+'</b>'
+                        content: '<h3 style="color:#000; font-weight: bold;">'+chainName+'</h3><a href="'+url+'">'+str+'</b>'
                     });
 
             google.maps.event.addListener(marker, 'click', function () {
@@ -79,7 +81,8 @@
                     </div>
                 </div>
                 <div class="map-page">
-                    <div class="placeholder-map" id="map-canvas">
+                    <div class="placeholder-map">
+                        <div id="map-canvas" style="height: 542px; width: 972px;"></div>
                     </div>
                 </div>
             </div>

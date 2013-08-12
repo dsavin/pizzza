@@ -108,6 +108,12 @@ avalanche_imagine:
         chain_top:
             type:    relative_resize
             options: { heighten: 14, mode: outbound }
+        chain_header:
+            type:    relative_resize
+            options: { heighten: 35, mode: outbound }
+        chain_page:
+            type:    relative_resize
+            options: { widen: 175, mode: outbound }
         discount_index:
             type:    relative_resize
             options: { heighten: 117, mode: outbound }
