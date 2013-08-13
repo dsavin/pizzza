@@ -47,7 +47,8 @@ class PageLayoutController extends Controller
 
         return $this->render('MainBundle:PageLayout:footer.html.twig',
                              array(
-                                  'active' => $active
+                                  'active' => $active,
+                                  'dateYear' => date('Y')
                              ));
     }
 

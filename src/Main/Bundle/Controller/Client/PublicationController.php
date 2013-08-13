@@ -65,8 +65,15 @@ class PublicationController extends Controller
 
         $pagination = $em->getRepository('MainBundle:News')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()), array('id'=>'DESC'));
 
+        $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                        'name'    => 'public',
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+
         return array(
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'entity' => $entity
         );
     }
 
@@ -82,8 +89,15 @@ class PublicationController extends Controller
 
         $pagination = $em->getRepository('MainBundle:Recipe')->findBy(array('city_id' => $city->getId(), 'lang' => $request->getLocale()), array('id'=>'DESC'));
 
+        $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                        'name'    => 'recipes',
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+
         return array(
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'entity' => $entity
         );
     }
 

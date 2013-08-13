@@ -161,8 +161,15 @@ class ChainController extends Controller
             throw $this->createNotFoundException('Нету доставок в данном городе');
         }
 
+        $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                        'name'    => 'delivery',
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+
         return array(
             'entities' => $entities,
+            'entity' => $entity
         );
     }
 

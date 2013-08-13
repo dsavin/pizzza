@@ -36,6 +36,8 @@
                             <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />
                         {% endif %}
                         {{ entity.text|raw }}
+                        <br/>
+                        {{ entity.bigText|raw }}
                     </div>
                 </div>
             </div>

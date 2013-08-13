@@ -1,3 +1,5 @@
+{% set _city = app.request.session.get('_city') %}
+{% set _locale = app.request.session.get('_locale') %}
 <div id="footer">
     <div class="gholder">
         <div class="contact">
@@ -8,16 +10,16 @@
         <ul class="links">
             <li>
                 <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Пиццерии</a></li>
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Публикации</a></li>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
+                    <li><a href="{{ path_city('_delivery_list',{'_city':_city,'_locale':_locale}) }}">Доставка</a></li>
+                    <li><a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a></li>
                 </ul>
             </li>
             <li>
                 <ul>
-                    <li><a href="#">Акции</a></li>
-                    <li><a href="#">Карта</a></li>
+                    <li><a href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a></li>
+                    <li><a href="{{ path_city('_page_map',{'_city':_city,'_locale':_locale}) }}">Карта</a></li>
                     <li><a href="#">Галерея пиццы</a></li>
                 </ul>
             </li>
@@ -25,12 +27,12 @@
                 <ul>
                     <li><a href="#">Реклама</a></li>
                     <li><a href="#">О нас</a></li>
-                    <li><a href="#">Карта сайта</a></li>
+                    <li><a href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">Рецепты</a></li>
+                    {#<li><a href="#">Карта сайта</a></li>#}
                 </ul>
             </li>
         </ul>
-        <strong class="copy">&copy; PizZza.com.ua 2012</strong>
-        <em class="warning">Использование материалов сайта допускается только с письменного разрешения администрации
-            сайта.</em>
+        <strong class="copy">&copy; PizZza.com.ua {{ dateYear }}</strong>
+        <em class="warning">Использование материалов сайта допускается только с письменного разрешения администрации сайта.</em>
     </div>
 </div>

@@ -92,8 +92,15 @@
             );
             $pagination->setTemplate('MainBundle:PageLayout:sliding.html.twig');
 
+            $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                            'name'    => 'discounts',
+                                                                            'city_id' => $city->getId(),
+                                                                            'lang'    => $request->getLocale()
+                                                                       ));
+
             return array(
-                'pagination'    => $pagination
+                'pagination'    => $pagination,
+                'entity' => $entity
             );
         }
     }

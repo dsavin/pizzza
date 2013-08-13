@@ -1,8 +1,8 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}{{ entity.title }}{% endblock %}
+{% block description %}{{ entity.description }}{% endblock %}
+{% block keywords %}{{ entity.keywords }}{% endblock %}
 {% set active = 2 %}
 
 {% block javascripts %}

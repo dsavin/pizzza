@@ -290,7 +290,7 @@ class Comment
     public function validateThisEntity(ExecutionContext $context)
     {
 
-        if ($this->email == 'jdfg93sad2@gmail.com') {
+        if ($this->email == 'vash@mail.com') {
             $context->addViolationAtSubPath('email', 'Введите свой Email');
         }
         if ($this->name == 'Имя') {
