@@ -154,11 +154,13 @@
                         {% for discount in entity.getDiscountsByLocale(_locale) %}
                             {% if loop.index < 4 %}
                                 <div class="box">
-                                    {% if discount.getImageName %}
-                                        <img src="{{ vich_uploader_asset(discount, 'image') }}" width="193" height="119" alt="{{ discount.getImageName }}" class="thumb" />
-                                    {% else %}
-                                        <img src="images/img-19.jpg" width="193" height="119" alt="image description" class="thumb" />
-                                    {% endif %}
+                                    <a href="{{ path_city('_discount_single', { 'chain_url': entity.url, 'dis_url': discount.url, '_city':_city }) }}">
+                                        {% if discount.getImageName %}
+                                            <img src="{{ vich_uploader_asset(discount, 'image') | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="{{ discount.getImageName }}" class="thumb" />
+                                        {% else %}
+                                            <img src="{{ 'images/303x208.png' | apply_filter('discount_list') }}" style="max-width: 191px;" height="127" alt="image description" class="thumb" />
+                                        {% endif %}
+                                    </a>
                                     <h3>
                                         <a href="{{ path_city('_discount_single', { 'chain_url': entity.url, 'dis_url': discount.url, '_city':_city }) }}">{{ discount.name }}</a>
                                     </h3>

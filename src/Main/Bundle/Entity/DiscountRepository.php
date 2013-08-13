@@ -67,6 +67,9 @@
                 ->join('d.chain', 'c')
                 ->where('d.city_id = :city_id')
                 ->andWhere('d.lang = :lang')
+
+                ->orderBy('d.id','DESC')
+
                 ->setParameter('city_id',$city_id)
                 ->setParameter('lang',$lang)
             ;

@@ -1,2 +1,22 @@
+User-agent: Yandex
+Crawl-delay: 10
+Request-rate: 1/10
+#Disallow: /about
+#Disallow: /about#sendAs
+#Disallow: /advertising
+#Disallow: /guestbook
+#Disallow: /search
+Host: pizzza.com.ua
+
+User-agent: Googlebot
+Crawl-delay: 10
+Request-rate: 1/10
+#Disallow: /about
+#Disallow: /about#sendAs
+#Disallow: /advertising
+#Disallow: /guestbook
+#Disallow: /search
+
 User-agent: *
-Disallow: /
+Crawl-delay: 10
+Request-rate: 1/10

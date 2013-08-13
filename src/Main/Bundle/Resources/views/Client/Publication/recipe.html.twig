@@ -36,6 +36,14 @@
                             <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />
                         {% endif %}
                         {{ entity.text|raw }}
+                        <h2>Ингредиенты</h2>
+                        <ul>
+                            {% for ingredient in entity.getIngredients() %}
+                                <li>
+                                    {{ ingredient.getIngredient.name }} - {{ ingredient.count }}
+                                </li>
+                            {% endfor %}
+                        </ul>
                         <br/>
                         {{ entity.bigText|raw }}
                     </div>
