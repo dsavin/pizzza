@@ -219,10 +219,10 @@
                         </div>
                         <div class="about">
                             <strong>О чем ваш отзыв?</strong>
-                            <em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>
+                            {#<em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>#}
                             <div class="row">
                                 <input id="radio1" class="radio" name="type" type="radio" checked="checked" value="2"/>
-                                <label for="radio1">Сеть пиццерий «Мамамиа»</label>
+                                <label for="radio1">Сеть пиццерий «{{ entity.name }}»</label>
                             </div>
                             <div class="row">
                                 <input id="radio2" class="radio" name="type" type="radio" value="3"/>
