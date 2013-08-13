@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{% endblock %}
-{% block description %}{% endblock %}
+{% block title %}Акции пиццерии {{ entityChain.name }}{% endblock %}
+{% block description %}Список всех акции которые действуют в пиццерии {{ entityChain.name }} города Киева{% endblock %}
 {% block keywords %}{% endblock %}
 {% set active = 3 %}
 
@@ -39,7 +39,7 @@
                         </div>
                     {% else %}
                         <div class="gholder">
-                            <h1>В этом городе нету акций или в этом переводе</h1>
+                            <h1>Нет акций</h1>
                         </div>
                     {% endfor %}
                 </div>

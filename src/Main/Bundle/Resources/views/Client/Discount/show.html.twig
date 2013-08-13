@@ -32,7 +32,9 @@
             <div class="main-info">
                 <div class="actions-list aktsii aktsii-single">
                     <div class="single-article">
-                        <div class="time">{{ entityDiscount.getTimeWork }}</div>
+                        {% if entityDiscount.getTimeWork|length > 4 %}
+                            <div class="time">{{ entityDiscount.getTimeWork }}</div>
+                        {% endif %}
                         {% if entityDiscount.getImageName %}
                             <img src="{{ vich_uploader_asset(entityDiscount, 'image') | apply_filter('discount_page') }}" width="596" alt="{{ entityDiscount.getImageName }}" class="thumb" />
                         {% endif %}

@@ -58,12 +58,12 @@
 
                 <div class="gholder">
                     <div class="title-adress">
-                        <div class="image">
+                        <div class="image" style="height: auto;">
                             <div>
                                 {% if entityChain.getImageName %}
-                                    <img src="{{ vich_uploader_asset(entityChain, 'image') }}" width="88" height="35" alt="{{ entityChain.getImageName }}" />
+                                    <img src="{{ vich_uploader_asset(entityChain, 'image') | apply_filter('chain_branch_page') }}" width="88" alt="{{ entityChain.getImageName }}"/>
                                 {% else %}
-                                    <img src="/images/88x35.png" width="88" height="35" alt="default site logo 88x35" />
+                                    <img src="{{ 'images/303x208.png' | apply_filter('chain_branch_page') }}" width="88" alt="default site logo 88x35"/>
                                 {% endif %}
                             </div>
                         </div>

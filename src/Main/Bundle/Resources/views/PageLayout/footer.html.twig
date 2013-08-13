@@ -13,14 +13,15 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
                     <li><a href="{{ path_city('_delivery_list',{'_city':_city,'_locale':_locale}) }}">Доставка</a></li>
-                    <li><a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a></li>
+
                 </ul>
             </li>
             <li>
                 <ul>
                     <li><a href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a></li>
                     <li><a href="{{ path_city('_page_map',{'_city':_city,'_locale':_locale}) }}">Карта</a></li>
-                    <li><a href="#">Галерея пиццы</a></li>
+                    <li><a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a></li>
+                    {#<li><a href="#">Галерея пиццы</a></li>#}
                 </ul>
             </li>
             <li>

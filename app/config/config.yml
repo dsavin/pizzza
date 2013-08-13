@@ -114,6 +114,9 @@ avalanche_imagine:
         chain_page:
             type:    relative_resize
             options: { widen: 175, mode: outbound }
+        chain_branch_page:
+            type:    relative_resize
+            options: { widen: 88, mode: outbound }
         discount_index:
             type:    relative_resize
             options: { heighten: 117, mode: outbound }
