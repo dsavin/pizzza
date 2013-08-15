@@ -11,6 +11,7 @@ use Main\Bundle\Entity\Branch;
 use Main\Bundle\Entity\Chain;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Cache\ApcCache;
 
 class MainExtension extends \Twig_Extension
 {
@@ -57,10 +58,18 @@ class MainExtension extends \Twig_Extension
 
     public function currentCity()
     {
-        $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl($this->_city);
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('current_city_'.$this->_city);
 
-        if (!$entity) {
-            $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl("kiev");
+        if (!$fetchCache) {
+            $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl($this->_city);
+
+            if (!$entity) {
+                $entity = $this->em->getRepository('MainBundle:City')->findOneByUrl("kiev");
+            }
+            $cacheDriver->save('current_city_'.$this->_city, serialize($entity));
+        } else {
+            $entity = unserialize($fetchCache);
         }
 
         return $entity;

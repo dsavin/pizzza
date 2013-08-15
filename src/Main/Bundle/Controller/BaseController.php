@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Doctrine\Common\Cache\ApcCache;
 
 //method who use all
 class BaseController extends Controller
@@ -74,11 +75,21 @@ class BaseController extends Controller
 
     public function getCityByUrl($url)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('MainBundle:City')->findOneByUrl($url);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Нету тут такой сети');
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('current_city_'.$url);
+
+        if (!$fetchCache) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('MainBundle:City')->findOneByUrl($url);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Нету тут такой сети');
+            } else {
+                $cacheDriver->save('current_city_'.$url, serialize($entity));
+            }
+        } else {
+            $entity = unserialize($fetchCache);
         }
 
         return $entity;
