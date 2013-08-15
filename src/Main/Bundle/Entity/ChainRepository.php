@@ -17,8 +17,9 @@ class ChainRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         $query = $em->createQueryBuilder()
-            ->select('c')
+            ->select('c', 'com')
             ->from('MainBundle:Chain', 'c')
+            ->join('c.commentsDelivery','com')
 
             ->where('c.lang = :lang')
             ->andWhere('c.city_id = :city_id')
@@ -39,10 +40,11 @@ class ChainRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         $query = $em->createQueryBuilder()
-            ->select('c, branchs')
+            ->select('c, branchs','com')
             ->from('MainBundle:Chain', 'c')
 
             ->join('c.branchs', 'branchs')
+            ->join('branchs.comments','com')
 
             ->where('c.lang = :lang')
             ->andWhere('c.city_id = :city_id')

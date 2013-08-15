@@ -103,20 +103,29 @@ class MainExtension extends \Twig_Extension
 
     public function getMaxRating()
     {
-        $entityCity = $this->currentCity();
-        $rating = 0;
-        $result = $this->em->createQuery('SELECT b FROM MainBundle:Branch b
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('max_rating');
+
+        if (!$fetchCache) {
+            $entityCity = $this->currentCity();
+            $rating = 0;
+            $result = $this->em->createQuery('SELECT b FROM MainBundle:Branch b
                 JOIN b.chain c
                 WHERE c.city_id = :city_id
                 AND b.lang = :lang
                 ORDER BY b.rating DESC
                 ')
-            ->setMaxResults(1)
-            ->setParameter('city_id', $entityCity->getId())
-            ->setParameter('lang', 'ru')
-            ->getResult();
-        if ($result) {
-            $rating = $result[0]->getRating();
+                ->setMaxResults(1)
+                ->setParameter('city_id', $entityCity->getId())
+                ->setParameter('lang', 'ru')
+                ->getResult();
+            if ($result) {
+                $rating = $result[0]->getRating();
+            }
+
+            $cacheDriver->save('max_rating', serialize($rating), 24*60*60);
+        } else {
+            $rating = unserialize($fetchCache);
         }
 
         return $rating;
@@ -124,22 +133,31 @@ class MainExtension extends \Twig_Extension
 
     public function getMaxDeliveryRating()
     {
-        $entityCity = $this->currentCity();
-        $rating = 0;
-        $result = $this->em->createQuery('
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('max_delivery_rating');
+
+        if (!$fetchCache) {
+            $entityCity = $this->currentCity();
+            $rating = 0;
+            $result = $this->em->createQuery('
                 SELECT c.rating_delivery as max_rating FROM MainBundle:Chain c
                 WHERE c.city_id = :city_id
                 AND c.lang = :lang
                 AND  ( c.type = 3 OR c.type = 1 )
                 ORDER BY max_rating DESC
                 ')
-            ->setMaxResults(1)
-            ->setParameter('city_id', $entityCity->getId())
-            ->setParameter('lang', 'ru')
-            ->getResult();
+                ->setMaxResults(1)
+                ->setParameter('city_id', $entityCity->getId())
+                ->setParameter('lang', 'ru')
+                ->getResult();
 
-        if (!empty($result)) {
-            $rating = $result[0]['max_rating'];
+            if (!empty($result)) {
+                $rating = $result[0]['max_rating'];
+            }
+
+            $cacheDriver->save('max_delivery_rating', serialize($rating), 24*60*60);
+        } else {
+            $rating = unserialize($fetchCache);
         }
 
         return $rating;
@@ -147,9 +165,13 @@ class MainExtension extends \Twig_Extension
 
     public function getMaxChainRating()
     {
-        $entityCity = $this->currentCity();
-        $rating = 0;
-        $result = $this->em->createQuery('
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('max_chain_rating');
+
+        if (!$fetchCache) {
+            $entityCity = $this->currentCity();
+            $rating = 0;
+            $result = $this->em->createQuery('
                 SELECT SUM(b.rating) as smm FROM MainBundle:Chain c
                 JOIN c.branchs b
                 WHERE c.city_id = :city_id
@@ -161,15 +183,20 @@ class MainExtension extends \Twig_Extension
                 ORDER BY smm DESC
                 ')
 
-            ->setMaxResults(1)
+                ->setMaxResults(1)
 
-            ->setParameter('city_id', $entityCity->getId())
-            ->setParameter('lang', 'ru')
+                ->setParameter('city_id', $entityCity->getId())
+                ->setParameter('lang', 'ru')
 
-            ->getResult();
+                ->getResult();
 
-        if ($result) {
-            $rating = $result[0]['smm'];
+            if ($result) {
+                $rating = $result[0]['smm'];
+            }
+
+            $cacheDriver->save('max_chain_rating', serialize($rating), 24*60*60);
+        } else {
+            $rating = unserialize($fetchCache);
         }
 
         return $rating;
@@ -177,27 +204,38 @@ class MainExtension extends \Twig_Extension
 
     public function getCountCommentByChain($chain_id)
     {
-        $result = $this->em->createQuery('
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('count_comment_chain_'.$chain_id);
+
+        if (!$fetchCache) {
+            $result = $this->em->createQuery('
                 SELECT COUNT(comChain) as count_comment FROM MainBundle:CommentChain comChain
                 JOIN comChain.chain chainChian
                 WHERE chainChian.id = :chain_chain_id
                 ')
-            ->setMaxResults(1)
-            ->setParameter('chain_chain_id', $chain_id)
-            ->getResult();
+                ->setMaxResults(1)
+                ->setParameter('chain_chain_id', $chain_id)
+                ->getResult();
 
-        $count = $result[0]['count_comment'];
+            $count = $result[0]['count_comment'];
 
-        $result = $this->em->createQuery('
+            $result = $this->em->createQuery('
                 SELECT COUNT(comChain) as count_comment FROM MainBundle:CommentDelivery comChain
                 JOIN comChain.chain chainChian
                 WHERE chainChian.id = :chain_chain_id
                 ')
-            ->setMaxResults(1)
-            ->setParameter('chain_chain_id', $chain_id)
-            ->getResult();
+                ->setMaxResults(1)
+                ->setParameter('chain_chain_id', $chain_id)
+                ->getResult();
 
-        return $count+$result[0]['count_comment'];
+            $count = $count+$result[0]['count_comment'];
+
+            $cacheDriver->save('count_comment_chain_'.$chain_id, serialize($count), 24*60*60);
+        } else {
+            $count = unserialize($fetchCache);
+        }
+
+        return $count;
     }
 
 }
