@@ -9,14 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
     <div id="main">
         <div class="promo">
             {% render "MainBundle:Client/PageLayout:indexSlider" with {  } %}
@@ -40,8 +32,6 @@
                     <div class="fb-like-box" data-href="https://www.facebook.com/pizZza.com.ua" data-width="460" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
                 </div>
                 <div class="vk">
-                    <script type="text/javascript" src="//vk.com/js/api/openapi.js?98"></script>
-
                     <!-- VK Widget -->
                     <div id="vk_groups"></div>
                     <script type="text/javascript">
@@ -56,6 +46,9 @@
                     <h2>О проекте</h2>
                 </div>
                 <style>
+                    #text {
+                        color: #333;
+                    }
                     #text h2{
                         float: none;
                         margin: 0 28px 0 0;
