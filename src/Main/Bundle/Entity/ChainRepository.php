@@ -64,7 +64,7 @@ class ChainRepository extends EntityRepository
         $em = $this->getEntityManager();
 
         $query = $em->createQuery('
-                SELECT c.id, SUM(b.rating) as summ FROM MainBundle:Chain c
+                SELECT c.id, SUM(b.rating) summ, c.name FROM MainBundle:Chain c
                 JOIN c.branchs b
                 WHERE c.city_id = :city_id
                 AND c.lang = :lang

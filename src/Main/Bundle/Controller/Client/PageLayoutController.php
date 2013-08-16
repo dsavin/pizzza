@@ -117,6 +117,7 @@ class PageLayoutController extends Controller
     public function getTopChain($city_id, $lang, $limit)
     {
         $em = $this->getEm();
+        $array = array();
 
         /** @var ChainRepository $chainRepositiory  */
         $chainRepositiory = $em->getRepository('MainBundle:Chain');
@@ -128,6 +129,17 @@ class PageLayoutController extends Controller
             $ids[] = $v['id'];
         }
 
-        return $chainRepositiory->findBy(array('id'=>$ids));
+        $eteties = $chainRepositiory->findBy(array('id'=>$ids));
+
+        foreach ($topChains as $v)
+        {
+            foreach ($eteties as $etity){
+                if ($etity->getId() == $v['id']) {
+                    $array[] = $etity;
+                }
+            }
+        }
+
+        return $array;
     }
 }

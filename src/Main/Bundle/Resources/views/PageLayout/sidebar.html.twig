@@ -11,6 +11,15 @@
                 <div class="list">
                     {% for entity in topChains %}
                         <div class="sub-list">
+                            <div class="holder">
+                                <div class="images">
+                                    {% if entity.getImageName %}
+                                        <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="{{ entity.getImageName }}"/>
+                                    {% else %}
+                                        <img src="{{ 'images/303x208.png' | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="default site logo 36x14"/>
+                                    {% endif %}
+                                </div>
+                            </div>
                             <div class="frame">
                                 <h3>
                                     <a href="{{ path_city('_chain_single',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">{{ entity.name }}</a>
@@ -40,7 +49,6 @@
                                         <img src="{{ 'images/303x208.png' | apply_filter('chain_top') }}" style="max-width: 36px" height="14" alt="default site logo 36x14"/>
                                     {% endif %}
                                 </div>
-
                             </div>
                             <div class="frame">
                                 <h3>
