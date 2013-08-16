@@ -92,7 +92,7 @@ avalanche_imagine:
     filters:
         publication_page:
             type:    relative_resize
-            options: { heighten: 261, mode: outbound }
+            options: { widen: 626, mode: outbound }
         publication_list:
             type:    relative_resize
             options: { heighten: 125, mode: outbound}
