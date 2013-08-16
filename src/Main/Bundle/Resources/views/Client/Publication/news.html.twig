@@ -21,24 +21,35 @@
                     </li>
                     <li>{{ entity.name }}</li>
                 </ul>
-                <div class="gholder">
-                    <h1>{{ entity.name }}</h1>
-                </div>
+                {#<div class="gholder">#}
+                    {#<h1>{{ entity.name }}</h1>#}
+                {#</div>#}
             </div>
-            <div class="main-info">
-                <div class="actions-list publication publication-single">
-                    <div class="single-article">
-                        <div class="meta">
-                            <em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>
-                            {#<a href="#" class="cat"><span>Рецепты</span></a>#}
-                        </div>
-                        {% if entity.getImageName %}
-                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />
-                        {% endif %}
-                        {{ entity.text|raw }}
-                    </div>
-                </div>
+            <div class="container container-text">
+                <h1>{{ entity.name }}</h1>
+                {% if entity.getImageName %}
+                    <ul class="img-list">
+                        <li>
+                            <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}"/>
+                        </li>
+                    </ul>
+                {% endif %}
+                {{ entity.text|raw }}
             </div>
+            {#<div class="main-info">#}
+                {#<div class="actions-list publication publication-single">#}
+                    {#<div class="single-article">#}
+                        {#<div class="meta">#}
+                            {#<em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>#}
+                            {#&#123;&#35;<a href="#" class="cat"><span>Рецепты</span></a>&#35;&#125;#}
+                        {#</div>#}
+                        {#{% if entity.getImageName %}#}
+                            {#<img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />#}
+                        {#{% endif %}#}
+                        {#{{ entity.text|raw }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
             {% if entities|length > 0 %}
                 <div class="another-article">
                     <div class="heading">
