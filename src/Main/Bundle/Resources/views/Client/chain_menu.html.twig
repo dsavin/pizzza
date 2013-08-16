@@ -1,8 +1,8 @@
 <ul class="navigation">
+    <li {% if menu == "all" %}class="active"{% endif %}>
+        <a href="{{ path_city('_chain_single',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Общая информация</strong></a>
+    </li>
     {% if entityChain.getType == 3 or entityChain.getType == 2 %}
-        <li {% if menu == "all" %}class="active"{% endif %}>
-            <a href="{{ path_city('_chain_single',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Общая информация</strong></a>
-        </li>
         <li {% if menu == "branches" %}class="active"{% endif %}>
             <a href="{{ path_city('_branches_all',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Пиццерии</strong></a>
         </li>

@@ -53,7 +53,7 @@ class CommentRepository extends EntityRepository
         $result = array_merge($query->getQuery()->getResult(), $result);
 
         usort($result, function ($a, $b) {
-            return $b->getId()-$a->getId();
+            return $b->getCreatedAt()->getTimestamp()-$a->getCreatedAt()->getTimestamp();
         });
 
         if (isset($data['limit'])) {
