@@ -22,7 +22,13 @@ class DiscountType extends AbstractType
                 'required'  => true,
                 'label'=>'Действует в'
             ))
-            ->add('text')
+            ->add('text', 'textarea', array(
+                                           'attr' => array(
+                                               'class' => 'tinymce',
+                                               'data-theme' => 'bbcode',
+                                               'style' => 'height: 500px;'
+                                           )
+                                      ))
             ->add('time_work')
             ->add('image', 'file', array(
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',

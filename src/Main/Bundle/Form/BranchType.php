@@ -20,7 +20,15 @@ class BranchType extends AbstractType
             ->add('url', 'text', array('label' => 'Урл'))
             ->add('phones', 'text', array('label' => 'Телефоны', 'required' => false))
             ->add('metro', 'text', array('label' => 'Метро', 'required' => false))
-            ->add('text', 'textarea', array('label' => 'Описание заведения', 'required' => false))
+            ->add('text', 'textarea', array(
+                                           'label' => 'Описание заведения',
+                                           'required' => false,
+                                           'attr' => array(
+                                               'class' => 'tinymce',
+                                               'data-theme' => 'bbcode',
+                                               'style' => 'height: 500px;'
+                                           )
+                                      ))
             ->add('lat', 'number', array('precision'=>6))
             ->add('lng', 'number', array('precision'=>6))
             ->add('work_at', 'text', array('label' => 'Режим работы', 'required' => false))

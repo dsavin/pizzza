@@ -16,7 +16,13 @@ class PageType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('keywords')
-            ->add('text')
+            ->add('text', 'textarea', array(
+                                           'attr' => array(
+                                               'class' => 'tinymce',
+                                               'data-theme' => 'bbcode',
+                                               'style' => 'height: 500px;'
+                                           )
+                                      ))
             ->add('status')
         ;
     }

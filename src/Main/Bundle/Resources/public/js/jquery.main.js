@@ -269,7 +269,7 @@ function initCheckedClasses() {
 		},
 		initStructure: function() {
 			this.slides.css({display:'block',opacity:0}).eq(this.currentIndex).css({
-				opacity:''
+				opacity:'', 'z-index':9999
 			});
 		},
 		attachEvents: function() {
@@ -385,19 +385,19 @@ function initCheckedClasses() {
 			if(this.slides.length > 1) {
 				this.galleryAnimating = true;
 				if(!this.options.animSpeed) {
-					this.slides.eq(this.prevIndex).css({opacity:0});
+					this.slides.eq(this.prevIndex).css({opacity:0, 'z-index':1});
 				} else {
-					this.slides.eq(this.prevIndex).stop().animate({opacity:0},{duration: this.options.animSpeed});
+					this.slides.eq(this.prevIndex).stop().animate({opacity:0, 'z-index':1},{duration: this.options.animSpeed});
 				}
 				
 				this.switchNext = function() {
 					if(!self.options.animSpeed) {
-						self.slides.eq(self.currentIndex).css({opacity:''});
+						self.slides.eq(self.currentIndex).css({opacity:'', 'z-index':1});
 					} else {
-						self.slides.eq(self.currentIndex).stop().animate({opacity:1},{duration: self.options.animSpeed});
+						self.slides.eq(self.currentIndex).stop().animate({opacity:1, 'z-index':9999},{duration: self.options.animSpeed});
 					}
 					setTimeout(function() {
-						self.slides.eq(self.currentIndex).css({opacity:''});
+						self.slides.eq(self.currentIndex).css({opacity:'', 'z-index':9999});
 						self.galleryAnimating = false;
 						self.autoRotate();
 						

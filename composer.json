@@ -23,7 +23,9 @@
         "vich/uploader-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
 
-        "avalanche123/imagine-bundle": "2.1.2"
+        "avalanche123/imagine-bundle": "2.1.2",
+
+        "stfalcon/tinymce-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

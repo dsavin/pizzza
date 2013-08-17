@@ -17,7 +17,15 @@ class PublicationType extends AbstractType
             ->add('keywords', 'text', array('label'=>'Ключевіе слова', 'required' => false))
             ->add('url')
             ->add('short_text', 'textarea', array('label'=>'Короткое описание', 'required' => false))
-            ->add('text', 'textarea', array('label'=>'Текст', 'required' => false))
+            ->add('text', 'textarea', array(
+                                           'label'=>'Текст',
+                                           'required' => false,
+                                           'attr' => array(
+                                               'class' => 'tinymce',
+                                               'data-theme' => 'bbcode',
+                                               'style' => 'height: 500px;'
+                                           )
+                                      ))
             ->add('image', 'file', array(
                                         'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                                         'property_path' => 'image',
