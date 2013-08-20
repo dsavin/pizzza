@@ -6,10 +6,10 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Url</th>
+                <th></th>
                 <th>Name</th>
-                <th>Text</th>
-                <th>Lang</th>
+                <th></th>
+                <th></th>
                 <th>
                     <a href="{{ path_city('admin_discount_new', { 'chain_id': chain.id, '_locale':'ru'  }) }}" class="btn btn-primary">Добавить</a>
                 </th>
@@ -18,15 +18,15 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{ entity.url }}</td>
+                <td></td>
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.text }}</td>
+                <td></td>
                 <td>
-                    {%- if entity.getChildren.count > 0-%}
-                        <a href="{{ path_city('admin_discount_edit', { 'id': entity.getChildren.first.id, '_locale':'en', 'chain_id':chain.getId }) }}">en</a>
-                    {%- else -%}
-                        <a href="{{ path_city('admin_discount_new',{'chain_id':chain.getId, '_locale':'en', 'dis_id':entity.id}) }}">en</a>
-                    {%- endif -%}
+                    {#{%- if entity.getChildren.count > 0-%}#}
+                        {#<a href="{{ path_city('admin_discount_edit', { 'id': entity.getChildren.first.id, '_locale':'en', 'chain_id':chain.getId }) }}">en</a>#}
+                    {#{%- else -%}#}
+                        {#<a href="{{ path_city('admin_discount_new',{'chain_id':chain.getId, '_locale':'en', 'dis_id':entity.id}) }}">en</a>#}
+                    {#{%- endif -%}#}
                 </td>
                 <td>
                     <div>

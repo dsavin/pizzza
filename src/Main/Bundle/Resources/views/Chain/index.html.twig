@@ -26,11 +26,11 @@
                     <a href="{{ path_city('admin_delivery_comments', { 'chain_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Ком. доств.</a>
                 </td>
                 <td>
-                    {%- if entity.getChildren.count > 0-%}
-                        <a href="{{ path_city('admin_chain_edit', { 'id': entity.getChildren.first.id, '_locale':'en' }) }}">en</a>
-                    {%- else -%}
-                        <a href="{{ path_city('admin_chain_new', { 'id': entity.id, '_locale':'en' }) }}">en</a>
-                    {%- endif -%}
+                    {#{%- if entity.getChildren.count > 0-%}#}
+                        {#<a href="{{ path_city('admin_chain_edit', { 'id': entity.getChildren.first.id, '_locale':'en' }) }}">en</a>#}
+                    {#{%- else -%}#}
+                        {#<a href="{{ path_city('admin_chain_new', { 'id': entity.id, '_locale':'en' }) }}">en</a>#}
+                    {#{%- endif -%}#}
                 </td>
                 <td>
                     <a href="{{ path_city('admin_branch', { 'chain_id': entity.id, '_locale':'ru' }) }}">Филиалы</a>

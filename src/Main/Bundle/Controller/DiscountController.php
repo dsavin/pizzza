@@ -134,7 +134,7 @@
          * @Route("/{id}/delete", name="admin_discount_delete")
          * @Method("POST")
          */
-        public function deleteAction(Request $request, $id)
+        public function deleteAction(Request $request, $id, $_city)
         {
             $form = $this->createDeleteForm($id);
             $form->bind($request);
@@ -147,11 +147,13 @@
                     throw $this->createNotFoundException('Unable to find Discount entity.');
                 }
 
+                $chain_id = $entity->getChain()->getId();
+
                 $em->remove($entity);
                 $em->flush();
             }
 
-            return $this->redirect($this->generateUrlCity('admin_discount'));
+            return $this->redirect($this->generateUrlCity('admin_discount', array('chain_id' => $chain_id, '_city' => $_city)));
         }
 
         private function createDeleteForm($id)

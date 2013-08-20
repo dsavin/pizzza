@@ -48,10 +48,11 @@ Redirect 301 /news/article/vybor-rjestorana http://pizzza.com.ua/public/vybor-rj
 Redirect 301 /news/pizza-kieva/dominos_pozdravlenije_s_8_marta http://pizzza.com.ua/public/dominos_pozdravlenije_s_8_marta
 Redirect 301 /news/pizza-kieva/vesnyanoe_menu_v_mamamia http://pizzza.com.ua/public/vesnyanoe_menu_v_mamamia
 Redirect 301 /news/pizza-kieva/samaya_bolidshaya_pizza_ukraini http://pizzza.com.ua/public/samaya_bolidshaya_pizza_ukraini
-Redirect 301 /world/world/avtomaty_s_pizz�i http://pizzza.com.ua/public/avtomaty_s_pizz%D0%B5i
+Redirect 301 /world/world/avtomaty_s_pizz�i http://pizzza.com.ua/public/avtomaty_s_pizz%D0%B5i
 Redirect 301 /article/different/kak-pridat-bljudam-pikantnyj-vkus-ili-putjeshjestvije-v-mir-spjecij http://pizzza.com.ua/public/kak-pridat-bljudam-pikantnyj-vkus-ili-putjeshjestvije-v-mir-spjecij
 Redirect 301 /world/news/novyi_vyd_pizzy http://pizzza.com.ua/public/novyi_vyd_pizzy
 Redirect 301 /news/pizza-kieva/novaya_chelentano_dostavka http://pizzza.com.ua/public/novaya_chelentano_dostavka
+Redirect 301 /world/world/avtomaty_s_pizzеi http://pizzza.com.ua/public/avtomaty_s_pizzеi
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=18
 RewriteRule ^recept\.php$ /recipes/quattro_stagioni [L,R=301]
@@ -72,6 +73,10 @@ RewriteRule ^article_view\.php$ /recipes/pizza_margherita [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=5
 RewriteRule ^article_view\.php$ /recipes/pizza_marinara [L,R=301]
+
+RewriteRule ^pizzerias\/\d(\/\d\/\d*)?$ /pizzerias [L,R=301]
+
+RewriteRule ^discounts\/\d(\/\d*)?$ /discounts [L,R=301]
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

@@ -9,7 +9,7 @@
             <tr>
                 <th>Улица</th>
                 <th></th>
-                <th>Перевод</th>
+                <th></th>
                 <th>
                     <div>
                         <a class="btn btn-primary" href="{{ path_city('admin_branch_new',{'chain_id':chain.getId, '_locale':'ru'}) }}">Добавить</a>
@@ -23,11 +23,11 @@
                 <td><a href="{#{ path_city('admin_branch_show', { 'id': entity.id }) }#}">{{ entity.street }}</a></td>
                 <td><a href="{{ path_city('admin_branch_comments', { 'chain_id': chain.id, 'branch_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Комментарии</a></td>
                 <td>
-                    {%- if entity.getChildren.count > 0-%}
-                        <a href="{{ path_city('admin_branch_edit', { 'id': entity.getChildren.first.id, '_locale':'en', 'chain_id':chain.getId }) }}">en</a>
-                    {%- else -%}
-                        <a href="{{ path_city('admin_branch_new',{'chain_id':chain.getId, '_locale':'en', 'branch_id':entity.id}) }}">en</a>
-                    {%- endif -%}
+                    {#{%- if entity.getChildren.count > 0-%}#}
+                        {#<a href="{{ path_city('admin_branch_edit', { 'id': entity.getChildren.first.id, '_locale':'en', 'chain_id':chain.getId }) }}">en</a>#}
+                    {#{%- else -%}#}
+                        {#<a href="{{ path_city('admin_branch_new',{'chain_id':chain.getId, '_locale':'en', 'branch_id':entity.id}) }}">en</a>#}
+                    {#{%- endif -%}#}
                 </td>
                 <td>
                     <div>
