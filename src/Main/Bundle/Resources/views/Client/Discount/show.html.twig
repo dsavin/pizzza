@@ -38,7 +38,7 @@
                         {% if entityDiscount.getImageName %}
                             <img src="{{ vich_uploader_asset(entityDiscount, 'image') | apply_filter('discount_page') }}" width="596" alt="{{ entityDiscount.getImageName }}" class="thumb" />
                         {% endif %}
-                        <p>{{ entityDiscount.getText }}</p>
+                        <p>{{ entityDiscount.getText|raw }}</p>
                     </div>
                 </div>
             </div>

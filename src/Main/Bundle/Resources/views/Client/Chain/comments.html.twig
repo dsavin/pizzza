@@ -57,7 +57,7 @@
                             <span class="error-text"></span>
                         </div>
                         <div class="mark">
-                            <strong>Ваша оценка</strong>
+                            <strong style="color:#333;">Ваша оценка</strong>
                             <ul class="star-rating">
                                 <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
                                 <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
@@ -66,34 +66,38 @@
                                 <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
                             </ul>
                         </div>
-                        <div class="about">
-                            <strong>О чем ваш отзыв?</strong>
-                            {#<em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>#}
-                            <div class="row">
-                                <input id="radio1" class="radio" name="type" type="radio" checked="checked" value="2"/>
-                                <label for="radio1">Сеть пиццерий «{{ entity.name }}»</label>
+                        {% if entity.getType != 1 %}
+                            <div class="about">
+                                <strong>О чем ваш отзыв?</strong>
+                                {#<em>Если вас не затруднит – уточните, пожалуйста, что именно вы прокомментировали: конкретную пиццерию «Мамамиа» по какому-либо адресу, службу доставки или сеть «Мамамиа» в целом.</em>#}
+                                <div class="row">
+                                    <input id="radio1" class="radio" name="type" type="radio" checked="checked" value="2"/>
+                                    <label for="radio1">Сеть пиццерий «{{ entity.name }}»</label>
+                                </div>
+                                <div class="row">
+                                    <input id="radio2" class="radio" name="type" type="radio" value="3"/>
+                                    <label for="radio2">Служба доставки пиццы</label>
+                                </div>
+                                <div class="row" onclick="$(this).find('input').attr('checked',true)">
+                                    <input id="radio3" class="radio" name="type" type="radio" value="4"/>
+                                    <label for="radio3">Пиццерия по адресу:</label>
+                                    <select id="radio3" class="select-adress" name="branch">
+                                        {% for branch in entity.getBranchsByLocale(_locale) %}
+                                            <option value="{{ branch.id }}">{{ branch.street }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
-                            <div class="row">
-                                <input id="radio2" class="radio" name="type" type="radio" value="3"/>
-                                <label for="radio2">Служба доставки пиццы</label>
-                            </div>
-                            <div class="row" onclick="$(this).find('input').attr('checked',true)">
-                                <input id="radio3" class="radio" name="type" type="radio" value="4"/>
-                                <label for="radio3">Пиццерия по адресу:</label>
-                                <select id="radio3" class="select-adress" name="branch">
-                                    {% for branch in entity.getBranchsByLocale(_locale) %}
-                                        <option value="{{ branch.id }}">{{ branch.street }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="capcha">
-                            {#<label for="capcha">Введите сумму цифр <span>*</span></label>#}
-                            {#<div class="input">#}
+                            <div class="capcha">
+                                {#<label for="capcha">Введите сумму цифр <span>*</span></label>#}
+                                {#<div class="input">#}
                                 {#<span>3 + 2 =</span>#}
                                 {#<input type="text" id="capcha" value="5" />#}
-                            {#</div>#}
-                        </div>
+                                {#</div>#}
+                            </div>
+                        {% else %}
+                            <input type="hidden" value="3" name="type">
+                        {% endif %}
                         <div class="footer">
                             <input type="hidden" value="4" name="rating" id="stars_rating">
                             <input type="submit" value="Добавить отзыв"/>
