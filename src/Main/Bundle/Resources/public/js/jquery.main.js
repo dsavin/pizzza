@@ -269,7 +269,7 @@ function initCheckedClasses() {
 		},
 		initStructure: function() {
 			this.slides.css({display:'block',opacity:0}).eq(this.currentIndex).css({
-				opacity:'', 'z-index':9999
+				opacity:'', 'z-index':5
 			});
 		},
 		attachEvents: function() {
@@ -394,10 +394,10 @@ function initCheckedClasses() {
 					if(!self.options.animSpeed) {
 						self.slides.eq(self.currentIndex).css({opacity:'', 'z-index':1});
 					} else {
-						self.slides.eq(self.currentIndex).stop().animate({opacity:1, 'z-index':9999},{duration: self.options.animSpeed});
+						self.slides.eq(self.currentIndex).stop().animate({opacity:1, 'z-index':5},{duration: self.options.animSpeed});
 					}
 					setTimeout(function() {
-						self.slides.eq(self.currentIndex).css({opacity:'', 'z-index':9999});
+						self.slides.eq(self.currentIndex).css({opacity:'', 'z-index':5});
 						self.galleryAnimating = false;
 						self.autoRotate();
 						

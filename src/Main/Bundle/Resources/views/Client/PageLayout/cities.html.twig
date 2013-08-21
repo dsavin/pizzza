@@ -1,5 +1,0 @@
-<select style="float: left; margin-top: 6px;" id="cities">
-    {%-for entity in entities-%}
-        <option value="{{ path('admin_chain_city',{'_city':entity.getUrl}) }}" {%-if _city == entity.getUrl-%}selected{% endif %}>{{ entity.getName }}</option>
-    {% endfor %}
-</select>
