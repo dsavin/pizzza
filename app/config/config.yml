@@ -165,6 +165,6 @@ stfalcon_tinymce:
 #                 - {title: 'Test template 2', content: 'Test 2'}
         # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
         bbcode:
-             plugins: ["bbcode, code, link, preview, image, code"]
+             plugins: ["code, link, preview, image, code"]
 #             menubar: false
 #             toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
