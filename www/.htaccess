@@ -53,6 +53,8 @@ Redirect 301 /article/different/kak-pridat-bljudam-pikantnyj-vkus-ili-putjeshjes
 Redirect 301 /world/news/novyi_vyd_pizzy http://pizzza.com.ua/public/novyi_vyd_pizzy
 Redirect 301 /news/pizza-kieva/novaya_chelentano_dostavka http://pizzza.com.ua/public/novaya_chelentano_dostavka
 Redirect 301 /world/world/avtomaty_s_pizzеi http://pizzza.com.ua/public/avtomaty_s_pizzеi
+Redirect 301 /public/world/world http://pizzza.com.ua/public
+Redirect 301 /delivery.php http://pizzza.com.ua/delivery
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=18
 RewriteRule ^recept\.php$ /recipes/quattro_stagioni [L,R=301]
@@ -77,6 +79,24 @@ RewriteRule ^article_view\.php$ /recipes/pizza_marinara [L,R=301]
 RewriteRule ^pizzerias\/\d(\/\d\/\d*)?$ /pizzerias [L,R=301]
 
 RewriteRule ^discounts\/\d(\/\d*)?$ /discounts [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=Solo_Pizza
+RewriteRule ^piceria\.php$ /solo_pizza [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=imperia
+RewriteRule ^piceria\.php$ /imperia_pizza [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=grand
+RewriteRule ^piceria\.php$ /grand [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=alibi
+RewriteRule ^piceria\.php$ /alibi [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=VeronaPizza
+RewriteRule ^piceria\.php$ /verona_pizza [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=pizza-party
+RewriteRule ^piceria\.php$ /pizza_party [L,R=301]
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

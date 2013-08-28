@@ -42,11 +42,15 @@ class CommentController extends Controller
                         break;
                     case Comment::TYPE_DELIVERY:
                         $entity = new CommentDelivery();
+                        $entityChain->setRatingDelivery($entityChain->getRatingDelivery()+$data['rating']);
+                        $em->persist($entityChain);
                         break;
                     case Comment::TYPE_BRANCH:
                         $entity = new CommentBranch();
                         $entityBranch = $em->getRepository('MainBundle:Branch')->find($data['branch']);
+                        $entityBranch->setRating($entityBranch->getRating()+$data['rating']);
                         $entity->setBranch($entityBranch);
+                        $em->persist($entityBranch);
                         break;
                 }
                 $entity->setChain($entityChain);
