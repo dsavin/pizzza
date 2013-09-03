@@ -54,49 +54,98 @@ Redirect 301 /world/news/novyi_vyd_pizzy http://pizzza.com.ua/public/novyi_vyd_p
 Redirect 301 /news/pizza-kieva/novaya_chelentano_dostavka http://pizzza.com.ua/public/novaya_chelentano_dostavka
 Redirect 301 /world/world/avtomaty_s_pizzеi http://pizzza.com.ua/public/avtomaty_s_pizzеi
 Redirect 301 /public/world/world http://pizzza.com.ua/public
+Redirect 301 /public/news/pizza_history http://pizzza.com.ua/public
+Redirect 301 /public/world http://pizzza.com.ua/public
+Redirect 301 /public/article http://pizzza.com.ua/public
+Redirect 301 /public/pizza_history/pizza-kieva http://pizzza.com.ua/public
+Redirect 301 /public/pizza_history/article http://pizzza.com.ua/public
+Redirect 301 /public/pizza-kieva http://pizzza.com.ua/public
+Redirect 301 /public/news http://pizzza.com.ua/public
 Redirect 301 /delivery.php http://pizzza.com.ua/delivery
+Redirect 301 /index.php/delivery http://pizzza.com.ua/delivery
+Redirect 301 /pizza http://pizzza.com.ua
+Redirect 301 /etno http://pizzza.com.ua
+Redirect 301 /podruzhka http://pizzza.com.ua
+Redirect 301 /subemail/add http://pizzza.com.ua
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=18
-RewriteRule ^recept\.php$ /recipes/quattro_stagioni [L,R=301]
+RewriteRule ^recept\.php$ /recipes/quattro_stagioni$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=34
-RewriteRule ^article-pizza\.php$ /public/vine [L,R=301]
+RewriteRule ^article-pizza\.php$ /public/vine$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=32
-RewriteRule ^article-pizza\.php$ /public/good_calories [L,R=301]
+RewriteRule ^article-pizza\.php$ /public/good_calories$1? [L,R=301]
 
 RewriteRule ^recept\.php$ /recipes [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=13
-RewriteRule ^pizeria_vew\.php$ /grand [L,R=301]
+RewriteRule ^pizeria_vew\.php$ /grand$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=4
-RewriteRule ^article_view\.php$ /recipes/pizza_margherita [L,R=301]
+RewriteRule ^article_view\.php$ /recipes/pizza_margherita$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=5
-RewriteRule ^article_view\.php$ /recipes/pizza_marinara [L,R=301]
+RewriteRule ^article_view\.php$ /recipes/pizza_marinara$1? [L,R=301]
 
-RewriteRule ^pizzerias\/\d(\/\d\/\d*)?$ /pizzerias [L,R=301]
+RewriteCond %{QUERY_STRING} ^([^&]&)*id=8
+RewriteRule ^article-pizza\.php$ /public$1? [L,R=301]
 
-RewriteRule ^discounts\/\d(\/\d*)?$ /discounts [L,R=301]
+RewriteRule ^pizzerias\/\d+(\/\d+(\/\d*)?)?$ /pizzerias [L,R=301]
+
+RewriteRule ^discounts\/\d+(\/\d*)?$ /discounts [L,R=301]
+RewriteRule ^map\/\d+$ /map [L,R=301]
+RewriteRule ^recipes\/\d+$ /recipes [L,R=301]
+RewriteRule ^commentpizza\/save\/\d+$ /pizzerias [L,R=301]
+
+RewriteRule ^etno\/.*?$ /pizzerias [L,R=301]
+
+RewriteRule ^ETNO\/.*?$ /pizzerias [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=Solo_Pizza
-RewriteRule ^piceria\.php$ /solo_pizza [L,R=301]
+RewriteRule ^piceria\.php$ /solo_pizza$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=imperia
-RewriteRule ^piceria\.php$ /imperia_pizza [L,R=301]
+RewriteRule ^piceria\.php$ /imperia_pizza$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=grand
-RewriteRule ^piceria\.php$ /grand [L,R=301]
+RewriteRule ^piceria\.php$ /grand$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=alibi
-RewriteRule ^piceria\.php$ /alibi [L,R=301]
+RewriteRule ^piceria\.php$ /alibi$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=VeronaPizza
-RewriteRule ^piceria\.php$ /verona_pizza [L,R=301]
+RewriteRule ^piceria\.php$ /verona_pizza$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=pizza-party
-RewriteRule ^piceria\.php$ /pizza_party [L,R=301]
+RewriteRule ^piceria\.php$ /pizza_party$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=il-patio
+RewriteRule ^piceria\.php$ /il_patio$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=domino
+RewriteRule ^piceria\.php$ /dominos$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=vesuvio
+RewriteRule ^piceria\.php$ /vesuvio$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=trattoria-pizza
+RewriteRule ^piceria\.php$ /trattoria_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=mio-pizza
+RewriteRule ^piceria\.php$ /mio_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=adriano-pizza
+RewriteRule ^piceria\.php$ /adriano_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=chelentano
+RewriteRule ^piceria\.php$ /chelentano$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=capodemonte
+RewriteRule ^piceria\.php$ /capodemonte$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=menu-avenue
+RewriteRule ^piceria\.php$ /menu_avenue$1? [L,R=301]
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -107,6 +156,7 @@ RewriteRule ^piceria\.php$ /pizza_party [L,R=301]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
+
 </IfModule>
 <IfModule mod_headers.c>
     <FilesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
