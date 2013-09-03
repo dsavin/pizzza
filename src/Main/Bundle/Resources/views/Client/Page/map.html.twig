@@ -6,36 +6,65 @@
 {% set active = 5 %}
 
 {% block javascripts %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+        #ui-id-1 {
+            overflow-y: scroll;
+            max-height: 150px;
+        }
+    </style>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>
+        var chains = [
+            {% for chain in chains %}
+                {
+                    id:   "{{ chain.id }}",
+                    label:   "{{ chain.name }}",
+                    value:   "{{ chain.name }}"
+                },
+            {% endfor %}
+        ];
+
+        var marks = [
+            {% for chain in chains %}
+                {% for branch in chain.getBranchsByLocale(_locale) %}
+                    {
+                        id:   "{{ chain.id }}",
+                        lat:   "{{ branch.lat }}",
+                        lng:   "{{ branch.lng }}",
+                        street:   "{{ branch.street }}",
+                        name:   "{{ chain.name }}",
+                        path:   "{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':chain.url,'branch_url':branch.url}) }}"
+                    },
+                {% endfor %}
+            {% endfor %}
+        ];
+
         var map;
         var openedWindow = false;
         function setMap()
         {
-            {% set i = 1 %}
-            {% for chain in chains %}
-                {% for branch in chain.getBranchsByLocale(_locale) %}
-                    {% if loop.index == 1 and i == 1 %}
-                        var mapOptions = {
-                            center:new google.maps.LatLng(50.450181,30.523096),
-                            zoom:13,
-                            mapTypeId:google.maps.MapTypeId.ROADMAP,
-                            scrollwheel:false
-                        };
-                        map = new google.maps.Map(document.getElementById("map-canvas"),
-                                mapOptions);
-                        {% set i = 2 %}
-                    {% endif %}
-                    var marker = new google.maps.Marker({
-                        map:map,
-                        position:new google.maps.LatLng({{ branch.lat }},{{ branch.lng }}),
-                        icon: new google.maps.MarkerImage(
-                                '/images/marker.png',
-                                new google.maps.Size(27,28)
-                        )
-                    });
-                    attachSecretMessage(marker,'{{ branch.street }}', '{{ chain.name }}', "{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':chain.url,'branch_url':branch.url}) }}");
-                {% endfor %}
-            {% endfor %}
+            var marker;
+            var mapOptions = {
+                center:new google.maps.LatLng(50.450181,30.523096),
+                zoom:13,
+                mapTypeId:google.maps.MapTypeId.ROADMAP,
+                scrollwheel:false
+            };
+            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            $.each(marks, function(index, value) {
+                marker = new google.maps.Marker({
+                    map:map,
+                    position:new google.maps.LatLng(value.lat, value.lng),
+                    icon: new google.maps.MarkerImage(
+                            '/images/marker.png',
+                            new google.maps.Size(27,28)
+                    )
+                });
+
+                attachSecretMessage(marker, value.street, value.name, value.path);
+            });
         }
         function attachSecretMessage(marker, str, chainName, url)
         {
@@ -54,11 +83,16 @@
         }
         $(document).ready(function(){
             setMap();
+            $( "#search-map" ).autocomplete({
+                source: chains,
+                response: function( event, ui ) { console.log(event, ui); }
+            });
         });
     </script>
 {% endblock %}
 
 {% block body %}
+
     <div id="main">
         <div class="main">
             <div id="content" class="map-content">
@@ -69,15 +103,15 @@
                     </ul>
                     <div class="gholder">
                         <h1>Все пиццерии на карте Киева</h1>
-                        {#<form action="#" class="search-map">#}
-                            {#<fieldset>#}
-                                {#<label for="search-map">Найти на карте</label>#}
-                                {#<div class="row">#}
-                                    {#<input type="text" value="Название" id="search-map" />#}
-                                    {#<input type="submit" value="Search" />#}
-                                {#</div>#}
-                            {#</fieldset>#}
-                        {#</form>#}
+                        <form action="#" class="search-map">
+                            <fieldset>
+                                <label for="search-map">Найти на карте</label>
+                                <div class="row">
+                                    <input type="text" value="Название" id="search-map" />
+                                    <input type="submit" value="Search" />
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
                 <div class="map-page">
