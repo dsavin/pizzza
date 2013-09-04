@@ -147,6 +147,9 @@ RewriteRule ^piceria\.php$ /capodemonte$1? [L,R=301]
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=menu-avenue
 RewriteRule ^piceria\.php$ /menu_avenue$1? [L,R=301]
 
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=mafia
+RewriteRule ^piceria\.php$ /mafia$1? [L,R=301]
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

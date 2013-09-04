@@ -40,20 +40,24 @@
             {% endfor %}
         ];
 
+        var t;
         var map;
+        var installMarks = marks;
         var openedWindow = false;
-        function setMap()
+        var mapOptions = {
+            center:new google.maps.LatLng(50.450181,30.523096),
+            zoom:13,
+            mapTypeId:google.maps.MapTypeId.ROADMAP,
+            scrollwheel:false
+        };
+
+        function setMap(points)
         {
             var marker;
-            var mapOptions = {
-                center:new google.maps.LatLng(50.450181,30.523096),
-                zoom:13,
-                mapTypeId:google.maps.MapTypeId.ROADMAP,
-                scrollwheel:false
-            };
+            $('#map-canvas').html('');
             map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-            $.each(marks, function(index, value) {
+            $.each(points, function(index, value) {
                 marker = new google.maps.Marker({
                     map:map,
                     position:new google.maps.LatLng(value.lat, value.lng),
@@ -66,6 +70,7 @@
                 attachSecretMessage(marker, value.street, value.name, value.path);
             });
         }
+
         function attachSecretMessage(marker, str, chainName, url)
         {
             var infowindow = new google.maps.InfoWindow(
@@ -81,18 +86,55 @@
                 map.setCenter(marker.getPosition());
             });
         }
+
+        function makeNewMap(event, ui)
+        {
+
+            console.log( ui.item );
+
+            var chainName = $("#search-map").val();
+
+            if (ui.item) {
+                chainName = ui.item.value;
+            }
+
+            var newMarks = [];
+
+            if (chainName == "Название") {
+                chainName = "";
+            }
+
+            var reg = new RegExp(".*"+chainName+".*");
+            var i = 0;
+            $.each(installMarks, function(index, value) {
+                if (reg.test(value.name)) {
+                    newMarks[i] = value;
+                    i++;
+                }
+            });
+
+            clearTimeout(t);
+            t = setTimeout(function(){
+                setMap(newMarks);
+            }, 1000);
+
+//            console.log(newMarks);
+        }
+
         $(document).ready(function(){
-            setMap();
+            setMap(installMarks);
             $( "#search-map" ).autocomplete({
                 source: chains,
-                response: function( event, ui ) { console.log(event, ui); }
+                select: makeNewMap,
+                focus: makeNewMap,
+                response: makeNewMap,
+                change: makeNewMap
             });
         });
     </script>
 {% endblock %}
 
 {% block body %}
-
     <div id="main">
         <div class="main">
             <div id="content" class="map-content">
@@ -103,7 +145,7 @@
                     </ul>
                     <div class="gholder">
                         <h1>Все пиццерии на карте Киева</h1>
-                        <form action="#" class="search-map">
+                        <form action="#" class="search-map" onsubmit="return false;">
                             <fieldset>
                                 <label for="search-map">Найти на карте</label>
                                 <div class="row">
