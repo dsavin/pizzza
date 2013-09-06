@@ -150,6 +150,11 @@ class Chain
     private $branchs;
 
     /**
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="chain")
+     */
+    private $items;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="social_text", type="string", length=255, nullable=true)
@@ -231,6 +236,7 @@ class Chain
     {
         $this->children = new ArrayCollection();
         $this->branchs = new ArrayCollection();
+        $this->items = new ArrayCollection();
         $this->discounts = new ArrayCollection();
         $this->branchse_pohtos = new ArrayCollection();
         $this->updated_at = new \DateTime();
@@ -362,6 +368,21 @@ class Chain
         return $this->branchs;
     }
 
+    public function setItems(ArrayCollection $items)
+    {
+        foreach ($items as $item) {
+            $item->setChainy($this);
+        }
+        $this->items = $items;
+    }
+
+    /**
+     * @return ArrayCollection A Doctrine ArrayCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
 
     /**
      * @param $imageName

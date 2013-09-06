@@ -83,6 +83,9 @@ vich_uploader:
         slider_image:
             uri_prefix: /uploads/images/slider
             upload_destination: %kernel.root_dir%/../www/uploads/images/slider
+        item_img:
+            uri_prefix: /uploads/images/items
+            upload_destination: %kernel.root_dir%/../www/uploads/images/items
 
 avalanche_imagine:
     source_root:  %kernel.root_dir%/../www

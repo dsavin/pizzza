@@ -10,6 +10,7 @@
                 <th></th>
                 <th>Филиалы</th>
                 <th>Акции</th>
+                <th>Пиццы</th>
                 <th>
                     <a href="{{ path_city('admin_chain_new', {'_locale':'ru'}) }}" class="btn btn-primary">Добавить</a>
                 </th>
@@ -37,6 +38,9 @@
                 </td>
                 <td>
                     <a href="{{ path_city('admin_discount', { 'chain_id': entity.id, '_locale':'ru' }) }}">Акции</a>
+                </td>
+                <td>
+                    <a href="{{ path_city('admin_item', { 'chain_id': entity.id, '_locale':'ru' }) }}">Пиццы</a>
                 </td>
                 <td>
                     <div>
