@@ -94,6 +94,7 @@ class PageController extends Controller
         $urls[] = $this->generateUrlCity('_discounts_list', array());
         $urls[] = $this->generateUrlCity('_delivery_list', array());
         $urls[] = $this->generateUrlCity('_chain_list', array());
+        $urls[] = $this->generateUrlCity('_item_all', array());
 
         foreach ($chains as $chain) {
             $urls[] = $this->generateUrlCity('_chain_single', array(
@@ -135,6 +136,12 @@ class PageController extends Controller
                     'chain_url' => $chain->geturl(),
                     'dis_url' => $discount->geturl()
                 ));
+            }
+            foreach ($chain->getItems() as $item) {
+                $urls[] = $this->generateUrlCity('_item_single', array(
+                      'chain_url' => $chain->geturl(),
+                      'item_url' => $item->geturl()
+                 ));
             }
         }
 
