@@ -61,11 +61,14 @@ Redirect 301 /public/pizza_history/pizza-kieva http://pizzza.com.ua/public
 Redirect 301 /public/pizza_history/article http://pizzza.com.ua/public
 Redirect 301 /public/pizza-kieva http://pizzza.com.ua/public
 Redirect 301 /public/news http://pizzza.com.ua/public
+Redirect 301 /public/different http://pizzza.com.ua/public
 Redirect 301 /delivery.php http://pizzza.com.ua/delivery
 Redirect 301 /index.php/delivery http://pizzza.com.ua/delivery
 Redirect 301 /etno http://pizzza.com.ua
 Redirect 301 /podruzhka http://pizzza.com.ua
 Redirect 301 /subemail/add http://pizzza.com.ua
+Redirect 301 /dominos/сhikenita http://pizzza.com.ua/dominos/pizza/сhikenita
+Redirect 301 /papa_john/vorovskogo http://pizzza.com.ua/papa_john
 
 Redirect 301 /pizzalend/chikitto http://pizzza.com.ua/pizzalend/pizza/chikitto
 Redirect 301 /pizzalend/margarita http://pizzza.com.ua/pizzalend/pizza/margarita
