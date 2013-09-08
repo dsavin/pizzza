@@ -67,6 +67,114 @@ Redirect 301 /etno http://pizzza.com.ua
 Redirect 301 /podruzhka http://pizzza.com.ua
 Redirect 301 /subemail/add http://pizzza.com.ua
 
+Redirect 301 /pizzalend/chikitto http://pizzza.com.ua/pizzalend/pizza/chikitto
+Redirect 301 /pizzalend/margarita http://pizzza.com.ua/pizzalend/pizza/margarita
+Redirect 301 /pizzalend/gavaiskaya http://pizzza.com.ua/pizzalend/pizza/gavaiskaya
+
+Redirect 301 /double_pizza/marinara http://pizzza.com.ua/double_pizza/pizza/marinara
+Redirect 301 /kalabriiskaya http://pizzza.com.ua/double_pizza/pizza/kalabriiskaya
+Redirect 301 /double_pizza/grecheskaya http://pizzza.com.ua/double_pizza/pizza/grecheskaya
+
+Redirect 301 /pizza_belissima/laki http://pizzza.com.ua/pizza_belissima/pizza/laki
+Redirect 301 /pizza_belissima/gribnaya http://pizzza.com.ua/pizza_belissima/pizza/gribnaya
+Redirect 301 /pizza_belissima/ovoshchnaya http://pizzza.com.ua/pizza_belissima/pizza/ovoshchnaya
+
+Redirect 301 /pizza_na_vse_100/korolevskaya http://pizzza.com.ua/pizza_na_vse_100/pizza/korolevskaya
+Redirect 301 /pizza_na_vse_100/vegetarianskaya http://pizzza.com.ua/pizza_na_vse_100/pizza/vegetarianskaya
+Redirect 301 /pizza_na_vse_100/fruktovaya http://pizzza.com.ua/pizza_na_vse_100/pizza/fruktovaya
+
+Redirect 301 /diner_pizza/ohotnichya http://pizzza.com.ua/diner_pizza/pizza/ohotnichya
+Redirect 301 /diner_pizza/rancho http://pizzza.com.ua/diner_pizza/pizza/rancho
+Redirect 301 /diner_pizza/mehiko http://pizzza.com.ua/diner_pizza/pizza/mehiko
+
+Redirect 301 /pizzahouse/semeinaya http://pizzza.com.ua/pizzahouse/pizza/semeinaya
+Redirect 301 /pizzahouse/vostochnaya_krasavitsa http://pizzza.com.ua/pizzahouse/pizza/vostochnaya_krasavitsa
+Redirect 301 /pizzahouse/tolstyi_fraer http://pizzza.com.ua/pizzahouse/pizza/tolstyi_fraer
+
+Redirect 301 /pizza_maestro/maestro http://pizzza.com.ua/pizza_maestro/pizza/maestro
+Redirect 301 /pizza_maestro/grecheskaya http://pizzza.com.ua/pizza_maestro/pizza/grecheskaya
+Redirect 301 /pizza_maestro/kaltsone http://pizzza.com.ua/pizza_maestro/pizza/kaltsone
+
+Redirect 301 /lux_pizza/bovariya http://pizzza.com.ua/lux_pizza/pizza/bovariya
+Redirect 301 /lux_pizza/aziatskaya http://pizzza.com.ua/lux_pizza/pizza/aziatskaya
+Redirect 301 /lux_pizza/selyanskaya http://pizzza.com.ua/lux_pizza/pizza/selyanskaya
+
+Redirect 301 /pizza_jazz/kaltsone_s_kuritsei http://pizzza.com.ua/pizza_jazz/pizza/kaltsone_s_kuritsei
+Redirect 301 /pizza_jazz/diablo http://pizzza.com.ua/pizza_jazz/pizza/diablo
+Redirect 301 /pizza_jazz/s_tuntsom http://pizzza.com.ua/pizza_jazz/pizza/s_tuntsom
+
+Redirect 301 /buona_pizza/kopchenaya http://pizzza.com.ua/buona_pizza/pizza/kopchenaya
+Redirect 301 /buona_pizza/po_selyanski http://pizzza.com.ua/buona_pizza/pizza/po_selyanski
+Redirect 301 /buona_pizza/chelentano http://pizzza.com.ua/buona_pizza/pizza/chelentano
+
+Redirect 301 /pizza33/tropicheskaya http://pizzza.com.ua/pizza33/pizza/tropicheskaya
+Redirect 301 /pizza33/fruktovaya http://pizzza.com.ua/pizza33/pizza/fruktovaya
+Redirect 301 /pizza33/soho http://pizzza.com.ua/pizza33/pizza/soho
+
+Redirect 301 /2imperii/drakon http://pizzza.com.ua/2imperii/pizza/drakon
+Redirect 301 /2imperii/klassicheskaya http://pizzza.com.ua/2imperii/pizza/klassicheskaya
+Redirect 301 /2imperii/vegeterianskaya http://pizzza.com.ua/2imperii/pizza/vegeterianskaya
+
+Redirect 301 /pizzarium/marino http://pizzza.com.ua/pizzarium/pizza/marino
+Redirect 301 /pizzarium/gavaiskaya http://pizzza.com.ua/pizzarium/pizza/gavaiskaya
+Redirect 301 /pizzarium/vegetarianskaya http://pizzza.com.ua/pizzarium/pizza/vegetarianskaya
+
+Redirect 301 /mafia/kassia http://pizzza.com.ua/mafia/pizza/kassia
+Redirect 301 /mafia/verona http://pizzza.com.ua/mafia/pizza/verona
+Redirect 301 /mafia/sitsiliano http://pizzza.com.ua/mafia/pizza/sitsiliano
+
+Redirect 301 /menu_avenue/macho http://pizzza.com.ua/menu_avenue/pizza/macho
+Redirect 301 /menu_avenue/vremena_goda http://pizzza.com.ua/menu_avenue/pizza/vremena_goda
+Redirect 301 /menu_avenue/klub_syra http://pizzza.com.ua/menu_avenue/pizza/klub_syra
+
+Redirect 301 /adriano_pizza/k_pivy http://pizzza.com.ua/adriano_pizza/pizza/k_pivy
+Redirect 301 /adriano_pizza/sladkaya http://pizzza.com.ua/adriano_pizza/pizza/sladkaya
+Redirect 301 /adriano_pizza/adriano http://pizzza.com.ua/adriano_pizza/pizza/adriano
+
+Redirect 301 /verona_pizza/grecheskaya http://pizzza.com.ua/verona_pizza/pizza/grecheskaya
+Redirect 301 /verona_pizza/peperoni http://pizzza.com.ua/verona_pizza/pizza/peperoni
+Redirect 301 /verona_pizza/la_primavera http://pizzza.com.ua/verona_pizza/pizza/la_primavera
+
+Redirect 301 /po_neopolitanski http://pizzza.com.ua/pizza_party/pizza/po_neopolitanski
+Redirect 301 /pizza_party/toskana http://pizzza.com.ua/pizza_party/pizza/toskana
+Redirect 301 /pizza_party/supermyasnaya http://pizzza.com.ua/pizza_party/pizza/supermyasnaya
+
+Redirect 301 /mio_pizza/mio_kvatro http://pizzza.com.ua/mio_pizza/pizza/mio_kvatro
+Redirect 301 /mio_pizza/meksika http://pizzza.com.ua/mio_pizza/pizza/meksika
+Redirect 301 /mio_pizza/pizza_vegetariantsa http://pizzza.com.ua/mio_pizza/pizza/pizza_vegetariantsa
+
+Redirect 301 /papa_pizza/pizza_s_ovoschami http://pizzza.com.ua/papa_pizza/pizza/pizza_s_ovoschami
+Redirect 301 /papa_pizza/chetyri_syra http://pizzza.com.ua/papa_pizza/pizza/chetyri_syra
+Redirect 301 /papa_pizza/spicy http://pizzza.com.ua/papa_pizza/pizza/spicy
+
+Redirect 301 /dominos/ekstravaganzza http://pizzza.com.ua/dominos/pizza/ekstravaganzza
+Redirect 301 /dominos/ovoschnaya_feeriya http://pizzza.com.ua/dominos/pizza/ovoschnaya_feeriya
+Redirect 301 /dominos/%D1%81hikenita http://pizzza.com.ua/dominos/pizza/%D1%81hikenita
+
+Redirect 301 /pizza_mexico/proshutto http://pizzza.com.ua/pizza_mexico/pizza/proshutto
+Redirect 301 /pizza_mexico/oshybka_povara http://pizzza.com.ua/pizza_mexico/pizza/oshybka_povara
+Redirect 301 /pizza_mexico/parma http://pizzza.com.ua/pizza_mexico/pizza/parma
+
+Redirect 301 /babene/palermo http://pizzza.com.ua/babene/pizza/palermo
+Redirect 301 /babene/proshutto http://pizzza.com.ua/babene/pizza/proshutto
+Redirect 301 /babene/diabola http://pizzza.com.ua/babene/pizza/diabola
+
+Redirect 301 /trattoria_pizza/rimskaya http://pizzza.com.ua/trattoria_pizza/pizza/rimskaya
+Redirect 301 /trattoria_pizza/milanskaya http://pizzza.com.ua/trattoria_pizza/pizza/milanskaya
+Redirect 301 /trattoria_pizza/firmennaya http://pizzza.com.ua/trattoria_pizza/pizza/firmennaya
+
+Redirect 301 /grand/salyami http://pizzza.com.ua/grand/pizza/salyami
+Redirect 301 /grand/pizza_s_krevetkami http://pizzza.com.ua/grand/pizza/pizza_s_krevetkami
+Redirect 301 /grand/grand http://pizzza.com.ua/grand/pizza/grand
+
+Redirect 301 /imperia_pizza/domashnyaya http://pizzza.com.ua/imperia_pizza/pizza/domashnyaya
+Redirect 301 /imperia_pizza/gavaiskaya http://pizzza.com.ua/imperia_pizza/pizza/gavaiskaya
+Redirect 301 /imperia_pizza/koroleva-morya http://pizzza.com.ua/imperia_pizza/pizza/koroleva-morya
+
+Redirect 301 /vesuvio/vezuvio http://pizzza.com.ua/vesuvio/pizza/vezuvio
+Redirect 301 /vesuvio/ispanskaya http://pizzza.com.ua/vesuvio/pizza/ispanskaya
+Redirect 301 /vesuvio/kaliforniiskaya http://pizzza.com.ua/vesuvio/pizza/kaliforniiskaya
+
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=18
 RewriteRule ^recept\.php$ /recipes/quattro_stagioni$1? [L,R=301]
 
