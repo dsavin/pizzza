@@ -15,7 +15,7 @@ use Main\Bundle\Entity\Chain;
 /**
  * Item controller.
  *
- * @Route("/admin")
+ * @Route("/admin/chain_item")
  */
 class ItemController extends Controller
 {
