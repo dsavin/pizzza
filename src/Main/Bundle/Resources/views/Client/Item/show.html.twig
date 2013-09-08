@@ -1,9 +1,9 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{ entity.name }}{% endblock %}
-{% block description %}{{ entity.name }}{% endblock %}
-{% block keywords %}{{ entity.name }}{% endblock %}
-{% set active = 1 %}
+{% block title %}Пицца {{ entity.name }} от пиццерии {{ entityChain.name }} | Pizzza.com.ua{% endblock %}
+{% block description %}Описание, ингридиенты пиццы {{ entity.name }} от пиццерии {{ entityChain.name }} на портале Pizzza.com.ua {% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 6 %}
 
 {% if entityChain.getType == 3 or entityChain.getType == 2 %}
     {%  set chain_url = path_city('_chain_single',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) %}
@@ -21,7 +21,7 @@
             <div class="heading-page">
                 <ul class="breadcrumbs">
                     <li><a href="/">Главная</a></li>
-                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Галерея пиццы</a></li>
+                    <li><a href="{{ path_city('_item_all',{'_city':_city,'_locale':_locale}) }}">Галерея пиццы</a></li>
                     <li>
                         <a href="{{ chain_url }}">{{ entityChain.name }}</a>
                     </li>

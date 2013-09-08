@@ -62,26 +62,27 @@
         }
 
         /**
-         * Displays single item branch
+         * Displays all items
          *
          * @Template()
          */
-        public function allAction($_city, $chain_url, Request $request)
+        public function allAction($_city, Request $request)
         {
             $em = $this->getDoctrine()->getManager();
             $city = $this->getCityByUrl($_city);
 
-            $entities = $em->getRepository('MainBundle:Branch')->getListBranches($chain_url, $city->getId(), $request->getLocale() );
+            $entities = $em->getRepository('MainBundle:Item')->getListItems($city->getId(), $request->getLocale() );
 
-            /* Розделить на выборку сети и потом выборку всех заведений
-             *
-             * if (!$entities) {
-                throw $this->createNotFoundException('Нету такого заведения');
-            }*/
+
+            $entityPage = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                'name'     => 'pizza',
+                'city_id' => $city->getId(),
+                'lang'    => $request->getLocale()
+            ));
 
             return array(
                 'entities'      => $entities,
-                'entityChain'   => $entities[0]->getChain(),
+                'entityPage'      => $entityPage
             );
         }
     }

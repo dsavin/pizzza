@@ -40,4 +40,26 @@ class ItemRepository extends EntityRepository
     }
 
 
+    public function getListItems($city_id, $lang)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('it', 'ch')
+            ->from('MainBundle:Item', 'it')
+
+            ->join('it.chain','ch')
+
+            ->where('ch.city_id = :city_id')
+            ->andWhere('ch.lang = :lang')
+
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang', $lang)
+
+            ->orderBy('it.id','DESC')
+        ;
+
+        return $query->getQuery()->getResult();
+    }
+
 }
