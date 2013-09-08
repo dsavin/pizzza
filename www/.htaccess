@@ -175,6 +175,10 @@ Redirect 301 /vesuvio/vezuvio http://pizzza.com.ua/vesuvio/pizza/vezuvio
 Redirect 301 /vesuvio/ispanskaya http://pizzza.com.ua/vesuvio/pizza/ispanskaya
 Redirect 301 /vesuvio/kaliforniiskaya http://pizzza.com.ua/vesuvio/pizza/kaliforniiskaya
 
+Redirect 301 /valletta_pizza/margarita http://pizzza.com.ua/valletta_pizza/pizza/margarita
+Redirect 301 /valletta_pizza/kaprichioza http://pizzza.com.ua/valletta_pizza/pizza/kaprichioza
+Redirect 301 /valletta_pizza/meksikano http://pizzza.com.ua/valletta_pizza/pizza/meksikano
+
 RewriteCond %{QUERY_STRING} ^([^&]&)*id=18
 RewriteRule ^recept\.php$ /recipes/quattro_stagioni$1? [L,R=301]
 
