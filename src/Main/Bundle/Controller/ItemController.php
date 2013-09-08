@@ -78,10 +78,11 @@ class ItemController extends Controller
     /**
      * Displays a form to edit an existing Item entity.
      *
-     * @Route("/{id}/edit", name="admin_item_edit")
+     * @Route("/{chain_id}/item/{id}/edit", name="admin_item_edit", defaults={"_city" = "kiev"})
+     * @Route("/{_city}/{chain_id}/item/{id}/edit", name="admin_item_edit_city")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, $chain_id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -92,47 +93,24 @@ class ItemController extends Controller
         }
 
         $editForm = $this->createForm(new ItemType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
-    /**
-     * Edits an existing Item entity.
-     *
-     * @Route("/{id}/update", name="admin_item_update")
-     * @Method("POST")
-     * @Template("MainBundle:Item:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod("POST")) {
+            $editForm->bind($request);
 
-        $entity = $em->getRepository('MainBundle:Item')->find($id);
+            if ($editForm->isValid()) {
+                $em = $this->getDoctrine()->getManager();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Item entity.');
-        }
+                $em->persist($entity);
+                $em->flush();
 
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ItemType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_item_edit', array('id' => $id)));
+                return $this->redirect($this->generateUrl('admin_item', array('chain_id' => $chain_id)));
+            }
         }
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         );
     }
 
@@ -160,13 +138,5 @@ class ItemController extends Controller
         }
 
         return $this->redirect($this->generateUrl('admin_item'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
     }
 }

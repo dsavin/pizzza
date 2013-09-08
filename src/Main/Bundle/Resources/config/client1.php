@@ -20,6 +20,8 @@ $routes['_branches_all'] = array('url' => '/{chain_url}/all', 'params' => array(
 $routes['_chain_comments'] = array('url' => '/{chain_url}/comments', 'params' => array('_controller' => 'MainBundle:Client\Chain:comments'));
 $routes['_chain__delivery_single'] = array('url' => '/{chain_url}/delivery', 'params' => array('_controller' => 'MainBundle:Client\Chain:delivery'));
 $routes['_chain_single'] = array('url' => '/{chain_url}', 'params' => array('_controller' => 'MainBundle:Client\Chain:show'));
+//$routes['_item_single'] = array('url' => '/{chain_url}/pizza', 'params' => array('_controller' => 'MainBundle:Client\Item:all'));
+$routes['_item_single'] = array('url' => '/{chain_url}/pizza/{item_url}', 'params' => array('_controller' => 'MainBundle:Client\Item:show'));
 $routes['_branch_single'] = array('url' => '/{chain_url}/{branch_url}', 'params' => array('_controller' => 'MainBundle:Client\Branch:show'));
 
 $collection = new RouteCollection();

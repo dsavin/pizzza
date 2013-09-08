@@ -109,7 +109,7 @@
                                 <div class="metro">{{ entity.metro }}</div>
                             {% endif %}
                             <div class="time">{{ entity.getWorkAt }}</div>
-                            <div class="phone">{{ entity.phones }}</div>
+                            <div class="phone">{% for phone in entity.phones %}{{ phone }}{% endfor %}</div>
                         </div>
                     </div>
                     <p>{{ entity.text|raw }}</p>

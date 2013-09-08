@@ -24,7 +24,7 @@
                 <td>
                     <div>
                         <a href="{{ path_city('admin_item_edit', { 'id': entity.id, 'chain_id':chain.getId }) }}" class="btn"><i class="icon-edit"></i></a>
-                        <a target="_blank" href="{{ path_city('_branch_single', { 'chain_url': chain.url, 'branch_url': entity.url, '_locale':'en', '_city':_city }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                        <a target="_blank" href="{{ path_city('_item_single', { 'chain_url': chain.url, 'item_url': entity.url }) }}" class="btn"><i class="icon-eye-open"></i></a>
                     </div>
                 </td>
             </tr>

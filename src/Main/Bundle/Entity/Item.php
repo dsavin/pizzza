@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Item
  *
  * @ORM\Table(name="item")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Main\Bundle\Entity\ItemRepository")
  * @Vich\Uploadable
  */
 class Item

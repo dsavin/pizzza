@@ -3,12 +3,16 @@
 {% endblock %}
 {%- set chain = current_chain()-%}
 {% block body %}
-    <h1>Item edit</h1>
+    <h3>Редактирование пиццы {{ entity.name }}-  от пиццерии {{ chain.name }}</h3>
 
-    <form action="{{ path('admin_item_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form action="{{ path('admin_item_edit', { 'id': entity.id, 'chain_id':chain.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
+        {%-if entity.getImageName is not null-%}
+            <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.url }}" style="width: 150px; max-height: 200px;"/>
+        {%-endif-%}
+        <br/><br/>
         <p>
-            <button type="submit">Edit</button>
+            <button type="submit" class="btn btn-success">Сохранить</button>
         </p>
     </form>
 

@@ -1,0 +1,71 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Список всех адресов пиццерий сети {{ entityChain.name }}{% endblock %}
+{% block description %}Полный список адресов заведений (пиццерий) сети {{ entityChain.name }}{% endblock %}
+{% block keywords %}{% endblock %}
+{% set active = 1 %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
+                    <li>{{ entityChain.name }}</li>
+                </ul>
+                {{ include('MainBundle:Client:chain_header.html.twig', {entityChain: entityChain}) }}
+            </div>
+            {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'branches', entityChain: entityChain}) }}
+            <div class="main-info">
+                <div class="address-list">
+                    {% for entity in entities %}
+                        <div class="gholder">
+                            <div class="photo">
+                                {% if entity.getPhotos.count > 0 %}
+                                    <img src="{{ vich_uploader_asset(entity.getPhotos.first, 'image') }}" width="83" height="60" alt="{{ entity.getPhotos.first.getAltTeg }}" />
+                                    <div class="see">{{ entity.getPhotos.count }}</div>
+                                {% else %}
+                                    <img src="/images/88x35.png" width="83" height="60" alt="default site logo 83x60" />
+                                    <div class="see">0</div>
+                                {% endif %}
+                            </div>
+                            <div class="frame">
+                                <div class="title">
+                                    <a href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.getChain.url,'branch_url':entity.url}) }}" class="link-addres">{{ entity.street }}</a>
+                                    {% if entity.metro != '' %}
+                                        <span class="icons" title="{{ entity.metro }}"></span>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    {% for feature in entity.getFeatures %}
+                                        <span class="rss"  title="{{ feature.altTeg }}"
+                                              style="background: url({{ vich_uploader_asset(feature, 'image') }}) no-repeat;"
+                                                ></span>
+                                    {% endfor %}
+                                    <em class="date">{{ entity.workAt }}</em>
+                                </div>
+                            </div>
+                            <div class="another">
+                                <ul class="stars">
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRating) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+                                <a class="comment-link" href="{{ path_city('_branch_single',{'_city':_city,'_locale':_locale,'chain_url':entity.getChain.url,'branch_url':entity.url}) }}#commentsList">{{ entity.getComments.count }}</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="gholder">
+                            <h3>Нету ниодного заведения</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

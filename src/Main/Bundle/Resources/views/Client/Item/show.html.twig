@@ -1,0 +1,200 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.name }}{% endblock %}
+{% block description %}{{ entity.name }}{% endblock %}
+{% block keywords %}{{ entity.name }}{% endblock %}
+{% set active = 1 %}
+
+{% if entityChain.getType == 3 or entityChain.getType == 2 %}
+    {%  set chain_url = path_city('_chain_single',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) %}
+{% elseif entityChain.getType == 1 %}
+    {%  set chain_url = path_city('_chain__delivery_single',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) %}
+{% endif %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Галерея пиццы</a></li>
+                    <li>
+                        <a href="{{ chain_url }}">{{ entityChain.name }}</a>
+                    </li>
+                    <li>{{ entity.name }}</li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="gallery-block">
+                    <div class="gallery">
+                        <div class="gmask">
+                            <ul>
+                                <li>
+                                    {#<a href="#">#}
+                                        {#<img src="images/img-50.jpg" width="246" height="216" alt="image description" />#}
+                                        {%-if entity.getImageName is not null-%}
+                                            <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.url }}" style="max-width: 246px;"/>
+                                        {%-endif-%}
+                                    {#</a>#}
+                                </li>
+                                {#<li><a href="#"><img src="images/img-50.jpg" width="246" height="216" alt="image description" /></a></li>#}
+                                {#<li><a href="#"><img src="images/img-50.jpg" width="246" height="216" alt="image description" /></a></li>#}
+                            </ul>
+                        </div>
+                        {#<ul class="thumbnails">#}
+                            {#<li class="active">#}
+                                {#<a href="#">#}
+                                    {#<img src="images/img-51.jpg" width="70" height="61" alt="image description" />#}
+
+                                {#</a>#}
+                            {#</li>#}
+                            {#<li><a href="#"><img src="images/img-52.jpg" width="70" height="61" alt="image description" /></a></li>#}
+                            {#<li><a href="#"><img src="images/img-53.jpg" width="70" height="61" alt="image description" /></a></li>#}
+                        {#</ul>#}
+                    </div>
+                    <div class="text">
+                        <h1>«{{ entity.name }}» от <a href="{{ chain_url }}">{{ entityChain.name }}</a></h1>
+                        {#<div class="box">#}
+                            {#<ul class="stars">#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star"></li>#}
+                                {#<li class="ico-star ico-star-empty"></li>#}
+                            {#</ul>#}
+                            {#<span class="sum">21</span>#}
+                            {#<a href="#" class="add"><span>Оставить отзыв</span></a>#}
+                        {#</div>#}
+                        <dl>
+                            <dt>Описание:</dt>
+                            <dd>{{ entity.text }}</dd>
+                        </dl>
+                    </div>
+                </div>
+                {% if entities|length > 0 %}
+                    <div class="heading">
+                        {#<ul>#}
+                            {#<li class="active"><a href="#">1</a></li>#}
+                            {#<li><a href="#">2</a></li>#}
+                        {#</ul>#}
+                        <h2>Другие пиццы от {{ entityChain.name }}</h2>
+                    </div>
+                    <div class="gallery-pizza">
+                        {% for item in entities %}
+                            <div class="box">
+                                <div class="img-holder">
+                                    {%-if item.getImageName is not null-%}
+                                        <a href="{{ path_city('_item_single', { 'chain_url': entityChain.url, 'item_url': item.url }) }}">
+                                            <img src="{{ vich_uploader_asset(item, 'image') }}" alt="{{ item.url }}" style="width: 184px;" height="161"/>
+                                        </a>
+                                    {%-endif-%}
+                                    {#<div class="rating">#}
+                                        {#<ul class="stars">#}
+                                            {#<li class="ico-star"></li>#}
+                                            {#<li class="ico-star"></li>#}
+                                            {#<li class="ico-star"></li>#}
+                                            {#<li class="ico-star"></li>#}
+                                            {#<li class="ico-star ico-star-half"></li>#}
+                                        {#</ul>#}
+                                        {#<a href="#" class="comment-link">9</a>#}
+                                    {#</div>#}
+                                </div>
+                                <h2><a href="{{ path_city('_item_single', { 'chain_url': entityChain.url, 'item_url': item.url }) }}">{{ item.name }}</a></h2>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {#<div class="heading">#}
+                    {#<h2>Отзывы о пицце «Палермо» от Бабене</h2>#}
+                {#</div>#}
+                {#<div class="last-comment">#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<div class="meta">#}
+                                {#<strong class="name">Илья</strong>#}
+                                {#<ul class="stars">#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star ico-star-empty"></li>#}
+                                    {#<li class="ico-star ico-star-empty"></li>#}
+                                {#</ul>#}
+                                {#<em class="date">25 сентября, 2012</em>#}
+                                {#<a href="#" class="reply">Ответить</a>#}
+                            {#</div>#}
+                            {#<span class="text">Помнится начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвониться – подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают. Привозят с опозданием от 30 мин до часа! как результат пицца холодная. </span>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<div class="meta">#}
+                                {#<strong class="name">Andrey</strong>#}
+                                {#<ul class="stars">#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                    {#<li class="ico-star"></li>#}
+                                {#</ul>#}
+                                {#<em class="date">5 сентября, 2012</em>#}
+                                {#<a href="#" class="reply">Ответить</a>#}
+                            {#</div>#}
+                            {#<span class="text">Начинали очень вкусно, приятный, индивидуальный подход радовал. Пицца вкуснейшая, тонкое, сухое тесто. Сегодня, раз на раз не приходиться, а доставка вообще финиш. Дозвонится - подвиг. Внятно принять заказ не могут, постоянно отвлекаются, путают.</span>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+                {#<div class="add-comment">#}
+                    {#<div class="heading">#}
+                        {#<h2>Добавить отзыв</h2>#}
+                    {#</div>#}
+                    {#<form action="#">#}
+                        {#<fieldset>#}
+                            {#<div class="area">#}
+                                {#<div class="cols">#}
+                                    {#<label for="name">Ваше имя</label>#}
+                                    {#<input class="text-input" id="name" type="text" value="" />#}
+                                    {#<span class="error-text">Укажите имя</span>#}
+                                {#</div>#}
+                                {#<div class="cols error">#}
+                                    {#<label for="email">Электронная почта</label>#}
+                                    {#<input class="text-input" id="email" type="text" value="" />#}
+                                    {#<span class="error-text">Укажите электронную почту</span>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="textarea disabled">#}
+                                {#<label for="comment">Отзыв (не менее 40 символов)</label>#}
+                                {#<textarea id="comment" cols="30" rows="10"></textarea>#}
+                                {#<span class="error-text">Слишком короткий отзыв</span>#}
+                            {#</div>#}
+                            {#<div class="mark">#}
+                                {#<strong>Ваша оценка</strong>#}
+                                {#<ul class="star-rating">#}
+                                    {#<li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>#}
+                                    {#<li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>#}
+                                    {#<li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>#}
+                                    {#<li class="active"><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>#}
+                                    {#<li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>#}
+                                {#</ul>#}
+                            {#</div>#}
+                            {#<div class="capcha">#}
+                                {#<label for="capcha">Введите сумму цифр</label>#}
+                                {#<div class="input">#}
+                                    {#<span>3 + 2 =</span>#}
+                                    {#<input type="text" id="capcha" value="5" />#}
+                                    {#<span class="error-text">Неправда :)</span>#}
+                                {#</div>#}
+                            {#</div>#}
+                            {#<div class="footer">#}
+                                {#<input type="submit" class="disabled-button" value="Добавить отзыв" />#}
+                                {#<div class="button-text">Вам осталось заполнить следующие поля: <br />«Электронная почта», «Отзыв», «Введите сумму цифр»</div>#}
+                            {#</div>#}
+                        {#</fieldset>#}
+                    {#</form>#}
+                {#</div>#}
+            </div>
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}

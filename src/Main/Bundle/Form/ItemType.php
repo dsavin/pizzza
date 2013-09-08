@@ -11,15 +11,13 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('url')
-            ->add('text', 'textarea', array(
-                                           'required' => false,
-                                      ))
+            ->add('name', 'text', array('required' => true, 'label'=>'Название'))
+            ->add('url', 'text', array('required' => true, 'label'=>'УРЛ'))
+            ->add('text', 'textarea', array('required' => false))
             ->add('image', 'file', array(
                      'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                      'property_path' => 'image',
-                     'required' => true,
+                     'required' => false,
                      'label'=>'Фото'
                 ))
         ;
