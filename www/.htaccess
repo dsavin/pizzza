@@ -63,7 +63,6 @@ Redirect 301 /public/pizza-kieva http://pizzza.com.ua/public
 Redirect 301 /public/news http://pizzza.com.ua/public
 Redirect 301 /delivery.php http://pizzza.com.ua/delivery
 Redirect 301 /index.php/delivery http://pizzza.com.ua/delivery
-Redirect 301 /pizza http://pizzza.com.ua
 Redirect 301 /etno http://pizzza.com.ua
 Redirect 301 /podruzhka http://pizzza.com.ua
 Redirect 301 /subemail/add http://pizzza.com.ua
