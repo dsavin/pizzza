@@ -71,7 +71,7 @@
                 {% if comments|length > 0 %}
                     <div class="last-comment" id="commentsList">
                         <div class="heading">
-                            <h2>Отзывы о доставке от Мамамиа</h2>
+                            <h2>Отзывы о доставке от {{ entity.name }}</h2>
                             <a href="{{ path_city('_chain_comments',{'chain_url':entity.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}">Все отзывы о Мамамиа</a>
                         </div>
                         <ul>

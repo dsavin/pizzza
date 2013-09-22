@@ -148,7 +148,7 @@
             {% if entity.getDiscountsByLocale(_locale).count > 0  %}
                 <div class="actions">
                     <div class="heading">
-                        <h2>Акции от «Мамамиа»</h2>
+                        <h2>Акции от «{{ entity.name }}»</h2>
                     </div>
                     <div class="gholder">
                         {% for discount in entity.getDiscountsByLocale(_locale) %}
