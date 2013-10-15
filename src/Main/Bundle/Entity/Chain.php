@@ -232,6 +232,13 @@ class Chain
      */
     private $recommend;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_for_menu", type="integer", nullable=true)
+     */
+    private $idForMenu;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -247,6 +254,7 @@ class Chain
         $this->commentsChain = new ArrayCollection();
         $this->commentsDelivery = new ArrayCollection();
         $this->recommend = self::RECOMMEND_OFF;
+        $this->idForMenu = null;
     }
 
     /**
@@ -953,5 +961,28 @@ class Chain
     public function getRecommend()
     {
         return $this->recommend;
+    }
+
+    /**
+     * Set idForMenu
+     *
+     * @param integer $idForMenu
+     * @return Chain
+     */
+    public function setIdForMenu($idForMenu)
+    {
+        $this->idForMenu = $idForMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get idForMenu
+     *
+     * @return integer
+     */
+    public function getIdForMenu()
+    {
+        return $this->idForMenu;
     }
 }

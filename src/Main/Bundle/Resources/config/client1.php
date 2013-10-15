@@ -20,6 +20,7 @@ $routes['_chain_list'] = array('url' => '/pizzerias', 'params' => array('_contro
 $routes['_branches_all'] = array('url' => '/{chain_url}/all', 'params' => array('_controller' => 'MainBundle:Client\Branch:all'));
 $routes['_chain_comments'] = array('url' => '/{chain_url}/comments', 'params' => array('_controller' => 'MainBundle:Client\Chain:comments'));
 $routes['_chain__delivery_single'] = array('url' => '/{chain_url}/delivery', 'params' => array('_controller' => 'MainBundle:Client\Chain:delivery'));
+$routes['_chain__menu'] = array('url' => '/{chain_url}/menu', 'params' => array('_controller' => 'MainBundle:Client\Chain:menu'));
 $routes['_chain_single'] = array('url' => '/{chain_url}', 'params' => array('_controller' => 'MainBundle:Client\Chain:show'));
 //$routes['_item_all_chain'] = array('url' => '/{chain_url}/pizza', 'params' => array('_controller' => 'MainBundle:Client\Item:allByChain'));
 $routes['_item_single'] = array('url' => '/{chain_url}/pizza/{item_url}', 'params' => array('_controller' => 'MainBundle:Client\Item:show'));

@@ -198,4 +198,43 @@ class ChainController extends Controller
             'comments' => $comments
         );
     }
+
+    /**
+     * Страница всех доставок
+     *
+     * @Template()
+     */
+    public function menuAction($chain_url, $_city, Request $request)
+    {
+
+        $city = $this->getCityByUrl($_city);
+        $em = $this->getDoctrine()->getManager();
+        /** @var $commentRepository  */
+        $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url' => $chain_url, 'lang' => $request->getLocale(), 'city_id' => $city->getId()));
+
+
+        $contentPre = $this->get_data('http://1001pizza.com.ua/api/search?pizzeria_id='.$entity->getIdForMenu());
+        $content = json_decode($contentPre);
+
+//        echo '<pre>';
+//        var_dump(  );
+//        exit;
+
+        return array(
+            'items' => $content,
+            'entityChain' => $entity
+        );
+    }
+
+    /* gets the data from a URL */
+    public function get_data($url) {
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
+    }
 }
