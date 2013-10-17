@@ -1,10 +1,26 @@
 orderController = function()
 {
     var self = this;
+    var items = [];
+    var monay = 0;
+    var orderOn = "Оформить заказ";
+    var orderOff = "Заказать пиццу";
 
     this.init = function()
     {
+        self.checkOrder();
+    }
 
+    this.checkOrder = function()
+    {
+        var orderLink = $('#order_link');
+        if (items.length > 0) {
+            orderLink.html(orderOn);
+        } else {
+            orderLink.html(orderOff);
+        }
+
+        return false;
     }
 
     this.setMap = function ()
