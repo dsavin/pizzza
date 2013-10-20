@@ -6,7 +6,7 @@ use Main\Bundle\Controller\BaseController as Controller;
 
 use Main\Bundle\Entity\ChainRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,16 +20,20 @@ use Doctrine\Common\Cache\ApcCache;
  */
 class OrderController extends Controller
 {
-    public function addPizzaAction(Request $request)
+
+
+    public function addItemToBasketAction(Request $request)
     {
-        $session = new Session();
-        $session->start();
-
-        $session->set('name', 'Drak');
-        $session->get('name');
-
         $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+
+        $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
+            $item = $request->request->get('item');
+            $items[] = $item;
+            $session->set('items', json_encode($items));
+
+            $this->addAjaxResponce('item', $item);
 
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
@@ -39,4 +43,19 @@ class OrderController extends Controller
     }
 
 
+    public function getItemsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+
+        $items = json_decode($session->get('items'));
+        if ($request->isXmlHttpRequest()) {
+
+            $this->addAjaxResponce('items', $items);
+        } else {
+            $this->addAjaxResponceError("Не аяксовый запрос");
+        }
+
+        return new JsonResponse($this->getAjaxResponce());
+    }
 }

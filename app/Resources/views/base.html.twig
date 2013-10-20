@@ -83,28 +83,6 @@
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/13365940" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
-        <div style="z-index:9999;
-        font-weight: bold;
-        position: fixed;
-        vertical-align: middle;
-        text-align: center;
-        top: 0px;
-        right: 0px;
-        border-radius: 0 0 0 6px;
-        background: rgba(0,0,0,.6);
-        width: auto;
-        height: auto;
-        padding: 20px;">
-            <p style="font-size: 16px;">
-                <span style="color: orange;"><span id="items_count">0</span> пицц</span> - <span style="color: green;"><span id="money">0</span> грн.</span>
-            </p>
-            <p style="font-size: 18px;
-            margin-top: 10px;
-            color:#F46C1A;
-            text-decoration: underline;
-            cursor: pointer;
-            "><a id="order_link" href="#order_from" style="color:#F46C1A!important;">Оформить заказ</a></p>
-        </div>
         <style>
             #order_from {
                 width: 910px;
@@ -169,7 +147,19 @@
                 padding: 5px;
             }
             .amount {
-
+                font-size: 16px;
+                color: #000;
+                padding: 5px;
+                border-radius: 6px;
+                text-align: center;
+                height: auto;
+                font-weight: bold;
+            }
+            .amount strong {
+                color: #808080;
+            }
+            #cost {
+                color: orangered;
             }
             .continue {
                 font-size: 16px;
@@ -188,7 +178,33 @@
                 padding: 5px;
                 border-radius: 6px;
             }
+            #basket_box {
+                z-index:9999;
+                font-weight: bold;
+                position: fixed;
+                vertical-align: middle;
+                text-align: center;
+                top: 0px;
+                right: 0px;
+                border-radius: 0 0 0 6px;
+                background: rgba(0,0,0,.6);
+                width: auto;
+                height: auto;
+                padding: 20px;
+            }
         </style>
+        <div id="basket_box" style="">
+            <p style="font-size: 16px;">
+                <span style="color: orange;"><span id="items_count">0</span> пицц</span> - <span style="color: green;"><span id="money">0</span> грн.</span>
+            </p>
+            <p style="font-size: 18px;
+            margin-top: 10px;
+            color:#F46C1A;
+            text-decoration: underline;
+            cursor: pointer;
+            "><a class="order_link" href="#order_from" style="color:#F46C1A!important;">Оформить заказ</a></p>
+        </div>
+
         <div style="display: none;">
             <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
                 <p class="blockTitle">Оформление заказа</p>
@@ -220,25 +236,7 @@
                     <p class="info">Через 5 минут после отправки заказа с Вами свяжется представитель пиццерии. Также, после отправки заказа, вы сможете перейти на их сайт и по телефону заказать другие пиццы, блюда и напитки к этому заказу.</p>
                 </section>
                 <section class="blockL">
-                    <div class="pizzaFromBasket" data-price="25" data-id="470" data-quantity="1">
-                        <div class="pfb_imgHolder">
-                            <img src="http://1001pizza.com.ua/app/var/public/image/b/13/354c93f5b633fa0b6640156b3a143.jpg" width="100" height="100">
-                        </div>
-                        <ul>
-                            <li class="pfb_title"><h2>Фокачча Бари</h2></li>
-                            <li class="pfb_size"><span>Вес, диаметр: </span><strong>220 гр, 30 см</strong></li>
-                            <li class="pfb_price" data-id="470">
-                                <div>
-                                    <span class="pfb_unitSum">25 <em>грн</em></span>
-                                    <p>1 шт</p>
-                                    <span class="sumR"></span>
-                                    <span class="sumL"></span>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="removeBlock">&nbsp;</div>
-                        <input type="hidden" name="quantity[470]" value="1">
-                    </div>
+
 
                 </section>
                 <div id="btn_form">
@@ -253,13 +251,21 @@
         <script type="text/javascript">
             $(document).ready(function()
             {
-                $('#order_link').fancybox({
-                    padding: 10,
-                    cyclic: false,
-                    overlayShow: true,
-                    overlayOpacity: 0.65,
-                    overlayColor: '#000000'
+                $('.order_link').click(function() {
+                    order.getItems();
+
+                    $.fancybox({
+                        padding: 10,
+                        cyclic: false,
+                        overlayShow: true,
+                        overlayOpacity: 0.65,
+                        overlayColor: '#000000',
+                        'href' : '#order_from'
+                    });
                 });
+
+                order.setUrl('{{ path('_ajax_oder_pizza') }}');
+                order.setUrlGetItems('{{ path('_ajax_get_pizzas') }}');
             });
         </script>
     </body>

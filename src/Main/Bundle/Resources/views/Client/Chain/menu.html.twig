@@ -26,9 +26,14 @@
                 <div class="actions-list">
                     <div class="gallery-pizza" style="margin: 0;">
                         {% for item in items.records %}
-                            <div class="box" style="float: left;">
+                            <div class="box" style="float: left;" id="item_{{ item.id }}"
+                                 data-weight="{{ item.weight }}"
+                                 data-size="{{ item.size }}"
+                                 data-price="{{ item.price }}"
+                                 data-title="{{ item.title }}"
+                                    >
                                 <div class="img-holder">
-                                    <img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" width="184" height="161" alt="{{ item.title }}" />
+                                    <img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" id="product_img_{{ item.id }}" width="184" height="161" alt="{{ item.title }}" />
                                     <div class="rating">
                                         <p>
                                             <span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/weight.png) no-repeat 0 center; padding-left: 20px;">{{ item.weight }} г</span>
@@ -40,6 +45,7 @@
                                     </div>
                                 </div>
                                 <h2><a href="#">{{ item.title }}</a></h2>
+                                <p><a class="order_link" href="#order_from" onclick="order.addItemToBasket({{ item.id }})">Заказать</a></p>
                             </div>
                         {% endfor %}
                     </div>

@@ -5,11 +5,16 @@ use Symfony\Component\Routing\Route;
 
 $routes = array();
 $routes['_page_index'] = array('url' => '/', 'params' => array('_controller' => 'MainBundle:Client\Page:index'));
+
 $routes['_page_map'] = array('url' => '/map', 'params' => array('_controller' => 'MainBundle:Client\Page:map'));
 $routes['_item_all'] = array('url' => '/pizza', 'params' => array('_controller' => 'MainBundle:Client\Item:all'));
 $routes['_page_sitemap'] = array('url' => '/sitemap.xml', 'params' => array('_controller' => 'MainBundle:Client\Page:sitemap'));
 $routes['_news_list'] = array('url' => '/public', 'params' => array('_controller' => 'MainBundle:Client\Publication:newsList'));
 $routes['_recipe_list'] = array('url' => '/recipes', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipesList'));
+
+$routes['_ajax_oder_pizza'] = array('url' => '/ajax/order/add_item', 'params' => array('_controller' => 'MainBundle:Client\Order:addItemToBasket'));
+$routes['_ajax_get_pizzas'] = array('url' => '/ajax/order/get_items', 'params' => array('_controller' => 'MainBundle:Client\Order:getItems'));
+
 $routes['_news_single'] = array('url' => '/public/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
 $routes['_recipe_single'] = array('url' => '/recipes/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipe'));
 $routes['_discount_single'] = array('url' => '/discount/{chain_url}/{dis_url}', 'params' => array('_controller' => 'MainBundle:Client\Discount:show'));
