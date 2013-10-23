@@ -86,9 +86,10 @@
         <style>
             #order_from {
                 width: 910px;
-                height: auto;
+                height: 550px;
                 display: block;
                 margin: 5px;
+                position: relative;
             }
             .blockTitle {
                 display: block;
@@ -118,12 +119,17 @@
             }
             .blockL{
                 width: 60%;
-                float:left;
+                float: left;
+                margin-top: 15px;;
+                height: 400px;
+                overflow-y: scroll;
             }
             .pfb_imgHolder {
                 float: left;
             }
             #btn_form {
+                bottom: 1px;
+                position: absolute;
                 width: 95%;
                 height: 25px;
                 color: #000;
@@ -134,7 +140,20 @@
             }
             .pizzaFromBasket {
                 width: 100%;
-                height: auto;
+                height: 130px;
+                display: list-item;
+                position: relative;
+            }
+            .removeBlock {
+                line-height: 11px;
+                padding: 1px;
+                border-radius: 6px;
+                border: 1px solid red;
+                right: 10px;
+                position: absolute;
+                color: red;
+                font-weight: bold;
+                font-size: 10px;
             }
             .pizzaFromBasket ul {
                 float:left;
@@ -266,6 +285,7 @@
 
                 order.setUrl('{{ path('_ajax_oder_pizza') }}');
                 order.setUrlGetItems('{{ path('_ajax_get_pizzas') }}');
+                order.setUrlRemoveItem('{{ path('_ajax_remove_item') }}');
             });
         </script>
     </body>

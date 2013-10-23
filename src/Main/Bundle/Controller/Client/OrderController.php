@@ -42,6 +42,29 @@ class OrderController extends Controller
         return new JsonResponse($this->getAjaxResponce());
     }
 
+    public function removeItemAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $session = $request->getSession();
+
+            $itemId = $request->request->get('item_id');
+            $items = json_decode($session->get('items'));
+
+            foreach($items as $key => $val){
+                if ($val->id == $itemId) {
+                    unset($items[$key]);
+                }
+            }
+
+            $session->set('items', json_encode($items));
+            $this->addAjaxResponce('remove_item', $itemId);
+
+        } else {
+            $this->addAjaxResponceError("Не аяксовый запрос");
+        }
+
+        return new JsonResponse($this->getAjaxResponce());
+    }
 
     public function getItemsAction(Request $request)
     {

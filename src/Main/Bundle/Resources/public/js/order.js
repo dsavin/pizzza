@@ -5,7 +5,7 @@ orderController = function()
     var monay = 0;
     var orderOn = "Оформить заказ";
     var orderOff = "Заказать пиццу";
-    var url, urlGet;
+    var url, urlGet, urlRemove;
 
     this.init = function()
     {
@@ -47,6 +47,7 @@ orderController = function()
     {
         var objItem = $('#item_'+id);
         var item = {
+            id: id,
             weight: objItem.data('weight'),
             size: objItem.data('size'),
             price: objItem.data('price'),
@@ -63,7 +64,8 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-                self.animateGoToBasket(id);
+//                self.animateGoToBasket(id);
+                self.getItems();
             }
         });
 
@@ -84,7 +86,7 @@ orderController = function()
                 alert(data.error_text);
             } else {
                 $.each(data.items, function(k, val){
-                    ar[k] = self.createItemsHtml(val);
+                    ar[k] = self.createItemHtml(val);
                 });
                 console.log(ar);
                 $('.blockL').html(ar.join(''));
@@ -92,26 +94,24 @@ orderController = function()
         });
     }
 
-    this.createItemsHtml = function(items)
+    this.createItemHtml = function(item)
     {
-        var html = '<div class="pizzaFromBasket" data-price="25" data-id="470" data-quantity="1">'+
-                    '<div class="pfb_imgHolder">'+
-                        '<img src="'+items.image+'" width="100" height="100">'+
-                    '</div>'+
-                    '<ul>'+
-                        '<li class="pfb_title"><h2>'+items.title+'</h2></li>'+
-                        '<li class="pfb_size"><span>Вес, диаметр: </span><strong>'+items.weight+' гр, '+items.size+' см</strong></li>'+
-                        '<li class="pfb_price" data-id="470">'+
-                        '<div>'+
-                            '<span class="pfb_unitSum">25 <em>грн</em></span>'+
-                            '<p>1 шт</p>'+
-                                '<span class="sumR"></span>'+
-                                '<span class="sumL"></span>'+
-                            '</div>'+
-                        '</li>'+
-                    '</ul>'+
-                '<div class="removeBlock"></div>'+
-                '</div>';
+        var html = '<div class="pizzaFromBasket" data-price="25" data-id="'+item.id+'" data-quantity="1" id="item_bask_'+item.id+'">'+
+                        '<div class="pfb_imgHolder">'+
+                            '<img src="'+item.image+'" width="100" height="100">'+
+                        '</div>'+
+                        '<ul>'+
+                            '<li class="pfb_title"><h2>'+item.title+'</h2></li>'+
+                            '<li class="pfb_size"><span>Вес, диаметр: </span><strong>'+item.weight+' гр, '+item.size+' см</strong></li>'+
+                            '<li class="pfb_price" data-id="470">'+
+                                '<div>'+
+                                    '<span class="pfb_unitSum">'+item.price+' <em>грн</em></span>'+
+                                    '<p>1 шт</p>'+
+                                '</div>'+
+                            '</li>'+
+                        '</ul>'+
+                        '<div class="removeBlock" onclick="order.removeItem('+item.id+')">delte</div>'+
+                    '</div>';
 
         return html;
     }
@@ -126,6 +126,32 @@ orderController = function()
     this.setUrlGetItems = function(uri)
     {
         urlGet = uri;
+
+        return false;
+    }
+
+    this.setUrlRemoveItem = function(uri)
+    {
+        urlRemove = uri;
+
+        return false;
+    }
+
+    this.removeItem = function(id)
+    {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: urlRemove,
+            data: {"item_id": id}
+        }).success(function(data){
+                if( data.error !== undefined ){
+                    alert(data.error_text);
+                } else {
+                    self.getItems();
+                }
+            });
+
 
         return false;
     }
