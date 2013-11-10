@@ -241,16 +241,20 @@
                         <p>Контактная информация</p>
                         <label for="name">Ваше имя <span class="attn">*</span></label>
                         <fieldset>
-                            <div class="input"><input id="name" type="text" name="name" value="" class=""></div>
+                            <div class="input">
+                                <input id="name_order" type="text" name="name" value="">
+                            </div>
                         </fieldset>
                         <label for="phone">Телефон <span class="attn">*</span></label>
                         <fieldset>
-                            <div class="input"><input id="phone" type="text" name="phone" value="" class="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$"></div>
+                            <div class="input">
+                                <input id="phone_order" type="text" name="phone" value="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$">
+                            </div>
                         </fieldset>
                         <fieldset>
                             <input type="checkbox" name="agreement" checked="checked"><a target="_blank" href="/agreement/">Я принимаю условия Соглашения</a>
                         </fieldset>
-                        <div class="ord"><input type="submit" value="Отправить заказ"></div>
+                        <div class="ord"><input type="submit" value="Отправить заказ" onclick="return order.submitOrder();"></div>
                     </div>
                     <p class="info">Через 5 минут после отправки заказа с Вами свяжется представитель пиццерии. Также, после отправки заказа, вы сможете перейти на их сайт и по телефону заказать другие пиццы, блюда и напитки к этому заказу.</p>
                 </section>

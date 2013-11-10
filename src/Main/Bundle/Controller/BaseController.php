@@ -169,16 +169,18 @@ class BaseController extends Controller
     {
         $cacheDriver = new ApcCache();
         $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_list');
-
+        $cacheDriver->deleteAll();
         if (!$fetchCache) {
-            $contentPre = $this->get_data('http://1001pizza.com.ua/api/pizzerias');
+            $contentPre = $this->get_data('http://1001pizza.com.ua/api/pizzerias/');
             $content = json_decode($contentPre);
 
             $cacheDriver->save('1001_pizza_api_pizzeria_list', serialize($content), 36000);
         } else {
             $content = unserialize($fetchCache);
         }
-
+//        echo '<pre>';
+//        var_dump($content);
+//        exit;
         return $content;
     }
 

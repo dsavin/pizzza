@@ -85,6 +85,7 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
+                items = data.items;
                 $.each(data.items, function(k, val){
                     ar[k] = self.createItemHtml(val);
                 });
@@ -151,6 +152,45 @@ orderController = function()
                     self.getItems();
                 }
             });
+
+
+        return false;
+    }
+
+    this.submitOrder = function()
+    {
+
+        self.sendOrderToPartners();
+
+        return false;
+    }
+
+    this.sendOrderToPartners = function()
+    {
+        var itemsSend = [];
+        $.each(items, function(k, val){
+            itemsSend[itemsSend.length] = { id: val.id, qnt: 1};
+        });
+
+        var args = {
+            name: $('#name_order').val().trim(),
+            phone: $('#phone_order').val().trim(),
+            i: itemsSend
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://1001pizza.com.ua/api/order/',
+            crossDomain: true,
+            data: args,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+                alert('POST failed.');
+            }
+        });
 
 
         return false;
