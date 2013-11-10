@@ -13,6 +13,7 @@ class ChainType extends AbstractType
         $builder
             ->add('url', 'text', array('label'=>'URL'))
             ->add('name', 'text', array('label'=>'Название'))
+            ->add('idForMenu', 'integer', array('required' => false, 'label'=>'Id from 1001pizza'))
             ->add('site', 'text', array('label'=>'Сайт', 'required' => false))
             ->add('title', 'text', array('label'=>'<title/>'))
             ->add('description', 'textarea', array('label'=>'meta Description'))

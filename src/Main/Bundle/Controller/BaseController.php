@@ -150,4 +150,51 @@ class BaseController extends Controller
 
         return new JsonResponse($o);
     }
+
+    /* gets the data from a URL */
+    public function get_data($url)
+    {
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
+    }
+
+    public function getAllPizzaInAPI()
+    {
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_list');
+        $cacheDriver->deleteAll();
+        if (!$fetchCache) {
+            $contentPre = $this->get_data('http://1001pizza.com.ua/api/pizzerias/');
+            $content = json_decode($contentPre);
+
+            $cacheDriver->save('1001_pizza_api_pizzeria_list', serialize($content), 36000);
+        } else {
+            $content = unserialize($fetchCache);
+        }
+//        echo '<pre>';
+//        var_dump($content);
+//        exit;
+        return $content;
+    }
+
+    public function getInfoByIdAPI($id)
+    {
+        $content = $this->getAllPizzaInAPI();
+
+        foreach ($content as $item) {
+            if ($item->id == $id) {
+
+                return $item;
+            }
+        }
+
+        return NULL;
+    }
 }

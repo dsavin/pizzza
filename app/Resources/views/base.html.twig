@@ -59,6 +59,7 @@
         </div>
 
         {% block javascripts %}{% endblock %}
+        <script type="text/javascript" src="{{ asset('bundles/main/js/order.js') }}"></script>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {
@@ -84,5 +85,214 @@
         <!-- /Yandex.Metrika counter -->
 		<script type="text/javascript" charset="windows-1251" src="http://istat24.com/js/replace.js"></script>
 		<script type="text/javascript">doReplaceIstat(254);</script>
+        <style>
+            #order_from {
+                width: 910px;
+                height: 550px;
+                display: block;
+                margin: 5px;
+                position: relative;
+            }
+            .blockTitle {
+                display: block;
+                width: 98%;
+                height: 25px;
+                background-color: orange;
+                color: #000;
+                font-size: 20px;
+                padding: 5px;
+                margin: 1px;
+            }
+            .blockAmountInTitle {
+                display: block;
+                width: 98%;
+                height: auto;
+                border: 1px solid #d9d9d9;
+                padding: 5px;
+                background-color: #e9e9e4;
+            }
+            .blockR{
+                width: 30%;
+                float:right;
+                margin-top: 15px;
+                color:black;
+                padding: 5px;
+                background-color: #d9d9d9;
+            }
+            .blockL{
+                width: 60%;
+                float: left;
+                margin-top: 15px;;
+                height: 400px;
+                overflow-y: scroll;
+            }
+            .pfb_imgHolder {
+                float: left;
+            }
+            #btn_form {
+                bottom: 1px;
+                position: absolute;
+                width: 95%;
+                height: 25px;
+                color: #000;
+            }
+            #btn_form div {
+                float:left;
+                margin-right: 15px;
+            }
+            .pizzaFromBasket {
+                width: 100%;
+                height: 130px;
+                display: list-item;
+                position: relative;
+            }
+            .removeBlock {
+                line-height: 11px;
+                padding: 1px;
+                border-radius: 6px;
+                border: 1px solid red;
+                right: 10px;
+                position: absolute;
+                color: red;
+                font-weight: bold;
+                font-size: 10px;
+            }
+            .pizzaFromBasket ul {
+                float:left;
+                margin-left: 15px;
+            }
+            .pfb_title {
+                font-size: 18px;
+                font-weight: bold;
+                color: darkorange;
+                padding: 5px;
+            }
+            .amount {
+                font-size: 16px;
+                color: #000;
+                padding: 5px;
+                border-radius: 6px;
+                text-align: center;
+                height: auto;
+                font-weight: bold;
+            }
+            .amount strong {
+                color: #808080;
+            }
+            #cost {
+                color: orangered;
+            }
+            .continue {
+                font-size: 16px;
+                color:green;
+                border: 1px solid green;
+                padding: 5px;
+                border-radius: 6px;
+                text-align: center;
+                height: auto;
+                font-weight: bold;
+            }
+            .clear_continue {
+                font-size: 14px;
+                color:red;
+                border: 1px solid red;
+                padding: 5px;
+                border-radius: 6px;
+            }
+            #basket_box {
+                z-index:9999;
+                font-weight: bold;
+                position: fixed;
+                vertical-align: middle;
+                text-align: center;
+                top: 0px;
+                right: 0px;
+                border-radius: 0 0 0 6px;
+                background: rgba(0,0,0,.6);
+                width: auto;
+                height: auto;
+                padding: 20px;
+            }
+        </style>
+        <div id="basket_box" style="">
+            <p style="font-size: 16px;">
+                <span style="color: orange;"><span id="items_count">0</span> пицц</span> - <span style="color: green;"><span id="money">0</span> грн.</span>
+            </p>
+            <p style="font-size: 18px;
+            margin-top: 10px;
+            color:#F46C1A;
+            text-decoration: underline;
+            cursor: pointer;
+            "><a class="order_link" href="#order_from" style="color:#F46C1A!important;">Оформить заказ</a></p>
+        </div>
+
+        <div style="display: none;">
+            <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
+                <p class="blockTitle">Оформление заказа</p>
+                <div class="blockAmountInTitle">
+                    <p><strong>У вас в заказе <span>1</span> пицца от "Smilefood", их условия доставки такие:</strong></p>
+                    <div>
+                        <p></p>
+                        <p>Бесплатная доставка при заказе по Киеву - 150 грн.
+                            Если заказы меньше минимума доставка составит -30 грн.</p>
+                    </div>
+                </div>
+
+                <section class="blockR">
+                    <div class="clearfix">
+                        <p>Контактная информация</p>
+                        <label for="name">Ваше имя <span class="attn">*</span></label>
+                        <fieldset>
+                            <div class="input">
+                                <input id="name_order" type="text" name="name" value="">
+                            </div>
+                        </fieldset>
+                        <label for="phone">Телефон <span class="attn">*</span></label>
+                        <fieldset>
+                            <div class="input">
+                                <input id="phone_order" type="text" name="phone" value="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <input type="checkbox" name="agreement" checked="checked"><a target="_blank" href="/agreement/">Я принимаю условия Соглашения</a>
+                        </fieldset>
+                        <div class="ord"><input type="submit" value="Отправить заказ" onclick="return order.submitOrder();"></div>
+                    </div>
+                    <p class="info">Через 5 минут после отправки заказа с Вами свяжется представитель пиццерии. Также, после отправки заказа, вы сможете перейти на их сайт и по телефону заказать другие пиццы, блюда и напитки к этому заказу.</p>
+                </section>
+                <section class="blockL">
+
+
+                </section>
+                <div id="btn_form">
+                    <div class="amount"><p><strong>Сумма заказа:</strong> <strong id="cost">25</strong><span> грн</span></p></div>
+
+                    <div class="continue"><p>+ Заказать еще</p></div>
+
+                    <div class="clear_continue"><p>Очистить корзину</p></div>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+                $('.order_link').click(function() {
+                    order.getItems();
+
+                    $.fancybox({
+                        padding: 10,
+                        cyclic: false,
+                        overlayShow: true,
+                        overlayOpacity: 0.65,
+                        overlayColor: '#000000',
+                        'href' : '#order_from'
+                    });
+                });
+
+                order.setUrl('{{ path('_ajax_oder_pizza') }}');
+                order.setUrlGetItems('{{ path('_ajax_get_pizzas') }}');
+                order.setUrlRemoveItem('{{ path('_ajax_remove_item') }}');
+            });
+        </script>
     </body>
 </html>

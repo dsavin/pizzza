@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Main\Bundle\Entity\Chain;
 use Main\Bundle\Entity\Discount;
 use Main\Bundle\Entity\Comment;
+use Doctrine\Common\Cache\ApcCache;
 
 /**
  * Chain controller.
@@ -196,6 +197,43 @@ class ChainController extends Controller
         return array(
             'entity' => $entity,
             'comments' => $comments
+        );
+    }
+
+    /**
+     * Страница всех доставок
+     *
+     * @Template()
+     */
+    public function menuAction($chain_url, $_city, Request $request)
+    {
+        $city = $this->getCityByUrl($_city);
+        $em = $this->getDoctrine()->getManager();
+        /** @var $commentRepository  */
+        $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url' => $chain_url, 'lang' => $request->getLocale(), 'city_id' => $city->getId()));
+
+        $cacheDriver = new ApcCache();
+//        $cacheDriver->deleteAll();
+        $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$entity->getIdForMenu());
+        if (!$fetchCache) {
+            $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu());
+            $content = json_decode($contentPre);
+
+            $cacheDriver->save('1001_pizza_api_pizzeria_'.$entity->getIdForMenu(), serialize($content), 36000);
+        } else {
+            $content = unserialize($fetchCache);
+        }
+
+        $chainAPIInfo = $this->getInfoByIdAPI($entity->getIdForMenu());
+
+//        echo '<pre>';
+//        var_dump( 'http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu() );
+//        exit;
+
+        return array(
+            'items' => $content,
+            'entityChain' => $entity,
+            'chainAPIInfo' => $chainAPIInfo
         );
     }
 }

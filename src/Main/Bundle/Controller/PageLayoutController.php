@@ -38,7 +38,8 @@ class PageLayoutController extends Controller
                              array(
                                  'active' => $active,
                                  'commentsCount' => count($comments),
-                                 'branchesCount' => $branchesCount
+                                 'branchesCount' => $branchesCount,
+								 'banner' => rand(0, 3)
                              ));
     }
 
