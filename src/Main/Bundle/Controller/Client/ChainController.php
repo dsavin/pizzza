@@ -213,7 +213,6 @@ class ChainController extends Controller
         $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url' => $chain_url, 'lang' => $request->getLocale(), 'city_id' => $city->getId()));
 
         $cacheDriver = new ApcCache();
-//        $cacheDriver->deleteAll();
         $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$entity->getIdForMenu());
         if (!$fetchCache) {
             $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu());
@@ -225,10 +224,6 @@ class ChainController extends Controller
         }
 
         $chainAPIInfo = $this->getInfoByIdAPI($entity->getIdForMenu());
-
-//        echo '<pre>';
-//        var_dump( 'http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu() );
-//        exit;
 
         return array(
             'items' => $content,
