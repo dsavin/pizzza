@@ -85,12 +85,14 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
+                var num = 0;
                 items = data.items;
                 $.each(data.items, function(k, val){
                     ar[k] = self.createItemHtml(val);
+                    num = num+val.price;
                 });
-                console.log(ar);
                 $('.blockL').html(ar.join(''));
+                $('#cost').html((num-0));
             }
         });
     }
@@ -159,6 +161,26 @@ orderController = function()
 
     this.submitOrder = function()
     {
+        var name = $('#name_order').val().trim();
+        var phone = $('#phone_order').val().trim();
+
+        if (name == '' || name.length < 3) {
+            alert('Введите корректное имя');
+
+            return false;
+        }
+
+        if (phone == '' || phone.length < 7) {
+            alert('Введите корректный телефон');
+
+            return false;
+        }
+
+        if (items.length < 1) {
+            alert('Корзина пустая');
+
+            return false;
+        }
 
         self.sendOrderToPartners();
 
@@ -179,19 +201,18 @@ orderController = function()
         };
 
         $.ajax({
-            type: 'POST',
-            url: 'http://1001pizza.com.ua/api/order/',
-            crossDomain: true,
-            data: args,
-            dataType: 'json',
-            success: function(data) {
+            type: "POST",
+            dataType: "json",
+            url: '/ajax/order/send_items',
+            data: {data: args}
+        }).success(function(data){
                 console.log(data);
-            },
-            error: function (responseData, textStatus, errorThrown) {
-                alert('POST failed.');
-            }
-        });
-
+                if( data.error !== undefined ){
+                    alert(data.error_text);
+                } else {
+                    self.getItems();
+                }
+            });
 
         return false;
     }

@@ -81,4 +81,33 @@ class OrderController extends Controller
 
         return new JsonResponse($this->getAjaxResponce());
     }
+
+    public function sendItemsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $data = $request->request->get('data');
+
+            $ch = curl_init('http://1001pizza.com.ua/api/order/');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('json'=>json_encode($data)));
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            $result = curl_exec($ch);
+
+            $session = $request->getSession();
+            $session->set('items', json_encode(array()));
+
+            mail('oklosovich@gmail.com', 'Order', print_r($data, true));
+
+            $this->addAjaxResponce('data', json_encode($data));
+            $this->addAjaxResponce('result', $result);
+        } else {
+            $this->addAjaxResponceError("Не аяксовый запрос");
+        }
+
+        return new JsonResponse($this->getAjaxResponce());
+    }
 }

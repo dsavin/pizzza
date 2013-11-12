@@ -15,6 +15,7 @@ $routes['_recipe_list'] = array('url' => '/recipes', 'params' => array('_control
 $routes['_ajax_oder_pizza'] = array('url' => '/ajax/order/add_item', 'params' => array('_controller' => 'MainBundle:Client\Order:addItemToBasket'));
 $routes['_ajax_get_pizzas'] = array('url' => '/ajax/order/get_items', 'params' => array('_controller' => 'MainBundle:Client\Order:getItems'));
 $routes['_ajax_remove_item'] = array('url' => '/ajax/order/remove_item', 'params' => array('_controller' => 'MainBundle:Client\Order:removeItem'));
+$routes['_ajax_send_order'] = array('url' => '/ajax/order/send_items', 'params' => array('_controller' => 'MainBundle:Client\Order:sendItems'));
 
 $routes['_news_single'] = array('url' => '/public/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
 $routes['_recipe_single'] = array('url' => '/recipes/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipe'));
