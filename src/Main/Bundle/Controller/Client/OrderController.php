@@ -48,7 +48,7 @@ class OrderController extends Controller
             $session = $request->getSession();
 
             $itemId = $request->request->get('item_id');
-            $items = json_decode($session->get('items'));
+            $items = (array)json_decode($session->get('items'));
 
             foreach($items as $key => $val){
                 if ($val->id == $itemId) {
@@ -58,7 +58,6 @@ class OrderController extends Controller
 
             $session->set('items', json_encode($items));
             $this->addAjaxResponce('remove_item', $itemId);
-
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
@@ -103,9 +102,15 @@ class OrderController extends Controller
             $result = curl_exec($ch);
 
             $session = $request->getSession();
+            $items = json_decode($session->get('items'));
+            $price = 0;
+            foreach($items as $item) {
+                $price = $price+$item->price;
+            }
             $session->set('items', json_encode(array()));
 
-            mail('oklosovich@gmail.com', 'Order', print_r($data, true));
+
+            mail('oklosovich@gmail.com', 'Order - '.$price, print_r($data, true));
 
             $this->addAjaxResponce('data', json_encode($data));
             $this->addAjaxResponce('result', $result);

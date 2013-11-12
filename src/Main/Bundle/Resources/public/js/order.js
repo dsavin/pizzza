@@ -11,6 +11,7 @@ orderController = function()
     {
         self.checkOrder();
         self.getItems();
+        $("#phone_order").mask("+38(999) 999-9999");
     }
 
     this.checkOrder = function()
