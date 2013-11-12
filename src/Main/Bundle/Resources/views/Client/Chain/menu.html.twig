@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Акции пиццерии {{ entityChain.name }}{% endblock %}
-{% block description %}Список всех акции которые действуют в пиццерии {{ entityChain.name }} города Киева{% endblock %}
+{% block title %}Меню пиццерии {{ entityChain.name }}{% endblock %}
+{% block description %}Список всех пицц которые можно заказать в пиццерии {{ entityChain.name }} города Киева{% endblock %}
 {% block keywords %}{% endblock %}
 
 {% block chain_name_order %}{{ chainAPIInfo.title }}{% endblock %}
@@ -44,6 +44,23 @@
         }
         .gallery-pizza {
             padding: 0px;
+            margin: 0;
+        }
+        .img-holder {
+            position: relative;
+        }
+        #content a.order_link {
+            border: 1px solid;
+            border-radius: 5px;
+            padding: 3px;
+            font-weight: bold;
+            background-color: ghostwhite;
+        }
+        #content a.order_link:hover {
+            text-decoration: none;
+            background-color: #0094d1;
+            color: #fff!important;
+            border: 1px solid #fff;
         }
     </style>
     <div class="main">
@@ -59,15 +76,15 @@
             {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'menu', entityChain: entityChain}) }}
             <div class="main-info">
                 <div class="actions-list">
-                    <div class="gallery-pizza" style="margin: 0;">
+                    <div class="gallery-pizza" id="gallery-pizza">
                         {% for item in items.records %}
-                            <div class="box" style="float: left;" id="item_{{ item.id }}"
+                            <div class="box" id="item_{{ item.id }}"
                                  data-weight="{{ item.weight }}"
                                  data-size="{{ item.size }}"
                                  data-price="{{ item.price }}"
                                  data-title="{{ item.title }}"
                                     >
-                                <div class="img-holder" style="position: relative;"
+                                <div class="img-holder"
                                      onmouseover="order.showIngredient(this);"
                                      onmouseout="order.hideIngredient(this);">
                                     <img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" id="product_img_{{ item.id }}" width="184" height="161" alt="{{ item.title }}" />

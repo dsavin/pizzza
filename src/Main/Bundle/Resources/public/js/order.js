@@ -9,6 +9,9 @@ orderController = function()
 
     this.init = function()
     {
+
+        items = []
+
         self.checkOrder();
         self.getItems();
         $("#phone_order").mask("+38(999) 999-9999");
@@ -16,11 +19,13 @@ orderController = function()
 
     this.checkOrder = function()
     {
-        var orderLink = $('#order_link');
+        var orderLink = $('.order_link');
         if (items.length > 0) {
             orderLink.html(orderOn);
+            orderLink.attr('href', '#order_from');
         } else {
             orderLink.html(orderOff);
+            orderLink.attr('href', 'http://pizzza.com.ua/pizzarium/menu#gallery-pizza');
         }
 
         return false;
