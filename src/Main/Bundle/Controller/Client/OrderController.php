@@ -49,14 +49,14 @@ class OrderController extends Controller
 
             $itemId = $request->request->get('item_id');
             $items = (array)json_decode($session->get('items'));
-
+            $newItems = array();
             foreach($items as $key => $val){
-                if ($val->id == $itemId) {
-                    unset($items[$key]);
+                if ($val->id != $itemId) {
+                    $newItems[] = $val;
                 }
             }
 
-            $session->set('items', json_encode($items));
+            $session->set('items', json_encode($newItems));
             $this->addAjaxResponce('remove_item', $itemId);
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");

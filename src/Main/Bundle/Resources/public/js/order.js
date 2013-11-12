@@ -9,17 +9,15 @@ orderController = function()
 
     this.init = function()
     {
-
         items = []
-
-        self.checkOrder();
         self.getItems();
         $("#phone_order").mask("+38(999) 999-9999");
+        self.checkOrder();
     }
 
     this.checkOrder = function()
     {
-        var orderLink = $('.order_link');
+        var orderLink = $('#basket_box .order_link');
         if (items.length > 0) {
             orderLink.html(orderOn);
             orderLink.attr('href', '#order_from');
@@ -71,7 +69,6 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-//                self.animateGoToBasket(id);
                 self.getItems();
             }
         });
@@ -99,6 +96,7 @@ orderController = function()
                 $('#cost').html(data.prices);
                 $('#money').html(data.prices);
                 $('#items_count').html(data.items.length);
+                self.checkOrder();
             }
         });
     }

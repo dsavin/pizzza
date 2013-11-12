@@ -11,6 +11,7 @@ $routes['_item_all'] = array('url' => '/pizza', 'params' => array('_controller' 
 $routes['_page_sitemap'] = array('url' => '/sitemap.xml', 'params' => array('_controller' => 'MainBundle:Client\Page:sitemap'));
 $routes['_news_list'] = array('url' => '/public', 'params' => array('_controller' => 'MainBundle:Client\Publication:newsList'));
 $routes['_recipe_list'] = array('url' => '/recipes', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipesList'));
+$routes['_page_agreement'] = array('url' => '/agreement', 'params' => array('_controller' => 'MainBundle:Client\Page:agreement'));
 
 $routes['_ajax_oder_pizza'] = array('url' => '/ajax/order/add_item', 'params' => array('_controller' => 'MainBundle:Client\Order:addItemToBasket'));
 $routes['_ajax_get_pizzas'] = array('url' => '/ajax/order/get_items', 'params' => array('_controller' => 'MainBundle:Client\Order:getItems'));

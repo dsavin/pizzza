@@ -1,0 +1,53 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ entity.getTitle }}{% endblock %}
+{% block description %}{{ entity.getDescription }}{% endblock %}
+{% block keywords %}{{ entity.getKeywords }}{% endblock %}
+
+{% set _city = app.request.session.get('_city') %}
+
+{% block body %}
+    <div class="main">
+        <div id="content">
+            <div class="heading-page">
+                <ul class="breadcrumbs">
+                    <li>
+                        <a href="/">Главная</a>
+                    </li>
+                    <li>{{ entity.name }}</li>
+                </ul>
+            </div>
+            <div class="container container-text">
+                {{ entity.text|raw }}
+                <div style="margin: 20px auto;">
+                    <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-3861532892125732";
+                        /* recipe_block_pizza */
+                        google_ad_slot = "4328701676";
+                        google_ad_width = 468;
+                        google_ad_height = 60;
+                        //-->
+                    </script>
+                    <script type="text/javascript"
+                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+            </div>
+            {#<div class="main-info">#}
+                {#<div class="actions-list publication publication-single">#}
+                    {#<div class="single-article">#}
+                        {#<div class="meta">#}
+                            {#<em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>#}
+                            {#&#123;&#35;<a href="#" class="cat"><span>Рецепты</span></a>&#35;&#125;#}
+                        {#</div>#}
+                        {#{% if entity.getImageName %}#}
+                            {#<img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_page') }}" style="max-width: 626px;" height="261" alt="{{ entity.getImageName }}" class="thumb" />#}
+                        {#{% endif %}#}
+                        {#{{ entity.text|raw }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        </div>
+        {% render "MainBundle:PageLayout:sidebar" %}
+    </div>
+{% endblock %}
