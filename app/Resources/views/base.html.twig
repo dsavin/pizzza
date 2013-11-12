@@ -230,11 +230,10 @@
             <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
                 <p class="blockTitle">Оформление заказа</p>
                 <div class="blockAmountInTitle">
-                    <p><strong>У вас в заказе <span>1</span> пицца от "Smilefood", их условия доставки такие:</strong></p>
+                    <p><strong>У вас в заказе пицца от "{% block chain_name_order %}Pizzza.com.ua!{% endblock %}", их условия доставки такие:</strong></p>
                     <div>
                         <p></p>
-                        <p>Бесплатная доставка при заказе по Киеву - 150 грн.
-                            Если заказы меньше минимума доставка составит -30 грн.</p>
+                        <p>{% block chain_status_order %}{% endblock %}</p>
                     </div>
                 </div>
 

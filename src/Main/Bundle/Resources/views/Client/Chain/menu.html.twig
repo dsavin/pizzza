@@ -3,12 +3,46 @@
 {% block title %}Акции пиццерии {{ entityChain.name }}{% endblock %}
 {% block description %}Список всех акции которые действуют в пиццерии {{ entityChain.name }} города Киева{% endblock %}
 {% block keywords %}{% endblock %}
+
+{% block chain_name_order %}{{ chainAPIInfo.title }}{% endblock %}
+{% block chain_status_order %}
+    {{ chainAPIInfo.delivery }}
+{% endblock %}
+
 {% set active = 2 %}
 
 {% block javascripts %}
 {% endblock %}
 
 {% block body %}
+    <style>
+        .gallery-pizza .box {
+            display: inline-block;
+            vertical-align: top;
+            width: 184px;
+            float: none !important;
+            padding: 19px 19px 20px;
+            border: 1px solid #e9e8e5;
+            border-width: 1px 0 1px 1px;
+            margin: -1px -2px 0 -1px;
+        }
+        .feature_in {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0%;
+            bottom: 0;
+            width: 165px;
+            background-color: #fff;
+            padding: 10px;
+            z-index: 9;
+            border-radius: 10px;
+            font-weight: bold;
+            color: black;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+    </style>
     <div class="main">
         <div id="content" class="page-single-gallery">
             <div class="heading-page">
@@ -21,8 +55,6 @@
             </div>
             {{ include('MainBundle:Client:chain_menu.html.twig', {menu: 'menu', entityChain: entityChain}) }}
             <div class="main-info">
-            {#<div class="container">#}
-                {#<div class="actions-list">#}
                 <div class="actions-list">
                     <div class="gallery-pizza" style="margin: 0;">
                         {% for item in items.records %}
@@ -32,7 +64,9 @@
                                  data-price="{{ item.price }}"
                                  data-title="{{ item.title }}"
                                     >
-                                <div class="img-holder">
+                                <div class="img-holder" style="position: relative;"
+                                     onmouseover="order.showIngredient(this);"
+                                     onmouseout="order.hideIngredient(this);">
                                     <img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" id="product_img_{{ item.id }}" width="184" height="161" alt="{{ item.title }}" />
                                     <div class="rating">
                                         <p>
@@ -43,31 +77,16 @@
                                             <span style="background: url(/images/currency_dollar2.png) no-repeat -4px center; padding-left: 20px; height: 22px; color: green; font-weight: bold;">{{ item.price }} грн</span>
                                         </p>
                                     </div>
+                                    <div class="feature_in">
+                                        <p>{{ item.ingredients }}</p>
+                                    </div>
                                 </div>
-                                <h2><a href="#">{{ item.title }}</a></h2>
+                                <h2><a href="#" onclick="return false">{{ item.title }}</a></h2>
                                 <p><a class="order_link" href="#order_from" onclick="order.addItemToBasket({{ item.id }})">Заказать</a></p>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
-                    {#<div class="gholder">#}
-                        {#{% for item in items.records %}#}
-                            {#<div class="box" style="width: 184px; float:left;">#}
-                                {#<div class="img-holder">#}
-                                    {#<a href="">#}
-                                        {#<img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" style="width: 184px;" height="161"/>#}
-                                    {#</a>#}
-                                {#</div>#}
-                                {#<a href="">{{ item.title }}</a>#}
-                            {#</div>#}
-                        {#{% endfor %}#}
-                    {#</div>#}
-                    {#{{ chainAPIInfo.conditions }}<br/>#}
-                    {#{{ chainAPIInfo.delivery }}<br/>#}
-                    {#{{ chainAPIInfo.order_min }}<br/>#}
-                    {#{{ chainAPIInfo.discount }}#}
-                {#</div>#}
-            {#</div>#}
             </div>
         </div>
         {% render "MainBundle:PageLayout:sidebar" %}

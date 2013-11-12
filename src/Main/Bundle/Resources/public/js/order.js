@@ -10,6 +10,7 @@ orderController = function()
     this.init = function()
     {
         self.checkOrder();
+        self.getItems();
     }
 
     this.checkOrder = function()
@@ -74,7 +75,6 @@ orderController = function()
 
     this.getItems = function()
     {
-        var form_order = $('#order_form');
         var ar = [];
 
         $.ajax({
@@ -85,14 +85,14 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-                var num = 0;
                 items = data.items;
                 $.each(data.items, function(k, val){
                     ar[k] = self.createItemHtml(val);
-                    num = num+val.price;
                 });
                 $('.blockL').html(ar.join(''));
-                $('#cost').html((num-0));
+                $('#cost').html(data.prices);
+                $('#money').html(data.prices);
+                $('#items_count').html(data.items.length);
             }
         });
     }
@@ -211,10 +211,21 @@ orderController = function()
                     alert(data.error_text);
                 } else {
                     self.getItems();
+                    alert('Спасибо! С Вами скоро свяжутся.');
                 }
             });
 
         return false;
+    }
+
+    this.showIngredient = function(ele)
+    {
+        $(ele).find('.feature_in').show();
+    }
+
+    this.hideIngredient = function(ele)
+    {
+        $(ele).find('.feature_in').hide();
     }
 }
 

@@ -73,7 +73,12 @@ class OrderController extends Controller
 
         $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
+            $price = 0;
+            foreach($items as $item) {
+                $price = $price+$item->price;
+            }
 
+            $this->addAjaxResponce('prices', $price);
             $this->addAjaxResponce('items', $items);
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
