@@ -143,4 +143,27 @@ class SliderController extends Controller
             'edit_form' => $editForm->createView(),
         );
     }
+
+    /**
+     * Edits an existing Slider entity.
+     *
+     * @Route("/admin/slider/{id}/delete", name="admin_slider_delete", defaults={"_city" = "kiev"})
+     * @Route("/admin/{_city}/slider/{id}/delete", name="admin_slider_delete_city")
+     * @Method("GET")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MainBundle:Slider')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Slider entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrlCity('admin_slider', array()));
+    }
 }

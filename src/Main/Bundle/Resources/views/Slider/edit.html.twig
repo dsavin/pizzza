@@ -13,6 +13,7 @@
     </form>
     
     <div>
+        <a class="btn btn-danger" href="{{ path_city('admin_slider_delete', { 'id': entity.id }) }}">Удалить</a>
         <a class="btn btn-info" href="{{ path_city('admin_slider') }}">К списку</a>
     </div>
 {% endblock %}
