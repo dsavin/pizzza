@@ -65,6 +65,7 @@ Redirect 301 /public/different http://pizzza.com.ua/public
 Redirect 301 /delivery.php http://pizzza.com.ua/delivery
 Redirect 301 /index.php/delivery http://pizzza.com.ua/delivery
 Redirect 301 /etno http://pizzza.com.ua
+Redirect 301 /index.php http://pizzza.com.ua
 Redirect 301 /podruzhka http://pizzza.com.ua
 Redirect 301 /subemail/add http://pizzza.com.ua
 Redirect 301 /dominos/сhikenita http://pizzza.com.ua/dominos/pizza/сhikenita
@@ -263,6 +264,30 @@ RewriteRule ^piceria\.php$ /menu_avenue$1? [L,R=301]
 
 RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=mafia
 RewriteRule ^piceria\.php$ /mafia$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=new-york-street-pizza
+RewriteRule ^piceria\.php$ /new_york_street_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=mamamia
+RewriteRule ^piceria\.php$ /mamamia$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=UNOpizza
+RewriteRule ^piceria\.php$ /uno_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=villabajo
+RewriteRule ^piceria\.php$ /villabajo$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=pizzahata
+RewriteRule ^piceria\.php$ /pizza_hata$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=papa_john
+RewriteRule ^piceria\.php$ /papa_john$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=PAPA-Pizza
+RewriteRule ^piceria\.php$ /papa_pizza$1? [L,R=301]
+
+RewriteCond %{QUERY_STRING} ^([^&]&)*pizza=veronapizza
+RewriteRule ^piceria\.php$ /verona_pizza$1? [L,R=301]
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

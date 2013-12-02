@@ -214,6 +214,7 @@ class ChainController extends Controller
 
         $cacheDriver = new ApcCache();
         $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$entity->getIdForMenu());
+
         if (!$fetchCache) {
             $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu());
             $content = json_decode($contentPre);
