@@ -46,9 +46,6 @@
     </table>
     <div>
         <a href="{{ path_city('admin_branch', {'chain_id':chain.getId}) }}" class="btn btn-primary">К списку</a>
-        {#<form action="&#123;&#35;{ path_city('admin_branch_delete', { 'id': entity.id, 'chain_id':chain.getId }) }&#35;&#125;" method="post">#}
-            {#{{ form_widget(delete_form) }}#}
-            <button type="submit" class="btn btn-danger">Удалить</button>
-        {#</form>#}
+        <a href="{{ path_city('admin_branch_delete', { 'id': entity.id, 'chain_id':chain.getId }) }}" class="btn btn-danger">Удалить</a>
     </div>
 {% endblock %}

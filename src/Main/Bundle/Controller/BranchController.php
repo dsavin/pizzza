@@ -105,9 +105,7 @@ class BranchController extends Controller
         $entitiesPhoto = $entity->getPhotos();
 
         $editForm = $this->createForm(new BranchType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
-//        var_dump($entity->getLat());exit;
         if ($request->isMethod("POST")) {
             $editForm->bind($request);
 
@@ -123,7 +121,6 @@ class BranchController extends Controller
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
             'entitiesPhoto' => $entitiesPhoto
         );
     }
@@ -131,34 +128,24 @@ class BranchController extends Controller
     /**
      * Deletes a Branch entity.
      *
-     * @Route("/{id}/delete", name="admin_branch_delete")
-     * @Method("POST")
+     * @Route("/{chain_id}/branch/{id}/delete", name="admin_branch_delete", defaults={"_city" = "kiev"})
+     * @Route("/{_city}/{chain_id}/branch/{id}/delete", name="admin_branch_delete_city")
+     * @Method("GET")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id, $chain_id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('MainBundle:Branch')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MainBundle:Branch')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Branch entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Branch entity.');
         }
+        $entity->setStatus(Branch::STATUS_DELETED);
 
-        return $this->redirect($this->generateUrl('admin_branch'));
-    }
+        $em->persist($entity);
+        $em->flush();
 
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-                ->add('id', 'hidden')
-                ->getForm();
+        return $this->redirect($this->generateUrlCity('admin_branch', array('chain_id' => $chain_id)));
     }
 
 }

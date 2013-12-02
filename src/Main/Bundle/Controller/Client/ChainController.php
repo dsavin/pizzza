@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Main\Bundle\Entity\Chain;
+use Main\Bundle\Entity\Branch;
 use Main\Bundle\Entity\Discount;
 use Main\Bundle\Entity\Comment;
 use Doctrine\Common\Cache\ApcCache;
@@ -32,9 +33,19 @@ class ChainController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var $commentRepository  */
         $commentRepository = $em->getRepository('MainBundle:Comment');
-        $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url' => $chain_url, 'lang' => $request->getLocale(), 'city_id' => $city->getId()));
-
-
+        $entity = $em->getRepository('MainBundle:Chain')
+            ->findOneBy(array(
+                             'url' => $chain_url,
+                             'lang' => $request->getLocale(),
+                             'city_id' => $city->getId()
+                        ));
+        $branches = $em->getRepository('MainBundle:Branch')
+            ->findBy(array(
+                             'chain' => $entity->getId(),
+                             'lang' => $request->getLocale(),
+                             'status' => Branch::STATUS_ACTIVE
+                        ));
+        $entity->setBranchs($branches);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Chain entity.');
         }

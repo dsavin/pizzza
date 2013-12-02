@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Main\Bundle\Entity\Branch;
 
 class BranchType extends AbstractType
 {
@@ -46,7 +47,18 @@ class BranchType extends AbstractType
                                              'attr'          => array(
                                                  'class' => 'chosen'
                                              )
-                                        ));
+                                        ))
+            ->add('status', 'choice', array(
+                                           'choices'   => array(
+                                               Branch::STATUS_ACTIVE => 'Активное',
+                                               Branch::STATUS_DELETED => 'Удаленное',
+                                               Branch::STATUS_CLOSED => 'Закрытое',
+                                               Branch::STATUS_REPAIR => 'На ремонте'
+                                           ),
+                                           'required'  => false,
+                                           'label'=>'Статус'
+                                      ))
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -360,10 +360,10 @@ class Chain
     }
 
 
-    public function setBranchs(ArrayCollection $branchs)
+    public function setBranchs($branchs)
     {
         foreach ($branchs as $branch) {
-            $branch->setChainy($this);
+            $branch->setChain($this);
         }
         $this->branchs = $branchs;
     }

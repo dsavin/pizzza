@@ -41,6 +41,14 @@
                 throw $this->createNotFoundException('Нету тут такой сети');
             }
 
+            $branches = $em->getRepository('MainBundle:Branch')
+                ->findBy(array(
+                              'chain' => $entityChain->getId(),
+                              'lang' => $request->getLocale(),
+                              'status' => Branch::STATUS_ACTIVE
+                         ));
+            $entityChain->setBranchs($branches);
+
             $entity = $em->getRepository('MainBundle:Branch')->findOneBy(array(
                                                                               'url' => $branch_url,
                                                                               'chain' => is_null($entityChain->getParent())?$entityChain->getId():$entityChain->getParent()->getId(),
@@ -74,7 +82,8 @@
             $em = $this->getDoctrine()->getManager();
             $city = $this->getCityByUrl($_city);
 
-            $entities = $em->getRepository('MainBundle:Branch')->getListBranches($chain_url, $city->getId(), $request->getLocale() );
+            $entities = $em->getRepository('MainBundle:Branch')
+                ->getListBranches($chain_url, $city->getId(), $request->getLocale() );
 
             /* Розделить на выборку сети и потом выборку всех заведений
              *

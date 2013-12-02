@@ -20,7 +20,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{#{ path_city('admin_branch_show', { 'id': entity.id }) }#}">{{ entity.street }}</a></td>
+                <td><a href="#">{{ entity.street }}{% if entity.status != 0 %} - <span style="color:red;">Закрыто</span>{% endif %}</a></td>
                 <td><a href="{{ path_city('admin_branch_comments', { 'chain_id': chain.id, 'branch_id': entity.id, '_locale':'ru' }) }}" class="btn btn-small">Комментарии</a></td>
                 <td>
                     {#{%- if entity.getChildren.count > 0-%}#}

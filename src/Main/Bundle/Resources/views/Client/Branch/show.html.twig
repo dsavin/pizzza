@@ -70,7 +70,7 @@
                         <div class="title-gholder">
                             <h1><a href="{{ chain_url }}">{{ entityChain.name }}</a></h1>
                             <div class="row">
-                                <div>{{ entity.street }}</div>
+                                <div>{{ entity.street }}{% if entity.status != 0 %} - <span style="color:red;">Закрыто</span>{% endif %}</div>
                                 <a href="{{ path_city('_branches_all',{'chain_url':entityChain.url, '_city':_city,'_locale':_locale}) }}">Все пиццерии сети - ({{ entityChain.getBranchsByLocale(_locale).count }})</a>
                             </div>
                         </div>

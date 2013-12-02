@@ -4,6 +4,7 @@ namespace Main\Bundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Main\Bundle\Entity\Chain;
+use Main\Bundle\Entity\Branch;
 /**
  * ChainRepository
  *
@@ -19,7 +20,7 @@ class ChainRepository extends EntityRepository
         $query = $em->createQueryBuilder()
             ->select('c', 'com')
             ->from('MainBundle:Chain', 'c')
-            ->join('c.commentsDelivery','com')
+            ->leftJoin('c.commentsDelivery','com')
 
             ->where('c.lang = :lang')
             ->andWhere('c.city_id = :city_id')
@@ -44,16 +45,18 @@ class ChainRepository extends EntityRepository
             ->from('MainBundle:Chain', 'c')
 
             ->join('c.branchs', 'branchs')
-            ->join('branchs.comments','com')
+            ->leftJoin('branchs.comments','com')
 
             ->where('c.lang = :lang')
             ->andWhere('c.city_id = :city_id')
             ->andWhere(' ( c.type = :type_f OR c.type = :type_s ) ')
+            ->andWhere(' branchs.status = :status ')
 
             ->setParameter('city_id', $city->getId())
             ->setParameter('lang',$_locale)
             ->setParameter('type_f',Chain::TYPE_BRANCHES)
             ->setParameter('type_s',Chain::TYPE_BOTH)
+            ->setParameter('status',Branch::STATUS_ACTIVE)
         ;
 
         return $query->getQuery()->getResult();

@@ -166,6 +166,18 @@ class Branch
      */
     private $comments;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", options={"default" = 0, "comment" = "Статус заведения"})
+     */
+    private $status;
+
+    const STATUS_ACTIVE = 0;
+    const STATUS_DELETED = 1;
+    const STATUS_CLOSED = 2;
+    const STATUS_REPAIR = 3;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -176,6 +188,7 @@ class Branch
         $this->lang = $lang;
         $this->id = 0;
         $this->comments = new ArrayCollection();
+        $this->setStatus(self::STATUS_ACTIVE);
     }
 
     /**
@@ -676,4 +689,26 @@ class Branch
         return $this->comments;
     }
 
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Branch
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

@@ -3,7 +3,7 @@
 namespace Main\Bundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Main\Bundle\Entity\Branch;
 /**
  * BranchRepository
  *
@@ -25,10 +25,12 @@ class BranchRepository extends EntityRepository
             ->andWhere('c.city_id = :city_id')
             ->andWhere('c.lang = :lang')
             ->andWhere('b.lang = :lang')
+            ->andWhere('b.status = :status')
 
             ->setParameter('chain_url', $chain_url)
             ->setParameter('city_id',$city_id)
             ->setParameter('lang',$_locale)
+            ->setParameter('status', Branch::STATUS_ACTIVE)
             ;
 
         return $query->getQuery()->getResult();
