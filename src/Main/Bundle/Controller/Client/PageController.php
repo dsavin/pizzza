@@ -191,4 +191,28 @@ class PageController extends Controller
             'urls' => $urls
         );
     }
+
+    /**
+     * show simple page
+     *
+     * @Template()
+     */
+    public function showAction($page_url, $_city, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->getCityByUrl($_city);
+
+        $entity = $em->getRepository('MainBundle:Page')->findOneBy(array(
+                                                                        'url'    => $page_url,
+                                                                        'city_id' => $city->getId(),
+                                                                        'lang'    => $request->getLocale()
+                                                                   ));
+        if (!$entity) {
+            throw $this->createNotFoundException('Нету тут такой Страницы');
+        }
+
+        return array(
+            'entity' => $entity,
+        );
+    }
 }

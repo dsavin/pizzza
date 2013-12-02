@@ -1,53 +1,54 @@
 {% set _city = app.request.session.get('_city') %}
 {% set _locale = app.request.session.get('_locale') %}
-<div id="footer">
-    <div class="gholder">
-        <div class="contact">
-            <a href="mailto:&#105;&#110;&#102;&#111;&#064;&#112;&#105;&#122;&#122;&#122;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;">
-                &#105;&#110;&#102;&#111;&#064;&#112;&#105;&#122;&#122;&#122;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;</a>
-            <span>Skype: <strong>oleksandr.klosovich</strong></span>
-        </div>
-        <ul class="links">
-            <li>
-                <ul>
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
-                    <li><a href="{{ path_city('_delivery_list',{'_city':_city,'_locale':_locale}) }}">Доставка</a></li>
-
-                </ul>
-            </li>
-            <li>
-                <ul>
-                    <li><a href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a></li>
-                    <li><a href="{{ path_city('_page_map',{'_city':_city,'_locale':_locale}) }}">Карта</a></li>
-                    <li><a href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a></li>
-                    {#<li><a href="#">Галерея пиццы</a></li>#}
-                </ul>
-            </li>
-            <li>
-                <ul>
-                    <li><a href="#">Реклама</a></li>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">Рецепты</a></li>
-                    {#<li><a href="#">Карта сайта</a></li>#}
-                </ul>
-            </li>
-        </ul>
-        <strong class="copy">&copy; PizZza.com.ua {{ dateYear }}</strong>
-        <em class="warning">Использование материалов сайта допускается только с письменного разрешения администрации сайта.</em>
-        <br/>
-        <div>
-            <!--LiveInternet counter--><script type="text/javascript"><!--
-                document.write("<a href='http://www.liveinternet.ru/click' "+
-                        "target=_blank><img src='//counter.yadro.ru/hit?t14.6;r"+
-                        escape(document.referrer)+((typeof(screen)=="undefined")?"":
-                        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-                                screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-                        ";"+Math.random()+
-                        "' alt='' title='LiveInternet: показано число просмотров за 24"+
-                        " часа, посетителей за 24 часа и за сегодня' "+
-                        "border='0' width='88' height='31'><\/a>")
-                //--></script><!--/LiveInternet-->
+<!--noindex-->
+    <div id="footer">
+        <div class="gholder">
+            <div class="contact">
+                <a rel="nofollow" href="mailto:&#105;&#110;&#102;&#111;&#064;&#112;&#105;&#122;&#122;&#122;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;">
+                    &#105;&#110;&#102;&#111;&#064;&#112;&#105;&#122;&#122;&#122;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;</a>
+                <span>Skype: <strong>oleksandr.klosovich</strong></span>
+            </div>
+            <ul class="links">
+                <li>
+                    <ul>
+                        <li><a rel="nofollow" href="/">Главная</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_chain_list',{'_city':_city,'_locale':_locale}) }}">Пиццерии</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_delivery_list',{'_city':_city,'_locale':_locale}) }}">Доставка</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_recipe_list',{'_city':_city,'_locale':_locale}) }}">Рецепты</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li><a rel="nofollow" href="{{ path_city('_discounts_list',{'_city':_city,'_locale':_locale}) }}">Акции</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_page_map',{'_city':_city,'_locale':_locale}) }}">Карта</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_news_list',{'_city':_city,'_locale':_locale}) }}">Новости</a></li>
+                        <li><a rel="nofollow" href="{{ path_city('_item_all',{'_city':_city,'_locale':_locale}) }}">Галерея пиццы</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li><a rel="nofollow" href="{{ path_city('_page_advertising',{'_city':_city,'_locale':_locale}) }}">Реклама на сайте</a></li>
+                        <li><a rel="nofollow" href="#">О нас</a></li>
+                        <li><a rel="nofollow" href="#">Карта сайта</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <strong class="copy">&copy; PizZza.com.ua {{ dateYear }}</strong>
+            <em class="warning">Использование материалов сайта допускается только с письменного разрешения администрации сайта.</em>
+            <br/>
+            <div>
+                <!--LiveInternet counter--><script type="text/javascript"><!--
+                    document.write("<a rel='nofollow' href='http://www.liveinternet.ru/click' "+
+                            "target=_blank><img src='//counter.yadro.ru/hit?t14.6;r"+
+                            escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                            ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                                    screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                            ";"+Math.random()+
+                            "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                            " часа, посетителей за 24 часа и за сегодня' "+
+                            "border='0' width='88' height='31'><\/a>")
+                    //--></script><!--/LiveInternet-->
+            </div>
         </div>
     </div>
-</div>
+<!--/noindex-->

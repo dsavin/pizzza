@@ -82,11 +82,6 @@
             <div class="story">
                 <div class="images" style="height: auto;">
                     <div>
-                        {#{% if entity.getImageName %}#}
-                            {#<img src="{{ vich_uploader_asset(entity, 'image') }}" width="175" height="69" alt="{{ entity.getImageName }}" />#}
-                        {#{% else %}#}
-                            {#<img src="/images/88x35.png" width="175" height="35" alt="default site logo 175x69" />#}
-                        {#{% endif %}#}
                         {% if entity.getImageName %}
                             <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_page') }}"  width="175" alt="{{ entity.getImageName }}"/>
                         {% else %}
@@ -97,7 +92,7 @@
                 <div class="holder">
                     <p>{{ entity.text|raw }}</p>
                     {% if entity.site != "" %}
-                        <a href="http://{{ entity.site }}" target="_blank" class="link">{{ entity.site }}</a>
+                        <a href="http://{{ entity.site }}" target="_blank" rel="nofollow" class="link">{{ entity.site }}</a>
                     {% endif %}
                 </div>
                 {#<div class="social">#}
