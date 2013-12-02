@@ -216,6 +216,7 @@
                 padding: 20px;
             }
         </style>
+        <!--noindex-->
         <div id="basket_box" style="">
             <p style="font-size: 16px;">
                 <span style="color: orange;"><span id="items_count">0</span> пицц</span> - <span style="color: green;"><span id="money">0</span> грн.</span>
@@ -225,7 +226,9 @@
             color:#F46C1A;
             text-decoration: underline;
             cursor: pointer;
-            "><a class="order_link" href="#order_from" style="color:#F46C1A!important;">Оформить заказ</a></p>
+            ">
+                <a class="order_link" href="#order_from" rel="nofollow" style="color:#F46C1A!important;" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход',Заказ пиццы])">Оформить заказ</a>
+            </p>
         </div>
 
         <div style="display: none;">
@@ -274,6 +277,7 @@
                 </div>
             </form>
         </div>
+        <!--/noindex-->
         <script type="text/javascript">
             $(document).ready(function()
             {

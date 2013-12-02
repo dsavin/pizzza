@@ -38,7 +38,7 @@ class PageLayoutController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getEntityManager();
         $city = $this->getCurrentCity();
-        $entities = $em->getRepository('MainBundle:Slider')->findBy(array('lang'=>$request->getLocale(), 'city_id' => $city->getId()));
+        $entities = $em->getRepository('MainBundle:Slider')->findBy(array('lang'=>$request->getLocale(), 'city_id' => $city->getId()), array('id' => 'DESC'));
 
         return $this->render('MainBundle:Client/PageLayout:slider.html.twig',
                              array(

@@ -1,4 +1,5 @@
 {% if entities|length > 0 %}
+    <!--noindex-->
     <div class="slideshow">
         <div class="slideset">
             {% for entity in entities %}
@@ -9,7 +10,7 @@
                     {#</div>#}
                     {%-if entity.getImageName is not null-%}
                         {% if entity.url|length > 1%}
-                            <a href="{{ entity.url }}" {% if entity.target == true %}target="_blank"{% endif %}>
+                            <a href="{{ entity.url }}" {% if entity.target == true %}target="_blank"{% endif %} rel="nofollow" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход','{{ entity.name }}'])">
                                 <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}"/>
                             </a>
                         {% else %}
@@ -20,8 +21,9 @@
             {% endfor %}
         </div>
         <div class="buttons">
-            <a href="#" class="btn-prev">prev</a>
-            <a href="#" class="btn-next">next</a>
+            <a href="#" class="btn-prev" rel="nofollow">prev</a>
+            <a href="#" class="btn-next" rel="nofollow">next</a>
         </div>
     </div>
+    <!--/noindex-->
 {% endif %}
