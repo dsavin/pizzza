@@ -21,6 +21,11 @@ class SliderType extends AbstractType
                                         'required' => false,
                                         'label'=>'Картинка'
                                    ))
+            ->add('target', 'choice', array(
+                                           'choices'   => array(0 => 'В этом окне', 1 => 'В новом окне'),
+                                           'required'  => false,
+                                           'label'=>'Открытие ссылки'
+                                      ))
         ;
     }
 

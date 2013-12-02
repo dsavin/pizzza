@@ -91,10 +91,21 @@ class Slider
      */
     private $lang;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="target", type="boolean")
+     */
+    private $target;
+
+    const TARGET_ON = true;
+    const TARGET_OFF = false;
+
     public function __construct($lang = 'ru')
     {
         $this->lang = $lang;
         $this->updated_at = new \DateTime();
+        $this->setTarget(self::TARGET_OFF);
     }
 
     /**
@@ -303,4 +314,25 @@ class Slider
         return $this->lang;
     }
 
+    /**
+     * Set target
+     *
+     * @param boolean $target
+     * @return Slider
+     */
+    public function setTarget( $target )
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return boolean
+     */
+    public function getTarget(){
+        return $this->target;
+    }
 }

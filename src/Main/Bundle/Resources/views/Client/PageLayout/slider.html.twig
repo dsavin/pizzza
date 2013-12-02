@@ -9,7 +9,7 @@
                     {#</div>#}
                     {%-if entity.getImageName is not null-%}
                         {% if entity.url|length > 1%}
-                            <a href="{{ entity.url }}">
+                            <a href="{{ entity.url }}" {% if entity.target == true %}target="_blank"{% endif %}>
                                 <img src="{{ vich_uploader_asset(entity, 'image') }}" alt="{{ entity.getImageName }}"/>
                             </a>
                         {% else %}
