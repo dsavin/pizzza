@@ -13,6 +13,7 @@ orderController = function()
         self.getItems();
         $("#phone_order").mask("+38(999) 999-9999");
         self.checkOrder();
+        self.setOnForIngridient();
     }
 
     this.checkOrder = function()
@@ -230,6 +231,29 @@ orderController = function()
     this.hideIngredient = function(ele)
     {
         $(ele).find('.feature_in').hide();
+    }
+
+    this.setOnForIngridient = function() {
+        $('#gallery-pizza').on('mouseover','.box .img-holder',function(){
+            self.showIngredient(this);
+        });
+        $('#gallery-pizza').on('mouseout','.box .img-holder',function(){
+            self.hideIngredient(this);
+        });
+        $('#gallery-pizza').on('click','.order_link',function(){
+            self.addItemToBasket($(this).data('id'));
+
+            order.getItems();
+
+            $.fancybox({
+                padding: 10,
+                cyclic: false,
+                overlayShow: true,
+                overlayOpacity: 0.65,
+                overlayColor: '#000000',
+                'href' : '#order_from'
+            });
+        });
     }
 }
 
