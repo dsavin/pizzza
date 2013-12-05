@@ -117,7 +117,7 @@ class PageLayoutController extends Controller
         $city = $this->getCurrentCity();
 
         $session = $request->getSession();
-        $items = json_decode($session->get('items'));
+        $items = (array)json_decode($session->get('items'));
         $price = 0;
         foreach($items as $item) {
             $price = $price+$item->price;
