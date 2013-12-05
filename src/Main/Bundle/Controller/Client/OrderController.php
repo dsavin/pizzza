@@ -120,4 +120,34 @@ class OrderController extends Controller
 
         return new JsonResponse($this->getAjaxResponce());
     }
+
+    public function getMenuItemsAction(Request $request)
+    {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $chainId = (int)$request->request->get('chain_id');
+
+            $cacheDriver = new ApcCache();
+            $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$chainId);
+
+            if (!$fetchCache) {
+                $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $chainId);
+                $content = json_decode($contentPre);
+
+                $cacheDriver->save('1001_pizza_api_pizzeria_'.$chainId, serialize($content), 36000);
+            } else {
+                $content = unserialize($fetchCache);
+            }
+
+//            $chainAPIInfo = $this->getInfoByIdAPI($chainId);
+
+
+            $this->addAjaxResponce('items', $content);
+        } else {
+            $this->addAjaxResponceError("Не аяксовый запрос");
+        }
+
+        return new JsonResponse($this->getAjaxResponce());
+    }
 }

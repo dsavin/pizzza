@@ -6,6 +6,7 @@ orderController = function()
     var orderOn = "Оформить заказ";
     var orderOff = "Заказать пиццу";
     var url, urlGet, urlRemove;
+    var discount = 0;
 
     this.init = function()
     {
@@ -14,6 +15,8 @@ orderController = function()
         $("#phone_order").mask("+38(999) 999-9999");
         self.checkOrder();
         self.setOnForIngridient();
+        self.setDiscount();
+        console.log(discount);
     }
 
     this.checkOrder = function()
@@ -97,6 +100,10 @@ orderController = function()
                 $('#cost').html(data.prices);
                 $('#money').html(data.prices);
                 $('#items_count').html(data.items.length);
+                if (discount > 0) {
+                    var newPrice = data.prices - ( (data.prices / 100) * discount );
+                    $('#cost_new').html(newPrice);
+                }
                 self.checkOrder();
             }
         });
@@ -254,6 +261,13 @@ orderController = function()
                 'href' : '#order_from'
             });
         });
+    }
+
+    this.setDiscount = function()
+    {
+        discount = menu.getDiscount();
+
+        return false;
     }
 }
 

@@ -5,9 +5,14 @@ menuController = function()
     var $container = $('#gallery-pizza');
     var order = false;
     var orderParam = 'price';
+    var urlGetItems;
+    var chain_id;
+    var discount = 0;
 
     this.init = function()
     {
+        $container.html('');
+        self.getItems();
         $('#options .option-set').change(function(){
             var $this = $(this);
             var $optionSet = $this.parent().find('.option-set');
@@ -28,7 +33,10 @@ menuController = function()
 
             return false;
         });
-        self.setData();
+        if (discount > 0) {
+            $('#form_dicount').html(' - '+discount+'%');
+            $('#discount_in_order').show();
+        }
     }
 
     this.setData = function()
@@ -99,27 +107,79 @@ menuController = function()
 
     this.getItems = function()
     {
-        var ar = [];
 
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: urlGet
+            url: urlGetItems,
+            data: {chain_id: chain_id}
         }).success(function(data){
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-                items = data.items;
-                $.each(data.items, function(k, val){
-                    ar[k] = self.createItemHtml(val);
+                $.each(data.items.records, function(k, val){
+                    $container.append(self.createHtmlItem(val));
                 });
-                $('.blockL').html(ar.join(''));
-                $('#cost').html(data.prices);
-                $('#money').html(data.prices);
-                $('#items_count').html(data.items.length);
-                self.checkOrder();
+
+                self.setData();
             }
         });
+    }
+
+    this.createHtmlItem = function(item)
+    {
+        var html_item  = '<div class="box element" id="item_'+item.id+'" data-weight="'+item.weight+'" data-size="'+item.weight+'" data-price="'+item.price+'" data-title="'+item.title+'">'+
+                            '<div class="img-holder">'+
+                                '<img src="http://1001pizza.com.ua'+item.image+'" alt="'+item.title+'" id="product_img_'+item.weight+'" width="184" height="161">'+
+                                '<div class="rating">'+
+                                    '<p>'+
+                                        '<span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/weight.png) no-repeat 0 center; padding-left: 20px;" class="weight">'+item.weight+' г</span>'+
+                                        '<br>'+
+                                        '<span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/sizeBlock.png) no-repeat 0 center; padding-left: 20px;">'+item.size+' см</span>'+
+                                        '<br>'+
+                                        '<span style="background: url(/images/currency_dollar2.png) no-repeat -4px center; padding-left: 20px; height: 22px; color: green; font-weight: bold;" class="price">'+item.price+' грн</span>'+
+                                    '</p>'+
+                                '</div>'+
+                                '<div class="feature_in" style="display: none;">'+
+                                    '<p>'+item.ingredients+'</p>'+
+                                '</div>';
+        if (discount > 0) {
+            html_item += '<div class="discount_in">'+
+                                '<span>Скидка '+discount+'%</span>'+
+                            '</div>';
+        }
+            html_item +=    '</div>'+
+                            '<h2><a href="#" onclick="return false">'+item.title+'</a></h2>'+
+                            '<p><a class="order_link" href="#order_from" data-id="'+item.id+'">Заказать</a></p>'+
+                        '</div>';
+
+        return html_item;
+    }
+
+    this.setUrlGetItems = function(url)
+    {
+        urlGetItems = url;
+
+        return false;
+    }
+
+    this.setChainId = function(id)
+    {
+        chain_id = id;
+
+        return false;
+    }
+
+    this.setDiscount = function(num)
+    {
+        discount = num;
+
+        return false;
+    }
+
+    this.getDiscount = function()
+    {
+        return discount;
     }
 }
 

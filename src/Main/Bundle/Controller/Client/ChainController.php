@@ -223,22 +223,13 @@ class ChainController extends Controller
         /** @var $commentRepository  */
         $entity = $em->getRepository('MainBundle:Chain')->findOneBy(array('url' => $chain_url, 'lang' => $request->getLocale(), 'city_id' => $city->getId()));
 
-        $cacheDriver = new ApcCache();
-        $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$entity->getIdForMenu());
-
-        if (!$fetchCache) {
-            $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $entity->getIdForMenu());
-            $content = json_decode($contentPre);
-
-            $cacheDriver->save('1001_pizza_api_pizzeria_'.$entity->getIdForMenu(), serialize($content), 36000);
-        } else {
-            $content = unserialize($fetchCache);
-        }
-
         $chainAPIInfo = $this->getInfoByIdAPI($entity->getIdForMenu());
 
+//        echo '<pre>';
+//        var_dump($chainAPIInfo->discount);
+//        exit;
         return array(
-            'items' => $content,
+//            'items' => $content,
             'entityChain' => $entity,
             'chainAPIInfo' => $chainAPIInfo
         );

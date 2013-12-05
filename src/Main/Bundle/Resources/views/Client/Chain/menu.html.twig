@@ -7,63 +7,23 @@
 {% block chain_name_order %}{{ chainAPIInfo.title }}{% endblock %}
 {% block chain_status_order %}
     {{ chainAPIInfo.delivery }}
+    {% if chainAPIInfo.discount > 0 %}
+        <span class="discount_in_info">Скидка на Весь заказ {{ chainAPIInfo.discount }}%.</span>
+    {% endif %}
 {% endblock %}
 
 {% set active = 2 %}
 
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/main/js/menu.js') }}"></script>
+    <script>
+        menu.setUrlGetItems('{{ path_city('_ajax_get_menu_items') }}');
+        menu.setChainId({{ entityChain.idForMenu }});
+        menu.setDiscount({{ chainAPIInfo.discount }});
+    </script>
 {% endblock %}
 
 {% block body %}
-    <style>
-        .gallery-pizza .box {
-            display: inline-block;
-            vertical-align: top;
-            width: 184px;
-            float: none !important;
-            padding: 19px 19px 20px;
-            border: 1px solid #e9e8e5;
-            border-width: 1px 0 1px 1px;
-            margin: -1px -2px 0 -1px;
-        }
-        .feature_in {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0%;
-            bottom: 0;
-            width: 165px;
-            background-color: #fff;
-            padding: 10px;
-            z-index: 9;
-            border-radius: 10px;
-            font-weight: bold;
-            color: black;
-            border-radius: 10px;
-            opacity: 0.8;
-        }
-        .gallery-pizza {
-            padding: 0px;
-            margin: 0;
-        }
-        .img-holder {
-            position: relative;
-        }
-        #content a.order_link {
-            border: 1px solid;
-            border-radius: 5px;
-            padding: 3px;
-            font-weight: bold;
-            background-color: ghostwhite;
-        }
-        #content a.order_link:hover {
-            text-decoration: none;
-            background-color: #0094d1;
-            color: #fff!important;
-            border: 1px solid #fff;
-        }
-    </style>
     <div class="main">
         <div id="content" class="page-single-gallery">
             <div class="heading-page">
@@ -99,33 +59,33 @@
                         </form>
                         </section>
                     <div class="gallery-pizza" id="gallery-pizza">
-                        {% for item in items.records %}
-                            <div class="box element" id="item_{{ item.id }}"
-                                 data-weight="{{ item.weight }}"
-                                 data-size="{{ item.size }}"
-                                 data-price="{{ item.price }}"
-                                 data-title="{{ item.title }}"
-                                    >
-                                <div class="img-holder">
-                                    <img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" id="product_img_{{ item.id }}" width="184" height="161" alt="{{ item.title }}" />
-                                    <div class="rating">
-                                        <p>
-                                            <span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/weight.png) no-repeat 0 center; padding-left: 20px;" class="weight">{{ item.weight }} г</span>
-                                            <br/>
-                                            <span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/sizeBlock.png) no-repeat 0 center; padding-left: 20px;">{{ item.size }} см</span>
-                                            <br/>
-                                            <span style="background: url(/images/currency_dollar2.png) no-repeat -4px center; padding-left: 20px; height: 22px; color: green; font-weight: bold;" class="number">{{ item.price }} грн</span>
-                                            <span style="display: none;" class="name">{{ item.title }} грн</span>
-                                        </p>
-                                    </div>
-                                    <div class="feature_in">
-                                        <p>{{ item.ingredients }}</p>
-                                    </div>
-                                </div>
-                                <h2><a href="#" onclick="return false" >{{ item.title }}</a></h2>
-                                <p><a class="order_link" href="#order_from" data-id="{{ item.id }}">Заказать</a></p>
-                            </div>
-                        {% endfor %}
+                        {#{% for item in items.records %}#}
+                            {#<div class="box element" id="item_{{ item.id }}"#}
+                                 {#data-weight="{{ item.weight }}"#}
+                                 {#data-size="{{ item.size }}"#}
+                                 {#data-price="{{ item.price }}"#}
+                                 {#data-title="{{ item.title }}"#}
+                                    {#>#}
+                                {#<div class="img-holder">#}
+                                    {#<img src="http://1001pizza.com.ua{{ item.image }}" alt="{{ item.title }}" id="product_img_{{ item.id }}" width="184" height="161" alt="{{ item.title }}" />#}
+                                    {#<div class="rating">#}
+                                        {#<p>#}
+                                            {#<span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/weight.png) no-repeat 0 center; padding-left: 20px;" class="weight">{{ item.weight }} г</span>#}
+                                            {#<br/>#}
+                                            {#<span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/sizeBlock.png) no-repeat 0 center; padding-left: 20px;">{{ item.size }} см</span>#}
+                                            {#<br/>#}
+                                            {#<span style="background: url(/images/currency_dollar2.png) no-repeat -4px center; padding-left: 20px; height: 22px; color: green; font-weight: bold;" class="number">{{ item.price }} грн</span>#}
+                                            {#<span style="display: none;" class="name">{{ item.title }} грн</span>#}
+                                        {#</p>#}
+                                    {#</div>#}
+                                    {#<div class="feature_in">#}
+                                        {#<p>{{ item.ingredients }}</p>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<h2><a href="#" onclick="return false" >{{ item.title }}</a></h2>#}
+                                {#<p><a class="order_link" href="#order_from" data-id="{{ item.id }}">Заказать</a></p>#}
+                            {#</div>#}
+                        {#{% endfor %}#}
                     </div>
                 </div>
             </div>
