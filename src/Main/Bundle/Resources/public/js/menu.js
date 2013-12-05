@@ -129,11 +129,13 @@ menuController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-                $.each(data.items.records, function(k, val){
-                    $container.append(self.createHtmlItem(val));
-                });
+                if (data.items.records) {
+                    $.each(data.items.records, function(k, val){
+                        $container.append(self.createHtmlItem(val));
+                    });
 
-                self.setData();
+                    self.setData();
+                }
             }
         });
     }
