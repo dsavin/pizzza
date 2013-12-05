@@ -11,32 +11,44 @@ menuController = function()
 
     this.init = function()
     {
-        $container.html('');
-        self.getItems();
-        $('#options .option-set').change(function(){
-            var $this = $(this);
-            var $optionSet = $this.parent().find('.option-set');
+        setTimeout(function(){
+            $container.html('');
+            self.getItems();
+            $('#options .option-set').change(function(){
+                var $this = $(this);
+                var $optionSet = $this.parent().find('.option-set');
 
-            if ($optionSet.data('option-key') == 'sortAscending') {
-                order = parseInt($this.val());
-            } else if ($optionSet.data('option-key') == 'sortBy') {
-                orderParam = $this.val();
+                if ($optionSet.data('option-key') == 'sortAscending') {
+                    order = parseInt($this.val());
+                } else if ($optionSet.data('option-key') == 'sortBy') {
+                    orderParam = $this.val();
+                }
+
+                self.sortingItems();
+
+                if (order) {
+                    items.reverse();
+                }
+
+                self.setNewList();
+
+                return false;
+            });
+            if (discount > 0) {
+                $('#form_dicount').html(' - '+discount+'%');
+                $('#discount_in_order').show();
             }
 
-            self.sortingItems();
-
-            if (order) {
-                items.reverse();
+            for (var i=0; i<10; i++)
+            {
+                if (items.length < 1) {
+                    break;
+                }
+                setTimeout(function(){
+                    self.getItems();
+                }, 2000);
             }
-
-            self.setNewList();
-
-            return false;
-        });
-        if (discount > 0) {
-            $('#form_dicount').html(' - '+discount+'%');
-            $('#discount_in_order').show();
-        }
+        }, 300);
     }
 
     this.setData = function()

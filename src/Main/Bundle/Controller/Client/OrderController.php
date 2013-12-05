@@ -146,14 +146,14 @@ class OrderController extends Controller
             if (!$fetchCache) {
                 $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $chainId);
                 $content = json_decode($contentPre);
-
-                $cacheDriver->save('1001_pizza_api_pizzeria_'.$chainId, serialize($content), 36000);
+                if (!empty($content->records)) {
+                    $cacheDriver->save('1001_pizza_api_pizzeria_'.$chainId, serialize($content), 36000);
+                } else {
+                    $content->records = array();
+                }
             } else {
                 $content = unserialize($fetchCache);
             }
-
-//            $chainAPIInfo = $this->getInfoByIdAPI($chainId);
-
 
             $this->addAjaxResponce('items', $content);
         } else {
