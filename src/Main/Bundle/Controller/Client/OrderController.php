@@ -67,18 +67,30 @@ class OrderController extends Controller
 
     public function getItemsAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
         $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
             $price = 0;
+            $discount = 0;
+            $chainId = 0;
             foreach($items as $item) {
                 $price = $price+$item->price;
+                if (isset($item->discount)) {
+                    $discount = $item->discount;
+                }
+                if (isset($item->chain_id)) {
+                    $chainId = $item->chain_id;
+                }
             }
+
+            $chainAPIInfo = (object)$this->getInfoByIdAPI($chainId);
 
             $this->addAjaxResponce('prices', $price);
             $this->addAjaxResponce('items', $items);
+            $this->addAjaxResponce('discount', $discount);
+            $this->addAjaxResponce('chainId', $chainId);
+            $this->addAjaxResponce('delivery_text', isset($chainAPIInfo->delivery)?$chainAPIInfo->delivery:'');
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }

@@ -137,4 +137,24 @@ class ChainRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getAllInPartners($city_id, $_locale)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('c')
+            ->from('MainBundle:Chain', 'c')
+
+            ->where('c.lang = :lang')
+            ->andWhere('c.city_id = :city_id')
+            ->andWhere('c.idForMenu IS NOT NULL')
+            ->andWhere('c.idForMenu != 0')
+
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang',$_locale)
+        ;
+
+        return $query->getQuery()->getResult();
+    }
 }

@@ -103,4 +103,52 @@ class PageLayoutController extends Controller
 
         return $array;
     }
+
+
+    public function basketAction()
+    {
+        $arrayPartners = array();
+        $chainAPIInfoMain = new \stdClass();
+        $chainAPIInfoMain->title = '';
+        $chainAPIInfoMain->delivery = '';
+        $chainAPIInfoMain->discount = 0;
+        $em = $this->getEm();
+        $request = $this->getRequest();
+        $city = $this->getCurrentCity();
+
+        $session = $request->getSession();
+        $items = json_decode($session->get('items'));
+        $price = 0;
+        foreach($items as $item) {
+            $price = $price+$item->price;
+        }
+
+        if ($price > 0) {
+            $chainAPIInfoMain = $this->getInfoByIdAPI($items[0]->chain_id);
+        }
+        if ($price < 1) {
+            $entities = $em->getRepository('MainBundle:Chain')->getAllInPartners($city->getId(), $request->getLocale());
+            foreach ($entities as $entity) {
+                $chainAPIInfo = $this->getInfoByIdAPI($entity->getIdForMenu());
+                if (empty($chainAPIInfo)) {
+                    continue;
+                }
+                $arrayPartners[] = array(
+                    'url' => $this->generateUrlCity('_chain__menu', array('chain_url' => $entity->getUrl())),
+                    'name' => $entity->getName(),
+                    'discount' => $chainAPIInfo->discount
+                );
+            }
+        }
+
+        return $this->render('MainBundle:PageLayout:basket.html.twig',
+                             array(
+                                  'partners' => $arrayPartners,
+                                  'items' => $items,
+                                  'price' => $price,
+                                  '_city' => $city,
+                                  '_locale' => $request->getLocale(),
+                                  'chainAPIInfoMain' => $chainAPIInfoMain
+                             ));
+    }
 }

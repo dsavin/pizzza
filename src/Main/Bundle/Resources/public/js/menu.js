@@ -6,7 +6,7 @@ menuController = function()
     var order = false;
     var orderParam = 'price';
     var urlGetItems;
-    var chain_id;
+    var chain_id = 0;
     var discount = 0;
 
     this.init = function()
@@ -168,6 +168,11 @@ menuController = function()
         chain_id = id;
 
         return false;
+    }
+
+    this.getChainId = function()
+    {
+        return chain_id;
     }
 
     this.setDiscount = function(num)

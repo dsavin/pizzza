@@ -1,0 +1,97 @@
+<div id="basket_box" style="">
+    {% if price > 0 %}
+        <p style="font-size: 16px;">
+            <span style="color: orange;"><span id="items_count">{{ items|length }}</span> пицц</span> - <span><span id="money">{{ price }}</span> грн.</span>
+        </p>
+        <p class="order_link_to_basket">
+            <a class="order_link" href="#order_from" rel="nofollow" style="color:#F46C1A!important;" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход','Заказ пиццы'])">Оформить заказ</a>
+        </p>
+    {% else %}
+        <p style="font-size: 16px;">
+            <span style="color: orange;">Закажи Пиццу<br/>ОНЛАЙН!!!</span>
+        </p>
+        <p class="array_partners">
+            {% for item in partners %}
+                <a href="{{ item.url }}#options" rel="nofollow" style="color:#F46C1A!important; display: block; margin-top: 15px;" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход','Заказ пиццы'])">{{ item.name }}{% if item.discount >0 %} <span class="discount_in_basket_box">со скидкой {{ item.discount }}%</span>{% endif %}</a>
+            {% endfor %}
+        </p>
+    {% endif %}
+</div>
+
+<div style="display: none;">
+    <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
+        <p class="blockTitle">Оформление заказа</p>
+        <div class="blockAmountInTitle">
+            <p><strong>У вас в заказе пицца от "<span id="chain_name_order">{% block chain_name_order %}{{ chainAPIInfoMain.title }}{% endblock %}</span>", их условия доставки такие:</strong></p>
+            <div>
+                <p></p>
+                <p id="chain_status_order">
+                    {% block chain_status_order %}{{ chainAPIInfoMain.delivery }}
+                        {% if chainAPIInfoMain.discount > 0 %}
+                            <span class="discount_in_info">Скидка на Весь заказ {{ chainAPIInfoMain.discount }}%.</span>
+                        {% endif %}
+                    {% endblock %}
+                </p>
+            </div>
+        </div>
+
+        <section class="blockR">
+            <div class="clearfix">
+                <p>Контактная информация</p>
+                <label for="name">Ваше имя <span class="attn">*</span></label>
+                <fieldset>
+                    <div class="input">
+                        <input id="name_order" type="text" name="name" value="">
+                    </div>
+                </fieldset>
+                <label for="phone">Телефон <span class="attn">*</span></label>
+                <fieldset>
+                    <div class="input">
+                        <input id="phone_order" type="text" name="phone" value="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <input type="checkbox" name="agreement" checked="checked"><a target="_blank" href="{{ path('_page_agreement') }}">Я принимаю условия Соглашения</a>
+                </fieldset>
+                <div class="ord"><input type="submit" value="Отправить заказ" onclick="return order.submitOrder();"></div>
+            </div>
+            <p class="info">Через 5 минут после отправки заказа с Вами свяжется представитель пиццерии. Также, после отправки заказа, вы сможете перейти на их сайт и по телефону заказать другие пиццы, блюда и напитки к этому заказу.</p>
+        </section>
+        <section class="blockL">
+
+
+        </section>
+        <div id="btn_form">
+            <div class="amount">
+                <p style="float: left;"><strong>Сумма заказа:</strong> <strong id="cost">0</strong><span> грн</span></p>
+                <p id="discount_in_order" style="display: none;"><span id="form_dicount"></span> К оплате <strong id="cost_new">0</strong><span> грн</span></p>
+            </div>
+
+            {#<div class="continue"><p>+ Заказать еще</p></div>#}
+
+            {#<div class="clear_continue"><p>Очистить корзину</p></div>#}
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.order_link').click(function() {
+            order.getItems();
+
+            $.fancybox({
+                padding: 10,
+                cyclic: false,
+                overlayShow: true,
+                overlayOpacity: 0.65,
+                overlayColor: '#000000',
+                'href' : '#order_from'
+            });
+        });
+
+        order.setUrl('{{ path('_ajax_oder_pizza') }}');
+        order.setUrlGetItems('{{ path('_ajax_get_pizzas') }}');
+        order.setUrlRemoveItem('{{ path('_ajax_remove_item') }}');
+    });
+</script>

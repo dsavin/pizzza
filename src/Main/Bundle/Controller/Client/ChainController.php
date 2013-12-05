@@ -225,11 +225,7 @@ class ChainController extends Controller
 
         $chainAPIInfo = $this->getInfoByIdAPI($entity->getIdForMenu());
 
-//        echo '<pre>';
-//        var_dump($chainAPIInfo->discount);
-//        exit;
         return array(
-//            'items' => $content,
             'entityChain' => $entity,
             'chainAPIInfo' => $chainAPIInfo
         );

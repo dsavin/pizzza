@@ -1,7 +1,10 @@
 User-agent: Yandex
 Crawl-delay: 10
 Disallow: /advertising
+Disallow: /agreement
 Disallow: /ru/admin/*
+Disallow: /add/new/comment/*
+Disallow: /ajax/*
 Host: pizzza.com.ua
 
 User-agent: Mediapartners-Google
@@ -9,12 +12,18 @@ Disallow:
 
 User-agent: Googlebot
 Disallow: /advertising
+Disallow: /agreement
 Disallow: /ru/admin/*
+Disallow: /add/new/comment/*
+Disallow: /ajax/*
 
 User-agent: *
 Crawl-delay: 10
 Disallow: /advertising
+Disallow: /agreement
 Disallow: /ru/admin/*
+Disallow: /add/new/comment/*
+Disallow: /ajax/*
 
 User-agent: Googlebot-Image
 Allow: /uploads/images/

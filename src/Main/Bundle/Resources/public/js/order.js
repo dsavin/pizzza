@@ -7,6 +7,7 @@ orderController = function()
     var orderOff = "Заказать пиццу";
     var url, urlGet, urlRemove;
     var discount = 0;
+    var chain_id = 0;
 
     this.init = function()
     {
@@ -15,8 +16,6 @@ orderController = function()
         $("#phone_order").mask("+38(999) 999-9999");
         self.checkOrder();
         self.setOnForIngridient();
-        self.setDiscount();
-        console.log(discount);
     }
 
     this.checkOrder = function()
@@ -25,35 +24,15 @@ orderController = function()
         if (items.length > 0) {
             orderLink.html(orderOn);
             orderLink.attr('href', '#order_from');
-        } else {
-            orderLink.html(orderOff);
-            orderLink.attr('href', 'http://pizzza.com.ua/pizzarium/menu#gallery-pizza');
         }
-
-        return false;
-    }
-
-    this.animateGoToBasket = function (id)
-    {
-        var posiBasket = $('#basket_box').offset();
-        var posiProductImg = $('#product_img_'+id).offset();
-        var newImg = $('div#new_img_div img');
-
-        $(newImg).animate(
-            {
-                "left": posiBasket.left,
-                "top":posiBasket.top,
-                "opacity": 0,
-                "width":"20px",
-                "height":"20px",
-                "border-radius":"100%"
-            }, 2000);
 
         return false;
     }
 
     this.addItemToBasket = function (id)
     {
+        self.setDiscount();
+        self.setChainId();
         var objItem = $('#item_'+id);
         var item = {
             id: id,
@@ -61,7 +40,9 @@ orderController = function()
             size: objItem.data('size'),
             price: objItem.data('price'),
             title: objItem.data('title'),
-            image: objItem.find('img').first().attr('src')
+            image: objItem.find('img').first().attr('src'),
+            discount: discount,
+            chain_id: chain_id
         };
 
         $.ajax({
@@ -92,6 +73,7 @@ orderController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
+                discount = data.discount;
                 items = data.items;
                 $.each(data.items, function(k, val){
                     ar[k] = self.createItemHtml(val);
@@ -103,6 +85,8 @@ orderController = function()
                 if (discount > 0) {
                     var newPrice = data.prices - ( (data.prices / 100) * discount );
                     $('#cost_new').html(newPrice);
+                    $('#discount_in_order').show();
+                    $('#form_dicount').html(' - '+discount+'%');
                 }
                 self.checkOrder();
             }
@@ -266,6 +250,13 @@ orderController = function()
     this.setDiscount = function()
     {
         discount = menu.getDiscount();
+
+        return false;
+    }
+
+    this.setChainId = function()
+    {
+        chain_id = menu.getChainId();
 
         return false;
     }
