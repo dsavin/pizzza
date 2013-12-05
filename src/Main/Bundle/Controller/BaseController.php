@@ -179,7 +179,7 @@ class BaseController extends Controller
             $content = unserialize($fetchCache);
         }
 
-        return $content;
+        return (array)$content;
     }
 
     public function getInfoByIdAPI($id)
