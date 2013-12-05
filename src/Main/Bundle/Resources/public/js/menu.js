@@ -38,17 +38,7 @@ menuController = function()
                 $('#form_dicount').html(' - '+discount+'%');
                 $('#discount_in_order').show();
             }
-
-            for (var i=0; i<10; i++)
-            {
-                if (items.length < 1) {
-                    break;
-                }
-                setTimeout(function(){
-                    self.getItems();
-                }, 2000);
-            }
-        }, 300);
+        }, 500);
     }
 
     this.setData = function()
@@ -129,12 +119,16 @@ menuController = function()
             if( data.error !== undefined ){
                 alert(data.error_text);
             } else {
-                if (data.items.records) {
+                if (data.items && data.items.records && data.items.records.length > 0) {
                     $.each(data.items.records, function(k, val){
                         $container.append(self.createHtmlItem(val));
                     });
 
                     self.setData();
+                } else {
+                    setTimeout(function(){
+                        self.getItems();
+                    }, 2000);
                 }
             }
         });
