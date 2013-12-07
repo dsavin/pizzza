@@ -1,7 +1,7 @@
 {% set _city = app.request.session.get('_city') %}
 {% set _locale = app.request.session.get('_locale') %}
 <div id="header">
-	{% if banner > 3 %}
+	{#{% if banner > 3 %}#}
         <div class="top-images">
             {#<a href="http://pizzza.com.ua/discount/dominos/haleny_v%D1%96vtorok">#}
                 {#<img src="/images/small-banner.png" width="192" height="80" alt="image description"/>#}
@@ -21,13 +21,13 @@
             <script type="text/javascript"
                     src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
             </script>
-            <img src="/pizzahouse-1.jpg" width="240" height="90" style="float:right; " alt="Баннер маленький пицца хауз заказ онлайн"/>
+            {#<img src="/pizzahouse-1.jpg" width="240" height="90" style="float:right; " alt="Баннер маленький пицца хауз заказ онлайн"/>#}
         </div>
-	{% else %}
-        <div class="top-images">
-            <img src="/pizzahouse-2.jpg" width="980" height="90" alt="Баннер пицца хауз заказ онлайн"/>
-        </div>
-	{% endif %}
+	{#{% else %}#}
+        {#<div class="top-images">#}
+            {#<img src="/pizzahouse-2.jpg" width="980" height="90" alt="Баннер пицца хауз заказ онлайн"/>#}
+        {#</div>#}
+	{#{% endif %}#}
     <div class="gholder">
         <!--noindex-->
             <strong class="logo">
