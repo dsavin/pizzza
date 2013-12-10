@@ -21,8 +21,20 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class News extends Publication
 {
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="post_type", type="integer", options={"default" = 0 })
+     */
+    private $post_type;
+
+    const POST_TYPE_NEWS = 0;
+    const POST_TYPE_INTERESTING = 1;
+
     public function __construct()
     {
+        $this->setPostType(self::POST_TYPE_NEWS);
+
         parent::__construct();
     }
 
@@ -30,5 +42,17 @@ class News extends Publication
     {
 
         return self::TYPE_NEWS;
+    }
+
+    public function setPostType($type)
+    {
+        $this->post_type = $type;
+
+        return $this;
+    }
+
+    public function getPostType()
+    {
+        return $this->post_type;
     }
 }

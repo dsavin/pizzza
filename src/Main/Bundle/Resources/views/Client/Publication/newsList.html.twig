@@ -39,8 +39,12 @@
                 <div class="actions-list publication">
                     {% for entity in pagination %}
                         <div class="gholder">
+                            {% set urlF = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
+                            {% if entity.postType == 1 %}
+                                {% set urlF = path_city('_interesting_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
+                            {% endif %}
                             {% if entity.getImageName %}
-                                <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">
+                                <a href="{{ urlF }}">
                                     <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ entity.getImageName }}" class="thumb" />
                                 </a>
                             {% else %}
@@ -48,7 +52,7 @@
                             {% endif %}
                             <div class="holder">
                                 <h2>
-                                    <a href="{{ path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) }}">{{ entity.name }}</a>
+                                    <a href="{{ urlF }}">{{ entity.name }}</a>
                                 </h2>
                                 <p>{{ entity.shortText }}</p>
                                 <div class="meta">

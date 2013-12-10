@@ -21,6 +21,7 @@ $routes['_ajax_send_order'] = array('url' => '/ajax/order/send_items', 'params' 
 $routes['_ajax_get_menu_items'] = array('url' => '/ajax/order/get_menu_items', 'params' => array('_controller' => 'MainBundle:Client\Order:getMenuItems'));
 
 $routes['_news_single'] = array('url' => '/public/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
+$routes['_interesting_single'] = array('url' => '/interesting/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:news'));
 $routes['_recipe_single'] = array('url' => '/recipes/{url}', 'params' => array('_controller' => 'MainBundle:Client\Publication:recipe'));
 $routes['_discount_single'] = array('url' => '/discount/{chain_url}/{dis_url}', 'params' => array('_controller' => 'MainBundle:Client\Discount:show'));
 $routes['_discounts_list'] = array('url' => '/discounts', 'params' => array('_controller' => 'MainBundle:Client\Discount:list'));

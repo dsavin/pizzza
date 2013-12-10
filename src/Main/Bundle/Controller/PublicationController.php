@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Main\Bundle\Entity\Publication;
 use Main\Bundle\Entity\News;
 use Main\Bundle\Entity\Recipe;
-use Main\Bundle\Form\PublicationType;
+use Main\Bundle\Form\NewsType;
 use Main\Bundle\Form\RecipeType;
 use Main\Bundle\Entity\RecipeIngredients;
 use Main\Bundle\Entity\Ingredient;
@@ -59,7 +59,7 @@ class PublicationController extends Controller
         if ($id) {
             $entity = $em->getRepository('MainBundle:News')->find($id);
         }
-        $form   = $this->createForm(new PublicationType(), $entity);
+        $form   = $this->createForm(new NewsType(), $entity);
 
         if ($request->isMethod("POST")) {
             $form->bind($request);

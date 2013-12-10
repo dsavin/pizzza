@@ -14,6 +14,9 @@
             {% if entityF.type == types.news %}
                 {% set urlF = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
                 {% set urlCatF = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
+                {% if entityF.postType == 1 %}
+                    {% set urlF = path_city('_interesting_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
+                {% endif %}
             {% elseif entityF.type == types.recipe %}
                 {% set urlF = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entityF.url }) %}
                 {% set urlCatF = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
