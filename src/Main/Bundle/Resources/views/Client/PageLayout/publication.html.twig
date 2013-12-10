@@ -22,20 +22,20 @@
                 {% set urlCatF = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
             {% endif %}
             {% if entityF.getImageName %}
-                <a href="{{ urlF }}">
+                <a href="{{ urlF }}" rel="nofollow">
                     <img src="{{ vich_uploader_asset(entityF, 'image')| apply_filter('publication_index') }}" style="max-width: 200px;" height="117" alt="{{ entityF.getImageName }}"/>
                 </a>
             {% endif %}
             <h3>
                 <a href="{{ urlF }}">{{ entityF.name }}</a>
             </h3>
-
-            <p>{{ entityF.shortText }} ...</p>
-
-            <div class="meta">
-                <div class="cat"><a href="{{ urlCatF }}">{{ entityF.getTypeName }}</a></div>
-                <em class="date">{{ entityF.createdAt| date('d.m.Y H:i') }}</em>
-            </div>
+            <!--noindex-->
+                <p>{{ entityF.shortText }} ...</p>
+                <div class="meta">
+                    <div class="cat"><a href="{{ urlCatF }}" rel="nofollow">{{ entityF.getTypeName }}</a></div>
+                    <em class="date">{{ entityF.createdAt| date('d.m.Y H:i') }}</em>
+                </div>
+            <!--/noindex-->
         </div>
         <ul>
             {% for entity in entities|slice(1, 4) %}
@@ -44,6 +44,9 @@
                 {% if entity.type == types.news %}
                     {% set url = path_city('_news_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
                     {% set urlCat = path_city('_news_list',{'_city':_city,'_locale':_locale}) %}
+                    {% if entity.postType == 1 %}
+                        {% set url = path_city('_interesting_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
+                    {% endif %}
                 {% elseif entity.type == types.recipe %}
                     {% set url = path_city('_recipe_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
                     {% set urlCat = path_city('_recipe_list',{'_city':_city,'_locale':_locale}) %}
@@ -54,7 +57,7 @@
                     </h3>
 
                     <div class="cat">
-                        <a href="{{ urlCat }}">{{ entity.getTypeName }}</a>
+                        <a href="{{ urlCat }}" rel="nofollow">{{ entity.getTypeName }}</a>
                     </div>
                 </li>
             {% endfor %}

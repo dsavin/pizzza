@@ -43,22 +43,26 @@
                             {% if entity.postType == 1 %}
                                 {% set urlF = path_city('_interesting_single',{'_city':_city,'_locale':_locale, 'url': entity.url }) %}
                             {% endif %}
-                            {% if entity.getImageName %}
-                                <a href="{{ urlF }}">
-                                    <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ entity.getImageName }}" class="thumb" />
-                                </a>
-                            {% else %}
-                                <img src="images/img-19.jpg" width="191" height="125" alt="image description" class="thumb" />
-                            {% endif %}
+                            <!--noindex-->
+                                {% if entity.getImageName %}
+                                    <a href="{{ urlF }}" rel="nofollow">
+                                        <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('publication_list') }}" style="max-width: 191px;" height="125" alt="{{ entity.getImageName }}" class="thumb" />
+                                    </a>
+                                {% else %}
+                                    <img src="images/img-19.jpg" width="191" height="125" alt="image description" class="thumb" />
+                                {% endif %}
+                            <!--/noindex-->
                             <div class="holder">
                                 <h2>
                                     <a href="{{ urlF }}">{{ entity.name }}</a>
                                 </h2>
-                                <p>{{ entity.shortText }}</p>
-                                <div class="meta">
-                                    <em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>
-                                    {#<a href="#" class="cat"><span>Рецепты</span></a>#}
-                                </div>
+                                <!--noindex-->
+                                    <p>{{ entity.shortText }}</p>
+                                    <div class="meta">
+                                        <em class="date">{{ entity.createdAt|date('d.m.Y') }}</em>
+                                        {#<a href="#" class="cat"><span>Рецепты</span></a>#}
+                                    </div>
+                                <!--/noindex-->
                             </div>
                         </div>
                     {% endfor %}
