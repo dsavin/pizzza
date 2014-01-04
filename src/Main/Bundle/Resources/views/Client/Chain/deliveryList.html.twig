@@ -40,116 +40,97 @@
         </div>
         <div class="top">
             <div class="heading">
-                {#<span>Топ доставки</span>#}
-                {#<a href="#">Как попасть в топ?</a>#}
+                <span>Топ доставки</span>
+                <a href="{{ path_city('_page_advertising',{'_city':_city,'_locale':_locale}) }}">Как попасть в топ?</a>
             </div>
-            {#<div class="listing">#}
-                {#<div class="gholder">#}
-                    {#<div class="gframe">#}
-                        {#<div class="images">#}
-                            {#<div><img src="images/recomned-17.gif" width="90" height="36" alt="image description" /></div>#}
-                        {#</div>#}
-                        {#<div class="title">#}
-                            {#<h3><span><a href="#">Мамамиа</a></span></h3>#}
-                            {#<div class="link-block">#}
-                                {#<a href="#" class="link">mamamia.ua</a>#}
-                            {#</div>#}
-                            {#<div class="area">#}
-                                {#<div class="pizzzaz">#}
-                                    {#<a href="#" class="more more-info click"><span>Информация о доставке</span></a>#}
-                                    {#<div class="popup-pizzzaz">#}
-                                        {#<div class="area-info">#}
-                                            {#<div class="holder">#}
-                                                {#<ul class="tel">#}
-                                                    {#<li>(044) <strong>222 5 222</strong></li>#}
-                                                    {#<li>(044) <strong>222 70 75</strong> <br />(044) <strong>468 70 90</strong></li>#}
-                                                {#</ul>#}
-                                                {#<ul class="adres">#}
-                                                    {#<li>Весь Киев, 9:00 – 22:00</li>#}
-                                                    {#<li>Куреневка, круглосуточно</li>#}
-                                                {#</ul>#}
-                                            {#</div>#}
-                                            {#<div class="total">Доставка работает без выходных. <br />Минимальная сумма заказа – 120 грн.  При заказе от 350 грн. доставка бесплатная.</div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="popup-menu">#}
-                            {#<a href="#" class="open">Open</a>#}
-                            {#<ul class="menu">#}
-                                {#<li><a href="#">Доставка</a></li>#}
-                                {#<li><a href="#">Акции</a></li>#}
-                                {#<li><a href="#">Отзывы</a></li>#}
-                            {#</ul>#}
-                        {#</div>#}
-                        {#<div class="another">#}
-                            {#<ul class="stars">#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                            {#</ul>#}
-                            {#<a href="#" class="comment-link">17</a>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="gholder">#}
-                    {#<div class="gframe">#}
-                        {#<div class="images">#}
-                            {#<div><img src="images/recomned-13.gif" width="96" height="46" alt="image description" /></div>#}
-                        {#</div>#}
-                        {#<div class="title">#}
-                            {#<h3><span><a href="#">Соло пицца</a></span></h3>#}
-                            {#<div class="link-block">#}
-                                {#<a href="#" class="link">solopizza.com.ua</a>#}
-                            {#</div>#}
-                            {#<div class="area">#}
-                                {#<div class="pizzzaz">#}
-                                    {#<a href="#" class="more more-info click"><span>Информация о доставке</span></a>#}
-                                    {#<div class="popup-pizzzaz">#}
-                                        {#<div class="area-info">#}
-                                            {#<div class="holder">#}
-                                                {#<ul class="tel">#}
-                                                    {#<li>(044) <strong>222 5 222</strong></li>#}
-                                                    {#<li>(044) <strong>222 70 75</strong> <br />(044) <strong>468 70 90</strong></li>#}
-                                                {#</ul>#}
-                                                {#<ul class="adres">#}
-                                                    {#<li>Весь Киев, 9:00 – 22:00</li>#}
-                                                    {#<li>Куреневка, круглосуточно</li>#}
-                                                {#</ul>#}
-                                            {#</div>#}
-                                            {#<div class="total">Доставка работает без выходных. <br />Минимальная сумма заказа – 120 грн.  При заказе от 350 грн. доставка бесплатная.</div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="popup-menu">#}
-                            {#<a href="#" class="open">Open</a>#}
-                            {#<ul class="menu">#}
-                                {#<li><a href="#">Доставка</a></li>#}
-                                {#<li><a href="#">Акции</a></li>#}
-                                {#<li><a href="#">Отзывы</a></li>#}
-                            {#</ul>#}
-                        {#</div>#}
-                        {#<div class="another">#}
-                            {#<ul class="stars">#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                                {#<li class="ico-star"></li>#}
-                            {#</ul>#}
-                            {#<a href="#" class="comment-link">12</a>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
+            <div class="listing">
+                {% for entity in entities if entity.deliveryTop == 1 %}
+                    <div class="gholder">
+                        <div class="gframe">
+                            <div class="images">
+                                <div>
+                                    {% if entity.getImageName %}
+                                        <img src="{{ vich_uploader_asset(entity, 'image') | apply_filter('chain_list') }}" style="max-width: 96px" height="46" alt="{{ entity.getImageName }}"/>
+                                    {% else %}
+                                        <img src="{{ 'images/303x208.png' | apply_filter('chain_list') }}" style="max-width: 96px" height="46" alt="default site logo 96x46"/>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="title">
+                                <h3>
+                                <span>
+                                    <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}">{{ entity.name }}</a>
+                                </span>
+                                </h3>
+                                <div class="link-block">
+                                    {% if entity.site != "" %}
+                                        <a href="http://{{ entity.site }}" target="_blank" rel="nofollow" class="link">{{ entity.site }}</a>
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </div>
+                                <div class="area">
+                                    <div class="pizzzaz">
+                                        <a href="#" class="more more-info click"><span>Информация о доставке</span></a>
+                                        <div class="popup-pizzzaz">
+                                            <div class="area-info">
+                                                {% if entity.getArrayPhonesDelivery|length > 0 %}
+                                                    <div class="holder">
+                                                        <ul class="tel">
+                                                            {% for phone in entity.getArrayPhonesDelivery %}
+                                                                <li>{{ phone.phone }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                        <ul class="adres">
+                                                            {% for phone in entity.getArrayPhonesDelivery %}
+                                                                <li>{{ phone.adress }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                {% endif %}
+                                                {% if entity.getTextDelivery != "" %}
+                                                    <div class="total">{{ entity.getTextDelivery }}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-menu">
+                                <a href="#" class="open">Open</a>
+                                <ul class="menu">
+                                    <li>
+                                        <a href="{{ path_city('_chain__delivery_single',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Доставка</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path_city('_chain_discounts_list',{'chain_url':entity.url, '_city':_city,'_locale':_locale}) }}">Акции</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}#commentsList">Отзывы</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="another">
+                                <ul class="stars">
+                                    {% for i in 1..5 %}
+                                        <li class="ico-star {% if i > entity.getStarsByMaxRating(maxRatingDelivery) %} ico-star-empty{% endif %}"></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path_city('_chain__delivery_single', { 'chain_url': entity.url, '_locale':_locale, '_city':_city }) }}#commentsList" class="comment-link">{{ entity.getCommentsDelivery|length }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="gholder">
+                        <div class="gframe">
+                            <a href="{{ path_city('_page_advertising',{'_city':_city,'_locale':_locale}) }}">Здесь может быть ваша Пиццерия!</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="listing">
-            {% for entity in entities %}
+            {% for entity in entities  if entity.deliveryTop != 1  %}
                 <div class="gholder">
                     <div class="gframe">
                         <div class="images">

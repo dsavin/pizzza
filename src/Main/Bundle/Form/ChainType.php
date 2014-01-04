@@ -38,6 +38,16 @@ class ChainType extends AbstractType
                                          'required'  => true,
                                          'label'=>'Рекомендуэм?'
                                     ))
+            ->add('delivery_top', 'choice', array(
+                                              'choices'   => array(0 => 'Нет', 1 => 'Да'),
+                                              'required'  => false,
+                                              'label'=>'Топ доставки'
+                                         ))
+            ->add('list_top', 'choice', array(
+                                                 'choices'   => array(0 => 'Нет', 1 => 'Да'),
+                                                 'required'  => false,
+                                                 'label'=>'Топ пиццерий'
+                                            ))
             ->add('image', 'file', array(
                 'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                 'property_path' => 'image',

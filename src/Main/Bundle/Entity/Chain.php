@@ -239,6 +239,20 @@ class Chain
      */
     private $idForMenu;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="delivery_top", type="boolean", nullable=true)
+     */
+    private $deliveryTop;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="list_top", type="boolean", nullable=true)
+     */
+    private $listTop;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -255,6 +269,8 @@ class Chain
         $this->commentsDelivery = new ArrayCollection();
         $this->recommend = self::RECOMMEND_OFF;
         $this->idForMenu = null;
+        $this->deliveryTop = 0;
+        $this->listTop = 0;
     }
 
     /**
@@ -984,5 +1000,51 @@ class Chain
     public function getIdForMenu()
     {
         return $this->idForMenu;
+    }
+
+    /**
+     * Set deliveryTop
+     *
+     * @param boolean $type
+     * @return Chain
+     */
+    public function setDeliveryTop($type)
+    {
+        $this->deliveryTop = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryTop
+     *
+     * @return boolean
+     */
+    public function getDeliveryTop()
+    {
+        return $this->deliveryTop;
+    }
+
+    /**
+     * Set listTop
+     *
+     * @param boolean $type
+     * @return Chain
+     */
+    public function setListTop($type)
+    {
+        $this->listTop = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get listTop
+     *
+     * @return boolean
+     */
+    public function getListTop()
+    {
+        return $this->listTop;
     }
 }

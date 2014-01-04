@@ -173,8 +173,11 @@ class BaseController extends Controller
         if (!$fetchCache) {
             $contentPre = $this->get_data('http://1001pizza.com.ua/api/pizzerias/');
             $content = json_decode($contentPre);
-
-            $cacheDriver->save('1001_pizza_api_pizzeria_list', serialize($content), 36000);
+            if (!empty($content)) {
+                $cacheDriver->save('1001_pizza_api_pizzeria_list', serialize($content), 36000);
+            } else {
+                $content = array();
+            }
         } else {
             $content = unserialize($fetchCache);
         }

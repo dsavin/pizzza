@@ -30,6 +30,8 @@ class ChainRepository extends EntityRepository
             ->setParameter('lang',$_locale)
             ->setParameter('type_f',Chain::TYPE_BOTH)
             ->setParameter('type_s',Chain::TYPE_DELIVERY)
+
+            ->orderBy('c.deliveryTop', 'DESC')
         ;
 
         return $query->getQuery()->getResult();
