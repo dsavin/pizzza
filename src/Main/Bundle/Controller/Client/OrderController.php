@@ -109,7 +109,7 @@ class OrderController extends Controller
             $ch = curl_init('http://1001pizza.com.ua/api/order/');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, array('json'=>json_encode($data)));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, array('json'=>json_encode($data), 'source' => 'pizzza'));
             curl_setopt($ch, CURLOPT_HEADER, false);
             $result = curl_exec($ch);
 
@@ -119,8 +119,9 @@ class OrderController extends Controller
             foreach($items as $item) {
                 $price = $price+$item->price;
             }
-            $session->set('items', json_encode(array()));
 
+            $data['items'] = $session->get('items');
+            $session->set('items', json_encode(array()));
 
             mail('oklosovich@gmail.com', 'Order - '.$price, print_r($data, true));
 
