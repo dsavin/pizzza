@@ -1,7 +1,7 @@
 {% if pagination|length > 0  %}
-    <div class="action">
+    <div class="action" style="border-color: #f18442;">
         <div class="heading">
-            <h2>Акции пиццерий</h2>
+            <h2 style="color: darkred;">Акции пиццерий</h2>
             <a href="{{ path_city('_discounts_list',{'_city':app.request.attributes.get('_city'),'_locale':app.request.attributes.get('_locale')}) }}">Все акции</a>
         </div>
         <div class="tabs-area">
