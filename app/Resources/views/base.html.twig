@@ -58,7 +58,67 @@
 
             {% render "MainBundle:PageLayout:footer" with { 'active': active|default(0) } %}
         </div>
+        <script>
+            var transl = {};
+            var translEn = new Array();
+            transl['А']='A';     transl['а']='a';
+            transl['Б']='B';     transl['б']='b';
+            transl['В']='V';     transl['в']='v';
+            transl['Г']='G';     transl['г']='g';
+            transl['Д']='D';     transl['д']='d';
+            transl['Е']='E';     transl['е']='e';
+            transl['Ё']='Yo';    transl['ё']='yo';
+            transl['Ж']='Zh';    transl['ж']='zh';
+            transl['З']='Z';     transl['з']='z';
+            transl['И']='I';     transl['и']='i';
+            transl['Й']='J';     transl['й']='j';
+            transl['К']='K';     transl['к']='k';
+            transl['Л']='L';     transl['л']='l';
+            transl['М']='M';     transl['м']='m';
+            transl['Н']='N';     transl['н']='n';
+            transl['О']='O';     transl['о']='o';
+            transl['П']='P';     transl['п']='p';
+            transl['Р']='R';     transl['р']='r';
+            transl['С']='S';     transl['с']='s';
+            transl['Т']='T';     transl['т']='t';
+            transl['У']='U';     transl['у']='u';
+            transl['Ф']='F';     transl['ф']='f';
+            transl['Х']='X';     transl['х']='x';
+            transl['Ц']='C';     transl['ц']='c';
+            transl['Ч']='Ch';    transl['ч']='ch';
+            transl['Ш']='Sh';    transl['ш']='sh';
+            transl['Щ']='Shh';    transl['щ']='shh';
+            transl['Ъ']='"';     transl['ъ']='"';
+            transl['Ы']='Y\'';    transl['ы']='y\'';
+            transl['Ь']='\'';    transl['ь']='\'';
+            transl['Э']='E\'';    transl['э']='e\'';
+            transl['Ю']='Yu';    transl['ю']='yu';
+            transl['Я']='Ya';    transl['я']='ya';
 
+            $.each(transl, function(k, v){
+                translEn[v] = k;
+            });
+
+            function translit2En(text)
+            {
+                var trans = transl;
+                var result = '';
+
+                if (text.match(/[A-z]/g)) {
+                    trans = translEn;
+                }
+
+                for (i = 0; i < text.length; i++) {
+                    if (trans[text[i]] != undefined) {
+                        result += trans[text[i]];
+                    } else {
+                        result += text[i];
+                    }
+                }
+
+                return result;
+            }
+        </script>
         {% block javascripts %}{% endblock %}
         <script type="text/javascript" src="{{ asset('bundles/main/js/order.js') }}"></script>
         <!-- Yandex.Metrika counter -->

@@ -6,6 +6,15 @@
 {% set active = 2 %}
 
 {% block javascripts %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+        #ui-id-1 {
+            overflow-y: scroll;
+            max-height: 150px;
+        }
+    </style>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/main/js/common.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -19,24 +28,24 @@
             <div class="gholder">
                 <h1>Доставка пиццы в Киеве</h1>
             </div>
-            {#<form action="#" class="search">#}
-                {#<fieldset>#}
-                    {#<div class="cols-first">#}
-                        {#<label for="find" class="find">Найти</label>#}
-                        {#<div class="row">#}
-                            {#<input class="text-input" type="text" id="find" value="Название" />#}
-                            {#<input type="submit" value="Search" />#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="cols">#}
-                        {#<label for="short" class="short">Сортировать</label>#}
-                        {#<select id="short" class="select-short">#}
-                            {#<option>по рейтингу</option>#}
-                            {#<option>по рейтингу</option>#}
-                        {#</select>#}
-                    {#</div>#}
-                {#</fieldset>#}
-            {#</form>#}
+            <form action="#" class="search">
+                <fieldset>
+                    <div class="cols-first">
+                        <label for="find" class="find">Найти</label>
+                        <div class="row">
+                            <input class="text-input" type="text" id="find" value="Название" />
+                            <input type="submit" value="Search" />
+                        </div>
+                    </div>
+                    <div class="cols">
+                        <label for="short" class="short">Сортировать</label>
+                        <select id="short" class="select-short" onchange="common.deliverySort();">
+                            <option value="0" selected="selected">по названию</option>
+                            <option value="1">по рейтингу</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div class="top">
             <div class="heading">
@@ -129,9 +138,9 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="listing">
+        <div class="listing" id="list_second">
             {% for entity in entities  if entity.deliveryTop != 1  %}
-                <div class="gholder">
+                <div class="gholder" data-rating="{{ entity.ratingDelivery }}" data-id="{{ entity.id }}">
                     <div class="gframe">
                         <div class="images">
                             <div>

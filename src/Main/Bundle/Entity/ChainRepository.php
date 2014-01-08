@@ -32,6 +32,7 @@ class ChainRepository extends EntityRepository
             ->setParameter('type_s',Chain::TYPE_DELIVERY)
 
             ->orderBy('c.deliveryTop', 'DESC')
+            ->orderBy('c.name','ASC')
         ;
 
         return $query->getQuery()->getResult();
