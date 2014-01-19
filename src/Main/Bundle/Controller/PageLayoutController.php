@@ -5,6 +5,7 @@ namespace Main\Bundle\Controller;
 use Main\Bundle\Controller\BaseController as Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Cache\ApcCache;
 
 use Main\Bundle\Entity\City;
 use Main\Bundle\Entity\Chain;
@@ -31,15 +32,29 @@ class PageLayoutController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getEntityManager();
         $city = $this->getCurrentCity();
-        $comments = $em->getRepository('MainBundle:Comment')->findAll();
-        $branchesCount = $em->getRepository('MainBundle:Branch')->getCountBranch($city->getId(), $request->getLocale());
+
+        $cacheDriver = new ApcCache();
+        $fetchCache = $cacheDriver->fetch('header_counting');
+
+        if (!$fetchCache) {
+            $comments = $em->getRepository('MainBundle:Comment')->findAll();
+            $branchesCount = $em->getRepository('MainBundle:Branch')->getCountBranch($city->getId(), $request->getLocale());
+            $arr = array(
+                'comments' => count($comments),
+                'branchesCount' => $branchesCount
+            );
+
+            $cacheDriver->save('header_counting', serialize($arr), 36000);
+        } else {
+            $arr = unserialize($fetchCache);
+        }
 
         return $this->render('MainBundle:PageLayout:header.html.twig',
                              array(
                                  'active' => $active,
-                                 'commentsCount' => count($comments),
-                                 'branchesCount' => $branchesCount,
-								 'banner' => rand(0, 3)
+                                 'commentsCount' => $arr['comments'],
+                                 'branchesCount' => $arr['branchesCount'],
+								 'banner' => 0
                              ));
     }
 
