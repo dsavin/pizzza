@@ -224,13 +224,16 @@ class CommentsController extends Controller
         return new JsonResponse($array);
     }
     /**
-     * @Route("/chain_comments/chain/{chain_id}/delete/{comment_id}/", name="chain_comments_delete", defaults={"_city" = "kiev"})
+     * @Route("/chain_comments/chain/{chain_id}/delete/{comment_id}/", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
      */
-    public function commentsChainhDeleteAction($comment_id, $chain_id, Request $request){
+    public function commentsChainDeleteAction($comment_id, $chain_id, Request $request){
 
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('MainBundle:CommentChain')->find($comment_id);
+        $array = array();
 
+        if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('MainBundle:CommentChain')->find($comment_id);
 
 
             if (!$entity) {
@@ -240,8 +243,14 @@ class CommentsController extends Controller
             $em->remove($entity);
             $em->flush();
 
+            $array['success'] = true;
 
-        return $this->redirect($this->generateUrlCity('admin_chain_comments', array('chain_id'=> $chain_id, '_locale' => 'ru')));
+        } else {
+            $array['error'] = true;
+        }
+
+
+        return new JsonResponse($array);
     }
 
 

@@ -113,24 +113,22 @@
             this.delete = function(e){
 
                 var comment_id = $(e).data('commentId');
-                console.log(e);
-                alert(comment_id);
 
-                /*$.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
+                $.post("{{ path_city('admin_chain_comments_delete', { 'comment_id': comment_id, 'chain_id': entity.id, '_locale':'ru' }) }}", args,
                         function(data){
                             console.log(data);
                         }, "json")
                         .done(function(data){
                             if (data.success) {
-                                name.parent().html(args.name);
-                                email.parent().html(args.email);
-                                date.parent().html(args.date);
-                                rating.parent().html(args.rating);
-                                text.parent().html(args.text);
+                                console.log('cool');
+                                var tr = $(e).parent().parent().parent();
+                                tr.fadeOut();
+
+
                             }
                         });
 
-                return false;*/
+                return false;
 
             }
         }
