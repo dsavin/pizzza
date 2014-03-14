@@ -224,16 +224,16 @@ class CommentsController extends Controller
         return new JsonResponse($array);
     }
     /**
-     * @Route("/chain_comments/chain/{chain_id}/delete/{comment_id}/", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
+     * @Route("/chain_comments/delete", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
      */
-    public function commentsChainDeleteAction($comment_id, $chain_id, Request $request){
+    public function commentsChainDeleteAction(Request $request){
 
         $array = array();
 
         if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MainBundle:CommentChain')->find($comment_id);
+            $entity = $em->getRepository('MainBundle:CommentChain')->find($request->get(comment_id));
 
 
             if (!$entity) {
