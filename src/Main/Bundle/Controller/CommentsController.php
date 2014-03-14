@@ -230,9 +230,6 @@ class CommentsController extends Controller
 
         $array = array();
 
-        var_dump($request->get('comment_id'));
-        exit;
-
         if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
