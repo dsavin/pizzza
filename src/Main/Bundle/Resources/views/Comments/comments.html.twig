@@ -28,7 +28,7 @@
                     <td>
                         <div>
                             {#<a href="#" class="btn btn-success">save</a>#}
-                            <a href="#" class="btn btn-danger" onclick="return comment.delete()" data-comment_id="{{ comment.id }}">x</a>
+                            <a href="#" class="btn btn-danger" onclick="return comment.delete(this)" data-comment_id="{{ comment.id }}">x</a>
                         </div>
                     </td>
                 </tr>
