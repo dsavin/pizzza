@@ -28,8 +28,8 @@
                     <td>
                         <div>
                             {#<a href="#" class="btn btn-success">save</a>#}
-                            <a href="#" class="btn btn-danger" onclick="return comment.delete()" data-id="{{ comment.id }}">x</a>
-                        </div>1
+                            <a href="#" class="btn btn-danger" onclick="return comment.delete()" data-comment_id="{{ comment.id }}">x</a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
@@ -112,7 +112,8 @@
 
             this.delete = function(e){
 
-                var comment_id = $(e).data('id');
+                var comment_id = $(e).data('commentId');
+                console.log($(e));
                 alert(comment_id);
 
                 /*$.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
