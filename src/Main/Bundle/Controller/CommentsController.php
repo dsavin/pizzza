@@ -233,7 +233,7 @@ class CommentsController extends Controller
         if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MainBundle:CommentChain')->find($request->get(comment_id));
+            $entity = $em->getRepository('MainBundle:CommentChain')->find($request->get('comment_id'));
 
 
             if (!$entity) {
