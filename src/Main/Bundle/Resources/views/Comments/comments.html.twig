@@ -112,8 +112,8 @@
 
             this.delete = function(e){
 
-                var comment_id = $(e).data();
-                console.log($(e).data());
+                var comment_id = $(e).data('commentId');
+                console.log(e);
                 alert(comment_id);
 
                 /*$.post("{{ path_city('admin_chain_comments_add', { 'chain_id': entity.id, '_locale':'ru' }) }}", args,
