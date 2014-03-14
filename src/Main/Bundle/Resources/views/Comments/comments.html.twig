@@ -114,7 +114,7 @@
 
                 var comment_id = $(e).data('commentId');
 
-                $.post("{{ path_city('admin_chain_comments_delete', { 'comment_id': comment_id, 'chain_id': entity.id, '_locale':'ru' }) }}", args,
+                $.post("{{ path_city('admin_chain_comments_delete', { 'comment_id': comment_id, 'chain_id': entity.id, '_locale':'ru' }) }}", null,
                         function(data){
                             console.log(data);
                         }, "json")
