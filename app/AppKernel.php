@@ -28,7 +28,7 @@ class AppKernel extends Kernel
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 
-            new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            #new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test', 'mobile_dev'))) {

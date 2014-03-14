@@ -224,7 +224,7 @@ class CommentsController extends Controller
         return new JsonResponse($array);
     }
     /**
-     * @Route("/chain_comments/delete", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
+     * @Route("/chain_comments_delete", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
      */
     public function commentsChainDeleteAction(Request $request){
 
