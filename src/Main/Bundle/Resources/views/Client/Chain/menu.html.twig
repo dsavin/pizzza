@@ -18,8 +18,8 @@
     <script type="text/javascript" src="{{ asset('bundles/main/js/menu.js') }}"></script>
     <script>
         menu.setUrlGetItems('{{ path_city('_ajax_get_menu_items') }}');
-        menu.setChainId({{ entityChain.idForMenu }});
-        menu.setDiscount({{ chainAPIInfo.discount }});
+        menu.setChainId({{ entityChain.id }});
+        {#menu.setDiscount({{ chainAPIInfo.discount }});#}
     </script>
 {% endblock %}
 
