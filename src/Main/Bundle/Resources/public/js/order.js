@@ -199,7 +199,7 @@ orderController = function()
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/ajax/order/send_items',
+            url: '/app_dev.php/ajax/order/send_items',
             data: {data: args}
         }).success(function(data){
                 console.log(data);
@@ -208,6 +208,7 @@ orderController = function()
                 } else {
                     self.getItems();
                     alert('Спасибо! С Вами скоро свяжутся.');
+                    window.location.reload();
                 }
             });
 

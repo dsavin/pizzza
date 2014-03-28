@@ -1075,7 +1075,7 @@ class Chain
      */
     public function getEmail()
     {
-        return $this->email;
+        return trim($this->email);
     }
 
     /**

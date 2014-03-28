@@ -38,7 +38,7 @@ menuController = function()
                 $('#form_dicount').html(' - '+discount+'%');
                 $('#discount_in_order').show();
             }
-        }, 500);
+        }, 1500);
     }
 
     this.setData = function()
@@ -138,7 +138,7 @@ menuController = function()
     {
         var html_item  = '<div class="box element" id="item_'+item.id+'" data-weight="'+item.weight+'" data-size="'+item.weight+'" data-price="'+item.price+'" data-title="'+item.title+'">'+
                             '<div class="img-holder">'+
-                                '<img src="http://1001pizza.com.ua'+item.image+'" alt="'+item.title+'" id="product_img_'+item.weight+'" width="184" height="161">'+
+                                '<img src="/uploads/images/items/'+item.image+'" alt="'+item.title+'" id="product_img_'+item.weight+'" width="184" height="161">'+
                                 '<div class="rating">'+
                                     '<p>'+
                                         '<span style="background: url(http://1001pizza.com.ua/app/skin/v2/images/weight.png) no-repeat 0 center; padding-left: 20px;" class="weight">'+item.weight+' г</span>'+

@@ -20,21 +20,6 @@
 
 <div style="display: none;">
     <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
-        <p class="blockTitle">Оформление заказа</p>
-        <div class="blockAmountInTitle">
-            <p><strong>У вас в заказе пицца от "<span id="chain_name_order">{% block chain_name_order %}{{ chainAPIInfoMain.title }}{% endblock %}</span>", их условия доставки такие:</strong></p>
-            <div>
-                <p></p>
-                <p id="chain_status_order">
-                    {% block chain_status_order %}{{ chainAPIInfoMain.delivery }}
-                        {% if chainAPIInfoMain.discount > 0 %}
-                            <span class="discount_in_info">Скидка на Весь заказ {{ chainAPIInfoMain.discount }}%.</span>
-                        {% endif %}
-                    {% endblock %}
-                </p>
-            </div>
-        </div>
-
         <section class="blockR">
             <div class="clearfix">
                 <p>Контактная информация</p>

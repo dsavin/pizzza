@@ -78,6 +78,13 @@ class Item
     private $size;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="weight", type="integer", nullable=true)
+     */
+    private $weight;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Chain")
      * @ORM\JoinColumn(name="chain_id", referencedColumnName="id")
      */
@@ -333,5 +340,28 @@ class Item
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     * @return Item
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer
+     */
+    public function getWeight()
+    {
+        return $this->weight;
     }
 }
