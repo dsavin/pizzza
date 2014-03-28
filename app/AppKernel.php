@@ -30,9 +30,11 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
             new Main\UserBundle\MainUserBundle(),
+
+            #new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), array('dev', 'test', 'mobile_dev'))) {
 //            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();

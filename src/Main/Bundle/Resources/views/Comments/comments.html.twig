@@ -10,6 +10,7 @@
                 <th>Создано в</th>
                 <th>Текст</th>
                 <th>Пользователь</th>
+                <th></th>
                 <th>
                     <a href="#" onclick="return comment.addNewFieldsForComment();">add</a>
                 </th>
@@ -27,7 +28,7 @@
                     <td>
                         <div>
                             {#<a href="#" class="btn btn-success">save</a>#}
-                            {#<a href="#" class="btn btn-danger">x</a>#}
+                            <a href="#" class="btn btn-danger" onclick="return comment.delete(this)" data-comment-id="{{ comment.id }}">x</a>
                         </div>
                     </td>
                 </tr>
@@ -107,6 +108,28 @@
                 $(e).parent().parent().parent().remove();
 
                 return false;
+            }
+
+            this.delete = function(e){
+
+                var comment_id = $(e).data('commentId');
+
+                $.post("{{ path_city('admin_chain_comments_delete', { '_locale':'ru' }) }}",{ 'comment_id': comment_id},
+                        function(data){
+                            console.log(data);
+                        }, "json")
+                        .done(function(data){
+                            if (data.success) {
+                                console.log('cool');
+                                var tr = $(e).parent().parent().parent();
+                                tr.fadeOut();
+
+
+                            }
+                        });
+
+                return false;
+
             }
         }
         var comment = new commentController();

@@ -223,5 +223,36 @@ class CommentsController extends Controller
 
         return new JsonResponse($array);
     }
+    /**
+     * @Route("/chain_comments_delete", name="admin_chain_comments_delete", defaults={"_city" = "kiev"})
+     */
+    public function commentsChainDeleteAction(Request $request){
+
+        $array = array();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('MainBundle:CommentChain')->find($request->get('comment_id'));
+
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Comment entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+
+            $array['success'] = true;
+
+        } else {
+            $array['error'] = true;
+        }
+
+
+        return new JsonResponse($array);
+    }
+
+
 
 }
