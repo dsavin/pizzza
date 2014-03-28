@@ -31,66 +31,71 @@
         <![endif]-->
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="/" target="_blank">PizZza.com.ua - {{ current_city().getName }} - {{ app.request.getLocale }}</a>
-                    {% render 'MainBundle:PageLayout:city' with{'_city':_city}%}
-                    <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link">{{ app.user.username }}</a></p>
-                        {#<ul class="nav">#}
-                            {#<li class="active"><a href="#">Home</a></li>#}
-                            {#<li><a href="#about">About</a></li>#}
-                            {#<li><a href="#contact">Contact</a></li>#}
-                        {#</ul>#}
-                    </div><!--/.nav-collapse -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/" target="_blank">PizZza.com.ua - {{ current_city().getName }} - {{ app.request.getLocale }}</a>
+                        {% render 'MainBundle:PageLayout:city' with{'_city':_city}%}
+                        <div class="nav-collapse collapse">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p class="navbar-text pull-right">{{ app.user.username }} <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">Выход</a></p>
+                            {% else %}
+                                <p class="navbar-text pull-right"><a href="{{ path('fos_user_security_login') }}" class="navbar-link">Вход</a></p>
+                            {% endif %}
+                            {#<ul class="nav">#}
+                                {#<li class="active"><a href="#">Home</a></li>#}
+                                {#<li><a href="#about">About</a></li>#}
+                                {#<li><a href="#contact">Contact</a></li>#}
+                            {#</ul>#}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
         <div class="container-fluid">
             <div class="row-fluid" style="margin-top: 60px;">
-                <div class="span3">
-                    <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
-                            <li class="nav-header">Заведения</li>
-                                <li>
-                                    <a href="{{ path('admin_chain') }}">Сети</a>
-                                </li>
-                                {#<li>
-                                    <a href="#">Филиалы</a>
-                                </li>#}
-                            <li class="nav-header">Публикации</li>
-                                <li><a href="{{ path_city('admin_publication') }}">Новости</a></li>
-                                <li><a href="{{ path_city('admin_recipe') }}">Рецепты</a></li>
-                                <li><a href="#">Статьи</a></li>
-                                <li><a href="#">Обзоры</a></li>
-                            <li class="nav-header">Маркетинг</li>
-                                <li><a href="{{ path_city('admin_slider') }}">Слайдер</a></li>
-                            <li class="nav-header">Общее</li>
-                                <li><a href="{{ path('city') }}">Города</a></li>
-                                <li><a href="{{ path_city('admin_page',{'_city':_city}) }}">Страницы</a></li>
-                                <li><a href="{{ path('admin_feature') }}">Особенности</a></li>
-                                <li><a href="{{ path('admin_ingredient') }}">Ингредиенты</a></li>
-                                <li><a href="{{ path('admin_clear_product_cache') }}" onclick="return clearCache()">Очистить кеш</a></li>
-                        </ul>
-                    </div><!--/.well -->
-                </div><!--/span-->
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="span3">
+                        <div class="well sidebar-nav">
+                            <ul class="nav nav-list">
+                                <li class="nav-header">Заведения</li>
+                                    <li>
+                                        <a href="{{ path('admin_chain') }}">Сети</a>
+                                    </li>
+                                <li class="nav-header">Публикации</li>
+                                    <li><a href="{{ path_city('admin_publication') }}">Новости</a></li>
+                                    <li><a href="{{ path_city('admin_recipe') }}">Рецепты</a></li>
+                                    <li><a href="#">Статьи</a></li>
+                                    <li><a href="#">Обзоры</a></li>
+                                <li class="nav-header">Маркетинг</li>
+                                    <li><a href="{{ path_city('admin_slider') }}">Слайдер</a></li>
+                                <li class="nav-header">Общее</li>
+                                    <li><a href="{{ path('city') }}">Города</a></li>
+                                    <li><a href="{{ path_city('admin_page',{'_city':_city}) }}">Страницы</a></li>
+                                    <li><a href="{{ path('admin_feature') }}">Особенности</a></li>
+                                    <li><a href="{{ path('admin_ingredient') }}">Ингредиенты</a></li>
+                                    <li><a href="{{ path('admin_clear_product_cache') }}" onclick="return clearCache()">Очистить кеш</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="span9">
                     <div class="hero-unit" style="padding: 20px;">
                         {% block body %}{% endblock %}
                     </div>
-                </div><!--/span-->
-            </div><!--/row-->
+                </div>
+            </div>
             <hr>
             <footer>
-                <p>&copy; Админка 2013</p>
+                <p>&copy; Админка 2014</p>
             </footer>
-        </div><!--/.fluid-container-->
+        </div>
 
         <script src="{{ asset('bundles/main/admin/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
