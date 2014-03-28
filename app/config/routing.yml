@@ -31,6 +31,15 @@ main:
     defaults:
         _locale: ru
 
+main_user:
+    resource: "@MainUserBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/
+    requirements:
+          _locale:  ru|en
+    defaults:
+        _locale: ru
+
 _client:
     resource: "@MainBundle/Resources/config/client.yml"
 

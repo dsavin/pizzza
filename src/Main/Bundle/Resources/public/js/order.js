@@ -40,6 +40,7 @@ orderController = function()
             size: objItem.data('size'),
             price: objItem.data('price'),
             title: objItem.data('title'),
+            ingredients: objItem.find('div.feature_in > p').html(),
             image: objItem.find('img').first().attr('src'),
             discount: discount,
             chain_id: chain_id
@@ -78,7 +79,7 @@ orderController = function()
                 $.each(data.items, function(k, val){
                     ar[k] = self.createItemHtml(val);
                 });
-                $('.blockL').html(ar.join(''));
+                $('.body-order').html(ar.join(''));
                 $('#cost').html(data.prices);
                 $('#money').html(data.prices);
                 $('#items_count').html(data.items.length);
@@ -95,22 +96,31 @@ orderController = function()
 
     this.createItemHtml = function(item)
     {
-        var html = '<div class="pizzaFromBasket" data-price="25" data-id="'+item.id+'" data-quantity="1" id="item_bask_'+item.id+'">'+
-                        '<div class="pfb_imgHolder">'+
-                            '<img src="'+item.image+'" width="100" height="100">'+
-                        '</div>'+
-                        '<ul>'+
-                            '<li class="pfb_title"><h2>'+item.title+'</h2></li>'+
-                            '<li class="pfb_size"><span>Вес, диаметр: </span><strong>'+item.weight+' гр, '+item.size+' см</strong></li>'+
-                            '<li class="pfb_price" data-id="470">'+
-                                '<div>'+
-                                    '<span class="pfb_unitSum">'+item.price+' <em>грн</em></span>'+
-                                    '<p>1 шт</p>'+
-                                '</div>'+
-                            '</li>'+
-                        '</ul>'+
-                        '<div class="removeBlock" onclick="order.removeItem('+item.id+')">delte</div>'+
-                    '</div>';
+
+        var html = '<div class="tr-wrap" data-id="'+item.id+'" data-quantity="1" id="item_bask_'+item.id+'">'+
+            '<div class="td-col td-name">'+
+                '<div class="name-wrap-order">'+
+                    '<img src="'+item.image+'" width="104" height="104"/>'+
+                    '<div class="descript-order">'+
+                        '<div class="name-order">'+item.title+'</div>'+
+                        '<div class="ingredients-order">'+item.ingredients+'</div>'+
+                        '<div class="size-order"><span class="diametr"'+item.size+'</span></div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+            '<div class="td-col td-number">'+
+                '<span class="number-wrap-order">№'+item.id+'</span>'+
+            '</div>'+
+            '<div class="td-col td-count">'+
+                '<div class="count-wrap">'+
+                    '<a href="#" class="del-item-order"></a>'+
+                    '<span class="count-items-order">1 шт</span>'+
+                    '<a href="#" class="add-item-order"></a>'+
+                '</div>'+
+            '</div>'+
+            '<div class="td-col td-price"><span>'+item.price+'</span> грн</div>'+
+            '<div class="td-col td-del"><a href="#" class="del-order" onclick="order.removeItem('+item.id+')">Удалить</a></div>'+
+        '</div>';
 
         return html;
     }
@@ -150,7 +160,6 @@ orderController = function()
                     self.getItems();
                 }
             });
-
 
         return false;
     }
@@ -237,14 +246,12 @@ orderController = function()
 
             order.getItems();
 
-            $.fancybox({
-                padding: 10,
-                cyclic: false,
-                overlayShow: true,
-                overlayOpacity: 0.65,
-                overlayColor: '#000000',
-                'href' : '#order_from'
-            });
+            $('#popup-order-overlay').show();
+            $('#popup-order-wrap').show();
+
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+
+            return false;
         });
     }
 
