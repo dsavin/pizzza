@@ -224,27 +224,4 @@ class User extends BaseUser
     {
         return $this->name;
     }
-
-    /**
-     * Set imageUser
-     *
-     * @param string $imageUser
-     * @return User
-     */
-    public function setImageUser($imageUser)
-    {
-        $this->imageUser = $imageUser;
-    
-        return $this;
-    }
-
-    /**
-     * Get imageUser
-     *
-     * @return string 
-     */
-    public function getImageUser()
-    {
-        return $this->imageUser;
-    }
 }

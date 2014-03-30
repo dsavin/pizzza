@@ -109,6 +109,30 @@
         </script>
         {% block javascripts %}{% endblock %}
         <script type="text/javascript" src="{{ asset('bundles/main/js/order.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/main/js/hello.js') }}"></script>
+        <script>
+            var fb = hello( "facebook" ).getAuthResponse();
+            hello.init({
+                facebook : 752711331414137,
+                twitter: 250828351
+//                windows  : WINDOWS_CLIENT_ID,
+//                google   : GOOGLE_CLIENT_ID
+            });
+            hello.on('auth.login', function(auth){
+
+                // call user information, for the given network
+                hello( auth.network ).api( '/me' ).success(function(r){
+
+                    var $target = $("#profile_"+ auth.network );
+                    if($target.length==0){
+                        order.getUserData(auth.network, r);
+
+//                        $target = $("<div id='profile_"+auth.network+"'></div>").appendTo("#profile");
+                    }
+//                    $target.html('<img src="'+ r.thumbnail +'" /> Hey '+r.name).attr('title', r.name + " on "+ auth.network);
+                });
+            });
+        </script>
         <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter24274378 = new Ya.Metrika({id:24274378, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/24274378" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
         <link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/new_style.css') }}" />
         <!--noindex-->

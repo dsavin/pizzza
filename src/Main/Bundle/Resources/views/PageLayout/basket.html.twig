@@ -63,55 +63,22 @@
                 {#</div>#}
                 <div class="title-info">Информация о клиенте</div>
                 <div class="login-client">
-                    <a href="#" class="soc-links soc-fb">Facebook</a>
+                    <a href="#" class="soc-links soc-fb" onclick="return order.hellLogin();">Facebook</a>
                     <a href="#" class="soc-links soc-vc">ВКонтакте</a>
-                    <a href="#" class="soc-links soc-tw">Twitter</a>
+                    <a href="#" class="soc-links soc-tw" onclick="hello( 'twitter' ).login();">Twitter</a>
                     <a href="#" class="soc-links soc-gp">Google+</a>
                 </div>
                 <div class="form-contact">
-                    <form action="url">
-                        <input type="text" value="" class="phone-fild" placeholder="ТЕЛЕФОН"/>
-                        <input type="text" value="" class="email-fild" placeholder="ПОЧТА"/>
-                        <button class="send-btn"><span class="full-cost">216 грн.</span> ЗАКАЗАТЬ</button>
+                    <form action="/ajax/pizza/order/" method="post" id="order_from">
+                        <input type="text" id="name_order" name="name" value="" class="phone-fild" placeholder="ИМЯ"/>
+                        <input id="phone_order"  name="phone" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$" type="text" value="" class="email-fild"/>
+                        <button class="send-btn" onclick="return order.submitOrder();"><span class="full-cost"><strong id="cost_new">0</strong> грн.</span> ЗАКАЗАТЬ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div style="display: none;">
-    <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
-        <section class="blockR">
-            <div class="clearfix">
-                <p>Контактная информация</p>
-                <label for="name">Ваше имя <span class="attn">*</span></label>
-                <fieldset>
-                    <div class="input">
-                        <input id="name_order" type="text" name="name" value="">
-                    </div>
-                </fieldset>
-                <label for="phone">Телефон <span class="attn">*</span></label>
-                <fieldset>
-                    <div class="input">
-                        <input id="phone_order" type="text" name="phone" value="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$">
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <input type="checkbox" name="agreement" checked="checked"><a target="_blank" href="{{ path('_page_agreement') }}">Я принимаю условия Соглашения</a>
-                </fieldset>
-                <div class="ord"><input type="submit" value="Отправить заказ" onclick="return order.submitOrder();"></div>
-            </div>
-        </section>
-        <div id="btn_form">
-            <div class="amount">
-                <p style="float: left;"><strong>Сумма заказа:</strong> <strong id="cost">0</strong><span> грн</span></p>
-                <p id="discount_in_order" style="display: none;"><span id="form_dicount"></span> К оплате <strong id="cost_new">0</strong><span> грн</span></p>
-            </div>
-        </div>
-    </form>
-</div>
-
 <script type="text/javascript">
     $(document).ready(function()
     {
