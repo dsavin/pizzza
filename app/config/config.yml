@@ -171,3 +171,8 @@ stfalcon_tinymce:
              plugins: ["code, link, preview, image, code"]
 #             menubar: false
 #             toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Main\UserBundle\Entity\User

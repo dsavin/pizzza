@@ -1,0 +1,32 @@
+{% extends "MainBundle:PageLayout:base_admin.html.twig" %}
+
+{% block body %}
+    <h3>Редактирование пользователя</h3>
+    <form action="" method="POST">
+        <div>
+            <label for="username" class="required">username</label>
+            <input type="text" id="username" name="username" required="required" value="{{ entity.username }}">
+        </div>
+        <div>
+            <label for="email" class="required">email</label>
+            <input type="email" id="email" name="email" required="required" value="{{ entity.email }}">
+        </div>
+        <div>
+            <label for="enabled" class="required">Status</label>
+            <select name="enabled" id="enabled">
+                <option value="0">не активно</option>
+                <option value="1" {% if entity.enabled == 1 %}selected="selected" {% endif %}>активно</option>
+            </select>
+        </div>
+        <p>
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        </p>
+    </form>
+    <div>
+        <a href="{{ path_city('admin_users') }}" class="btn btn-info" style="float: left; margin-right: 10px;">К списку</a>
+        {#<form action="{{ path_city('admin_chain_delete', { 'id': entity.id }) }}" method="post">#}
+            {#{{ form_widget(delete_form) }}#}
+            {#<button type="submit" class="btn btn-danger">Удалить</button>#}
+        {#</form>#}
+    </div>
+{% endblock %}

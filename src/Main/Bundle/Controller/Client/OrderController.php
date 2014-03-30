@@ -5,6 +5,7 @@ namespace Main\Bundle\Controller\Client;
 use Main\Bundle\Controller\BaseController as Controller;
 
 use Main\Bundle\Entity\ChainRepository;
+use Main\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,12 +22,9 @@ use Doctrine\Common\Cache\ApcCache;
 class OrderController extends Controller
 {
 
-
     public function addItemToBasketAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-
         $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
             $item = $request->request->get('item');
@@ -34,7 +32,6 @@ class OrderController extends Controller
             $session->set('items', json_encode($items));
 
             $this->addAjaxResponce('item', $item);
-
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
@@ -50,7 +47,7 @@ class OrderController extends Controller
             $itemId = $request->request->get('item_id');
             $items = (array)json_decode($session->get('items'));
             $newItems = array();
-            foreach($items as $key => $val){
+            foreach($items as $val){
                 if ($val->id != $itemId) {
                     $newItems[] = $val;
                 }
@@ -68,29 +65,20 @@ class OrderController extends Controller
     public function getItemsAction(Request $request)
     {
         $session = $request->getSession();
-
         $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
             $price = 0;
-            $discount = 0;
             $chainId = 0;
             foreach($items as $item) {
                 $price = $price+$item->price;
-                if (isset($item->discount)) {
-                    $discount = $item->discount;
-                }
                 if (isset($item->chain_id)) {
                     $chainId = $item->chain_id;
                 }
             }
 
-            $chainAPIInfo = (object)$this->getInfoByIdAPI($chainId);
-
             $this->addAjaxResponce('prices', $price);
             $this->addAjaxResponce('items', $items);
-            $this->addAjaxResponce('discount', $discount);
             $this->addAjaxResponce('chainId', $chainId);
-            $this->addAjaxResponce('delivery_text', isset($chainAPIInfo->delivery)?$chainAPIInfo->delivery:'');
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
@@ -100,33 +88,24 @@ class OrderController extends Controller
 
     public function sendItemsAction(Request $request)
     {
+        
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
         if ($request->isXmlHttpRequest()) {
 
             $data = $request->request->get('data');
+            $user = $request->request->get('user');
+            $data['items'] = (array) json_decode($session->get('items'));
 
-            $ch = curl_init('http://1001pizza.com.ua/api/order/');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, array('json'=>json_encode($data), 'source' => 'pizzza'));
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            $result = curl_exec($ch);
-
-            $session = $request->getSession();
-            $items = json_decode($session->get('items'));
-            $price = 0;
-            foreach($items as $item) {
-                $price = $price+$item->price;
-            }
-
-            $data['items'] = $session->get('items');
+            $chain = $em->getRepository('MainBundle:Comment')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
 
-            mail('oklosovich@gmail.com', 'Order - '.$price, print_r($data, true));
+            mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', print_r($data['items'], true));
+            $userModel = $this->setUserData($user, $data);
+
 
             $this->addAjaxResponce('data', json_encode($data));
-            $this->addAjaxResponce('result', $result);
+            $this->addAjaxResponce('result', true);
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
@@ -134,29 +113,176 @@ class OrderController extends Controller
         return new JsonResponse($this->getAjaxResponce());
     }
 
+    public function setUserData($userD, $data)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repUser = $em->getRepository('MainUserBundle:User');
+        $id = $userD['network_id'];
+        switch ( $userD['network'] ) {
+            case "facebook":
+                $user = $repUser->findOneBy(array(
+                                                 'facebook_id' => $id
+                                            ));
+                break;
+            case "google":
+                $user = $repUser->findOneBy(array(
+                                                 'google_id' => $id
+                                            ));
+                break;
+            case "vk":
+                $user = $repUser->findOneBy(array(
+                                                 'vk_id' => $id
+                                            ));
+                break;
+            case "twitter":
+                $user = $repUser->findOneBy(array(
+                                                 'twitter_id' => $id
+                                            ));
+                break;
+        }
+
+        if (!$user) {
+            $user = new User();
+            $user->setUsername($user->getName());
+            $user->setPassword($user->getName());
+            $user->setEmail($user->getName());
+        }
+        $user->setPhone($data['phone']);
+        $user->setName($data['name']);
+
+        $em->persist($user);
+        $em->flush();
+    }
+
     public function getMenuItemsAction(Request $request)
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $records = array();
         if ($request->isXmlHttpRequest()) {
-
             $chainId = (int)$request->request->get('chain_id');
-
-            $cacheDriver = new ApcCache();
-            $fetchCache = $cacheDriver->fetch('1001_pizza_api_pizzeria_'.$chainId);
-
-            if (!$fetchCache) {
-                $contentPre = $this->get_data('http://1001pizza.com.ua/api/search/?pizzeria_id='. $chainId);
-                $content = json_decode($contentPre);
-                if (!empty($content->records)) {
-                    $cacheDriver->save('1001_pizza_api_pizzeria_'.$chainId, serialize($content), 36000);
-                } else {
-                    $content->records = array();
+            $items = $em->getRepository('MainBundle:Item')
+                ->findBy(array(
+                    'chain' => $chainId
+                ));
+            foreach ($items as $item) {
+                if ($item->getPrice() > 1) {
+                    $records[] = array(
+                        'id' => $item->getId(),
+                        'image' => $item->getImageName(),
+                        'ingredients' => $item->getText(),
+                        'price' => $item->getPrice(),
+                        'title' => $item->getName(),
+                        'size' => $item->getSize(),
+                        'weight' => $item->getWeight()
+                    );
                 }
-            } else {
-                $content = unserialize($fetchCache);
             }
 
-            $this->addAjaxResponce('items', $content);
+            $this->addAjaxResponce('items', array('records'=>$records));
+        } else {
+            $this->addAjaxResponceError("Не аяксовый запрос");
+        }
+
+        return new JsonResponse($this->getAjaxResponce());
+    }
+
+    public function getUserSocAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $data = (array) $request->request->all();
+
+            $id = 0;
+            $repUser = $em->getRepository('MainUserBundle:User');
+
+            switch ( $data['network'] ) {
+                case "facebook":
+                    $id = $data['data']['id'];
+                    $user = $repUser->findOneBy(array(
+                                                     'facebook_id' => $id
+                                                ));
+
+                    if (!$user) {
+                        $user = new User();
+                        $user->setFacebookId($id);
+                        $user->setImageUser($data['data']['thumbnail']);
+                        $user->setName($data['data']['first_name']);
+                        $user->setUsername($user->getName());
+                        $user->setPassword($user->getName());
+                        $user->setEmail($user->getName());
+                        $em->persist($user);
+                        $em->flush();
+                    }
+
+                    break;
+                case "google":
+                    $id = $data['data']['id'];
+                    $user = $repUser->findOneBy(array(
+                                                     'google_id' => $id
+                                                ));
+
+                    if (!$user) {
+                        $user = new User();
+                        $user->setGoogleId($id);
+                        $user->setImageUser($data['data']['picture']);
+                        $user->setName($data['data']['name']);
+                        $user->setUsername($user->getName());
+                        $user->setPassword($user->getName());
+                        $user->setEmail($user->getName());
+                        $em->persist($user);
+                        $em->flush();
+                    }
+                    break;
+                case "vk":
+                    $id = $data['data']['id'];
+                    $user = $repUser->findOneBy(array(
+                                                     'vk_id' => $id
+                                                ));
+
+                    if (!$user) {
+                        $user = new User();
+                        $user->setVkId($id);
+                        $user->setImageUser($data['data']['thumbnail']);
+                        $user->setName($data['data']['first_name']);
+                        $user->setUsername($user->getName());
+                        $user->setPassword($user->getName());
+                        $user->setEmail($user->getName());
+                        $em->persist($user);
+                        $em->flush();
+                    }
+                    break;
+                case "twitter":
+                    $id = $data['data']['id'];
+                    $user = $repUser->findOneBy(array(
+                                                     'twitter_id' => $id
+                                                ));
+
+                    if (!$user) {
+                        $user = new User();
+                        $user->setTwitterId($id);
+                        $user->setImageUser($data['data']['thumbnail']);
+                        $user->setName($data['data']['name']);
+                        $user->setUsername($user->getName());
+                        $user->setPassword($user->getName());
+                        $user->setEmail($user->getName());
+                        $em->persist($user);
+                        $em->flush();
+                    }
+                    break;
+            }
+
+            if (!$user) {
+                $user = new User();
+            }
+
+            $params = array(
+                'id' => $id,
+                'name' => $user->getName(),
+                'img' => is_null($user->getImageUser())?false:$user->getImageUser(),
+                'phone' => is_null($user->getPhone())?false:$user->getPhone()
+            );
+
+            $this->addAjaxResponce('data', $params);
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }

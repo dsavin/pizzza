@@ -345,7 +345,7 @@ class Item
     /**
      * Set weight
      *
-     * @param integer $weight
+     * @param string $weight
      * @return Item
      */
     public function setWeight($weight)
@@ -358,7 +358,7 @@ class Item
     /**
      * Get weight
      *
-     * @return integer
+     * @return string 
      */
     public function getWeight()
     {

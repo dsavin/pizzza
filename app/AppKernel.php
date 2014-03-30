@@ -28,6 +28,9 @@ class AppKernel extends Kernel
 
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
 
+            new FOS\UserBundle\FOSUserBundle(),
+            new Main\UserBundle\MainUserBundle(),
+
             #new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 

@@ -1,3 +1,12 @@
+<link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/popup_order.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/main/css/scrollbars.css') }}" />
+
+<script type="text/javascript" src="{{ asset('bundles/main/js/jquery.event.drag-2.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/main/js/mousehold.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/main/js/jquery.mousewheel.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/main/js/aplweb.scrollbars.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/main/js/popup_order.js') }}"></script>
+
 <!--<div id="basket_box" style="">
     {% if price > 0 %}
         <p style="font-size: 16px;">
@@ -18,76 +27,70 @@
     {% endif %}
 </div>-->
 
-<div style="display: none;">
-    <form action="/ajax/pizza/order/" method="post" class="clearfix" id="order_from">
-        <p class="blockTitle">Оформление заказа</p>
-        <div class="blockAmountInTitle">
-            <p><strong>У вас в заказе пицца от "<span id="chain_name_order">{% block chain_name_order %}{{ chainAPIInfoMain.title }}{% endblock %}</span>", их условия доставки такие:</strong></p>
-            <div>
-                <p></p>
-                <p id="chain_status_order">
-                    {% block chain_status_order %}{{ chainAPIInfoMain.delivery }}
-                        {% if chainAPIInfoMain.discount > 0 %}
-                            <span class="discount_in_info">Скидка на Весь заказ {{ chainAPIInfoMain.discount }}%.</span>
-                        {% endif %}
-                    {% endblock %}
-                </p>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- popup -->
+<div id="popup-order-overlay" style="display: none;"></div>
+<div id="popup-order-wrap" style="display: none;">
+    <div id="popup-order-outer">
+        <a id="popup-order-close" href="#" >Закрыть</a>
+        <div id="popup-order-content">
+            <div class="list-order">
+                <div class="list-order-content">
+                    <div class="table-order titles-order">
+                        <div class="tr-wrap">
+                            <div class="td-col td-name">Пицца</div>
+                            <div class="td-col td-number">Номер</div>
+                            <div class="td-col td-count">Количество</div>
+                            <div class="td-col td-price">Цена</div>
+                            <div class="td-col td-del">Удалить</div>
+                        </div>
+                    </div>
+                    <div class="list-container" id="list-container">
+                        <div class="table-order body-order"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-client-block">
+                {#<div class="more-info-ckient">#}
+                    {#<a href="#" class="show-list-edit"></a>#}
+                    {#<div class="wrap-popup-menu">#}
+                        {#<ul class="popup-menu-user">#}
+                            {#<li><a href="#">Выйти</a></li>#}
+                            {#<li><a href="#">Изменить данные...</a></li>#}
+                        {#</ul>#}
+                    {#</div>#}
+                {#</div>#}
+                <div class="title-info">Информация о клиенте</div>
+                <div class="login-client">
+                    <a href="#" class="soc-links soc-fb" onclick="return order.hellLogin();">Facebook</a>
+                    <a href="#" class="soc-links soc-vc">ВКонтакте</a>
+                    <a href="#" class="soc-links soc-tw" onclick="hello( 'twitter' ).login();">Twitter</a>
+                    <a href="#" class="soc-links soc-gp">Google+</a>
+                </div>
+                <div class="form-contact">
+                    <form action="/ajax/pizza/order/" method="post" id="order_from">
+                        <input type="text" id="name_order" name="name" value="" class="phone-fild" placeholder="ИМЯ"/>
+                        <input id="phone_order"  name="phone" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$" type="text" value="" class="email-fild"/>
+                        <button class="send-btn" onclick="return order.submitOrder();"><span class="full-cost"><strong id="cost_new">0</strong> грн.</span> ЗАКАЗАТЬ</button>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <section class="blockR">
-            <div class="clearfix">
-                <p>Контактная информация</p>
-                <label for="name">Ваше имя <span class="attn">*</span></label>
-                <fieldset>
-                    <div class="input">
-                        <input id="name_order" type="text" name="name" value="">
-                    </div>
-                </fieldset>
-                <label for="phone">Телефон <span class="attn">*</span></label>
-                <fieldset>
-                    <div class="input">
-                        <input id="phone_order" type="text" name="phone" value="" data-pattern="^0(50|63|66|67|68|91|93|94|95|97|98|99)\d{7}$">
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <input type="checkbox" name="agreement" checked="checked"><a target="_blank" href="{{ path('_page_agreement') }}">Я принимаю условия Соглашения</a>
-                </fieldset>
-                <div class="ord"><input type="submit" value="Отправить заказ" onclick="return order.submitOrder();"></div>
-            </div>
-            <p class="info">Через 5 минут после отправки заказа с Вами свяжется представитель пиццерии. Также, после отправки заказа, вы сможете перейти на их сайт и по телефону заказать другие пиццы, блюда и напитки к этому заказу.</p>
-        </section>
-        <section class="blockL">
-
-
-        </section>
-        <div id="btn_form">
-            <div class="amount">
-                <p style="float: left;"><strong>Сумма заказа:</strong> <strong id="cost">0</strong><span> грн</span></p>
-                <p id="discount_in_order" style="display: none;"><span id="form_dicount"></span> К оплате <strong id="cost_new">0</strong><span> грн</span></p>
-            </div>
-
-            {#<div class="continue"><p>+ Заказать еще</p></div>#}
-
-            {#<div class="clear_continue"><p>Очистить корзину</p></div>#}
-        </div>
-    </form>
+    </div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function()
     {
         $('.order_link').click(function() {
             order.getItems();
+        });
 
-            $.fancybox({
-                padding: 10,
-                cyclic: false,
-                overlayShow: true,
-                overlayOpacity: 0.65,
-                overlayColor: '#000000',
-                'href' : '#order_from'
-            });
+        $('#popup-order-close').click(function(){
+            $('#popup-order-overlay').hide();
+            $('#popup-order-wrap').hide();
+
+            return false;
         });
 
         order.setUrl('{{ path('_ajax_oder_pizza') }}');
