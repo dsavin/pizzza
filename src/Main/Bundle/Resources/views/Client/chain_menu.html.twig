@@ -18,7 +18,7 @@
     <li {% if menu == "discount" %}class="active"{% endif %}>
         <a href="{{ path_city('_chain_discounts_list',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Акции</strong></a>
     </li>
-    {% if entityChain.email is not null %}
+    {% if entityChain.email is not null and entityChain.email|length > 5 %}
         <li {% if menu == "menu" %}class="active"{% endif %} style="margin-right: 0px;">
             <a style="color: #f46c1a" href="{{ path_city('_chain__menu',{'chain_url':entityChain.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}"><strong>Заказать</strong></a>
         </li>

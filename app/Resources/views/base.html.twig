@@ -110,6 +110,7 @@
         {% block javascripts %}{% endblock %}
         <script type="text/javascript" src="{{ asset('bundles/main/js/order.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/main/js/hello.js') }}"></script>
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?111"></script>
         <script>
             var fb = hello( "facebook" ).getAuthResponse();
             hello.init({
@@ -131,6 +132,21 @@
 //                    $target.html('<img src="'+ r.thumbnail +'" /> Hey '+r.name).attr('title', r.name + " on "+ auth.network);
                 });
             });
+            VK.init({
+                apiId: 2472043
+            });
+            function getit(response) {
+                if (response.session) {
+                    var id = response.session.mid;
+                }
+                VK.Api.call('users.get', {uids: id}, function(r) {
+                    if(r.response) {
+
+                        console.log(r.response);
+                    }
+                });
+            }
+            VK.UI.button('login_button');
         </script>
         <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter24274378 = new Ya.Metrika({id:24274378, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/24274378" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
         <link media="all" rel="stylesheet" type="text/css"  href="{{ asset('bundles/main/css/new_style.css') }}" />
