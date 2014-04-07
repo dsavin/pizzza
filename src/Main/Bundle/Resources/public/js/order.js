@@ -238,7 +238,7 @@ orderController = function()
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/app_dev.php/ajax/user/get',
+            url: '/ajax/user/get',
             data: { data: data, network: netw }
         }).success(function(data){
                 console.log(data);
