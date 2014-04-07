@@ -116,7 +116,7 @@
                 facebook : '{{ fb_id }}',
                 twitter: '{{ tw_id }}',
                 google: '{{ gl_id }}'
-            });
+            },{redirect_uri:'http://pizzza.com.ua/mamamia/menu'});
             hello.on('auth.login', function(auth){
 
                 // call user information, for the given network
@@ -147,7 +147,7 @@
             ga('send', 'pageview');
 
         </script>
-        <input type="hidden" id="senditemsajax" value="{{ path_city('_ajax_send_order') }}"
-        <input type="hidden" id="usersocialca" value="{{ path_city('_ajax_get_user_soc') }}"
+        <input type="hidden" id="senditemsajax" value="{{ path_city('_ajax_send_order') }}"/>
+        <input type="hidden" id="usersocialca" value="{{ path_city('_ajax_get_user_soc') }}"/>
     </body>
 </html>
