@@ -145,11 +145,11 @@ class OrderController extends Controller
                 break;
         }
 
-        if (!$user) {
+        if (!isset($user) || !$user) {
             $user = new User();
-            $user->setUsername($user->getName());
-            $user->setPassword($user->getName());
-            $user->setEmail($user->getName());
+            $user->setUsername($data['name']);
+            $user->setPassword($data['name']);
+            $user->setEmail($data['name']);
         }
         $user->setPhone($data['phone']);
         $user->setName($data['name']);
