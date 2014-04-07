@@ -215,7 +215,7 @@ orderController = function()
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/app_dev.php/ajax/order/send_items',
+            url: $('#senditemsajax').val(),
             data: {data: args, user: userData}
         }).success(function(data){
                 console.log(data);
@@ -238,7 +238,7 @@ orderController = function()
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/ajax/user/get',
+            url: $('#usersocialca').val(),
             data: { data: data, network: netw }
         }).success(function(data){
                 console.log(data);

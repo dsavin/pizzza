@@ -88,7 +88,6 @@ class OrderController extends Controller
 
     public function sendItemsAction(Request $request)
     {
-        
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         if ($request->isXmlHttpRequest()) {
@@ -99,6 +98,11 @@ class OrderController extends Controller
 
             $chain = $em->getRepository('MainBundle:Comment')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
+
+            $data['items']['user'] = array(
+                $data['name'],
+                $data['phone']
+            );
 
             mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', print_r($data['items'], true));
             $userModel = $this->setUserData($user, $data);
