@@ -139,10 +139,9 @@
                 if (response.session) {
                     var id = response.session.mid;
                 }
-                VK.Api.call('users.get', {uids: id}, function(r) {
+                VK.Api.call('users.get', {uids: id, fields: 'first_name, last_name, photo_big'}, function(r) {
                     if(r.response) {
-
-                        console.log(r.response);
+                        order.getUserData('vk', r.response);
                     }
                 });
             }

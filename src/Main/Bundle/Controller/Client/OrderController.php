@@ -237,7 +237,7 @@ class OrderController extends Controller
                     }
                     break;
                 case "vk":
-                    $id = $data['data']['id'];
+                    $id = $data['data']['uid'];
                     $user = $repUser->findOneBy(array(
                                                      'vk_id' => $id
                                                 ));
@@ -245,7 +245,7 @@ class OrderController extends Controller
                     if (!$user) {
                         $user = new User();
                         $user->setVkId($id);
-                        $user->setImageUser($data['data']['thumbnail']);
+                        $user->setImageUser($data['data']['photo_big']);
                         $user->setName($data['data']['first_name']);
                         $user->setUsername($user->getName());
                         $user->setPassword($user->getName());
