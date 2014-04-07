@@ -96,14 +96,13 @@ class OrderController extends Controller
             $user = $request->request->get('user');
             $data['items'] = (array) json_decode($session->get('items'));
 
-            $chain = $em->getRepository('MainBundle:Comment')->findOneById($data['items'][0]->chain_id);
+            $chain = $em->getRepository('MainBundle:Chain')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
 
             $data['items']['user'] = array(
                 $data['name'],
                 $data['phone']
             );
-
             mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', print_r($data['items'], true));
             $userModel = $this->setUserData($user, $data);
 
