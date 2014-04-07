@@ -113,10 +113,9 @@
         <script>
             var fb = hello( "facebook" ).getAuthResponse();
             hello.init({
-                facebook : 752711331414137,
-                twitter: 250828351
-//                windows  : WINDOWS_CLIENT_ID,
-//                google   : GOOGLE_CLIENT_ID
+                facebook : {{ fb_id }},
+                twitter: {{ tw_id }},
+                google: '{{ gl_id }}'
             });
             hello.on('auth.login', function(auth){
 
