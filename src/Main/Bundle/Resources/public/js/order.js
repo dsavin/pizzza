@@ -245,9 +245,15 @@ orderController = function()
                 if( data.error !== undefined ){
 //                    alert(data.error_text);
                 } else {
+                    if (data.data.img) {
+                        $('#login_box').hide();
+                        $('#data_box').show();
+                        $('#data_box').find('img').first().attr('src',data.data.img);
+                    }
                     if (data.data.name) {
                         nameIn = data.data.name;
                         $('#name_order').val(nameIn);
+                        $('#data_box').find('div.name-user').first().html(data.data.name);
                     }
                     if (data.data.phone) {
                         phoneIn = data.data.phone;

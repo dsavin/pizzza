@@ -52,21 +52,18 @@
             </div>
 
             <div class="info-client-block">
-                {#<div class="more-info-ckient">#}
-                    {#<a href="#" class="show-list-edit"></a>#}
-                    {#<div class="wrap-popup-menu">#}
-                        {#<ul class="popup-menu-user">#}
-                            {#<li><a href="#">Выйти</a></li>#}
-                            {#<li><a href="#">Изменить данные...</a></li>#}
-                        {#</ul>#}
-                    {#</div>#}
-                {#</div>#}
                 <div class="title-info">Информация о клиенте</div>
-                <div class="login-client">
+                <div class="login-client" id="login_box">
                     <a href="#" class="soc-links soc-fb" onclick="return order.hellLogin();">Facebook</a>
                     <a href="#" class="soc-links soc-vc">ВКонтакте</a>
                     <a href="#" class="soc-links soc-tw" onclick="hello( 'twitter' ).login();">Twitter</a>
                     <a href="#" class="soc-links soc-gp" onclick="hello( 'google' ).login();">Google+</a>
+                </div>
+                <div class="login-client" id="data_box" style="display: none;">
+                    <div class="profile-block">
+                        <img src="images/logo.jpg" width="57" height="57">
+                        <div class="name-user"></div>
+                    </div>
                 </div>
                 <div class="form-contact">
                     <form action="/ajax/pizza/order/" method="post" id="order_from">
