@@ -141,7 +141,7 @@
                 }
                 VK.Api.call('users.get', {uids: id, fields: 'first_name, last_name, photo_big'}, function(r) {
                     if(r.response) {
-                        order.getUserData('vk', r.response);
+                        order.getUserData('vk', r.response[0]);
                     }
                 });
             }
