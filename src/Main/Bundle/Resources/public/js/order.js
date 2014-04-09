@@ -303,10 +303,16 @@ orderController = function()
             $('#popup-order-overlay').show();
             $('#popup-order-wrap').show();
 
+            setTimeout( self.show_popup_order , 10 );
+
             $("html, body").animate({ scrollTop: 0 }, "slow");
 
             return false;
         });
+    }
+
+    this.show_popup_order =  function(){
+        $('#popup-order-wrap').addClass('move');
     }
 
     this.setDiscount = function()

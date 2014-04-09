@@ -29,7 +29,7 @@
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!-- popup -->
-<div id="popup-order-overlay" style="display: none;"></div>
+<div id="popup-order-overlay" style="display: none;"><div></div></div>
 <div id="popup-order-wrap" style="display: none;">
     <div id="popup-order-outer">
         <a id="popup-order-close" href="#" >Закрыть</a>
@@ -79,9 +79,9 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('.order_link').click(function() {
-            order.getItems();
-        });
+//        $('.order_link').click(function() {
+//            order.getItems();
+//        });
 
         $('#popup-order-close').click(function(){
             $('#popup-order-overlay').hide();

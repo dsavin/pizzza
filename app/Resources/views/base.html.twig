@@ -119,17 +119,11 @@
                 google: '{{ gl_id }}'
             },{redirect_uri:'http://pizzza.com.ua/mamamia/menu'});
             hello.on('auth.login', function(auth){
-
-                // call user information, for the given network
                 hello( auth.network ).api( '/me' ).success(function(r){
-
                     var $target = $("#profile_"+ auth.network );
                     if($target.length==0){
                         order.getUserData(auth.network, r);
-
-//                        $target = $("<div id='profile_"+auth.network+"'></div>").appendTo("#profile");
                     }
-//                    $target.html('<img src="'+ r.thumbnail +'" /> Hey '+r.name).attr('title', r.name + " on "+ auth.network);
                 });
             });
             VK.init({

@@ -5,13 +5,7 @@
 body{
     position: relative;
 }
-
-/* popup content */
 #popup-order-overlay{
-    /*background-color: rgb(0, 0, 0);*/
-    /*opacity: 0.65;*/
-    background:#fff url(../images/bg_popup.jpg);
-    /*background-size: 100% 100%;*/
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -19,11 +13,21 @@ body{
     top: 0;
     width: 100%;
     z-index: 1100;
+    background: url("../images/bg_order.jpg") no-repeat scroll center 0px transparent;
+    background-repeat: no-repeat;
+    background-position: center 0px;
+    -webkit-background-origin: content-box;
+    background-origin: content-box;
+    -webkit-background-clip: content-box;
+    -moz-background-clip: content-box;
+    background-clip: content-box;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
 #popup-order-wrap{
     width: 985px;
     height: 327px;
-    top: 250px;
+    top: 220px;
     left: 50%;
     margin-left: -492px;
     margin-top: -163px;
@@ -32,6 +36,17 @@ body{
     z-index: 1101;
     outline: medium none;
     color: #3b3a38;
+    -webkit-transform: translate(0, 1200px);
+    -moz-transform: translate(0, 1200px);
+    -ms-transform: translate(0, 1200px);
+    -o-transform: translate(0, 1200px);
+    transform: translate(0, 1200px);
+
+    -webkit-transition: -webkit-transform 700ms;
+    -moz-transition: -moz-transform 700ms;
+    -ms-transition: -ms-transform 700ms;
+    -o-transition: -o-transform 700ms;
+    transition: transform 700ms;
 }
 #popup-order-outer {
     height: 100%;
@@ -464,4 +479,17 @@ body{
 .more-info-ckient .wrap-popup-menu .popup-menu-user li a:hover{
     background-color: #fdf7ec;
 }
-
+#popup-order-wrap.move {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+#popup-order-overlay div{
+    background-color: rgb(0, 0, 0);
+    opacity: 0.65;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
