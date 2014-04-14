@@ -20,6 +20,18 @@ orderController = function()
         $("#phone_order").mask("+38(999) 999-9999");
         self.checkOrder();
         self.setOnForIngridient();
+
+        $('.show-list-edit').click(function(){
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+                $('.wrap-popup-menu').removeClass('open');
+            } else {
+                $(this).addClass('active');
+                $('.wrap-popup-menu').addClass('open');
+            }
+
+            return false;
+        });
     }
 
     this.checkOrder = function()
@@ -311,8 +323,10 @@ orderController = function()
         });
     }
 
-    this.show_popup_order =  function(){
+    this.show_popup_order =  function()
+    {
         $('#popup-order-wrap').addClass('move');
+        $('#wrapper').hide();
     }
 
     this.setDiscount = function()
