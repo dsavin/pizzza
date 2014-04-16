@@ -126,10 +126,13 @@ class PageLayoutController extends Controller
         $chainAPIInfoMain->title = '';
         $chainAPIInfoMain->delivery = '';
         $chainAPIInfoMain->discount = 0;
+        $em = $this->getDoctrine()->getManager();
+        $city = $this->getCurrentCity();
+        $partners = $em->getRepository('MainBundle:Chain')->findBasketsByCity($city->getId());
 
         return $this->render('MainBundle:PageLayout:basket.html.twig',
                              array(
-                                  'partners' => array(),
+                                  'partners' => $partners,
                                   'items' => array(),
                                   'price' => 0,
                                   '_city' => $this->getCurrentCity(),

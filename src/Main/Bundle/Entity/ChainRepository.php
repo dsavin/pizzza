@@ -160,4 +160,23 @@ class ChainRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function findBasketsByCity($city_id)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+            ->select('c')
+            ->from('MainBundle:Chain', 'c')
+
+            ->where('c.lang = :lang')
+            ->andWhere('c.city_id = :city_id')
+            ->andWhere('c.email IS NOT NULL')
+
+            ->setParameter('city_id', $city_id)
+            ->setParameter('lang', 'ru')
+        ;
+
+        return $query->getQuery()->getResult();
+    }
 }

@@ -260,6 +260,13 @@ class Chain
      */
     private $email;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="discount", type="integer", nullable=true)
+     */
+    private $discount;
+
     public function __construct($lang = 'ru')
     {
         $this->children = new ArrayCollection();
@@ -278,6 +285,7 @@ class Chain
         $this->idForMenu = null;
         $this->deliveryTop = 0;
         $this->listTop = 0;
+        $this->discount = 0;
     }
 
     /**
@@ -311,6 +319,29 @@ class Chain
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set discount
+     *
+     * @param integer $discount
+     * @return Chain
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return integer
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
     }
 
     /**
