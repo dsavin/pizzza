@@ -14,6 +14,7 @@ class ChainType extends AbstractType
             ->add('url', 'text', array('label'=>'URL'))
             ->add('name', 'text', array('label'=>'Название'))
             ->add('email', 'email', array('label'=>'E-mail пиццерии', 'required' => false))
+            ->add('discount', 'integer', array('label'=>'Скидка на заказ', 'required' => false))
 //            ->add('idForMenu', 'integer', array('required' => false, 'label'=>'Id from 1001pizza'))
             ->add('site', 'text', array('label'=>'Сайт', 'required' => false))
             ->add('title', 'text', array('label'=>'<title/>'))

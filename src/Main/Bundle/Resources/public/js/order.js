@@ -235,6 +235,7 @@ orderController = function()
                     alert(data.error_text);
                 } else {
                     alert('Спасибо! С Вами скоро свяжутся.');
+                    $('#wrapper').show();
                     $('#popup-order-overlay').hide();
                     $('#popup-order-wrap').hide();
                     self.getItems();

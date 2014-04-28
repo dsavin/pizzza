@@ -29,7 +29,7 @@
 }
 
 .scrollable.no_scroll_h .scrollcontent {
-	top: auto;
+	/*top: auto;*/
 	bottom: 0px;
 }
 			

@@ -7,13 +7,13 @@
 <script type="text/javascript" src="{{ asset('bundles/main/js/aplweb.scrollbars.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/main/js/popup_order.js') }}"></script>
 
-<!--<div id="basket_box" style="">
+<div id="basket_box" style="">
     {% if price > 0 %}
         <p style="font-size: 16px;">
             <span style="color: orange;"><span id="items_count">{{ items|length }}</span> пицц</span> - <span><span id="money">{{ price }}</span> грн.</span>
         </p>
         <p class="order_link_to_basket">
-            <a class="order_link" href="#order_from" rel="nofollow" style="color:#F46C1A!important;" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход','Заказ пиццы'])">Оформить заказ</a>
+            <a class="order_link" href="#order_from" rel="nofollow" style="color:#F46C1A!important;">Оформить заказ</a>
         </p>
     {% else %}
         <p style="font-size: 16px;">
@@ -21,11 +21,11 @@
         </p>
         <p class="array_partners">
             {% for item in partners %}
-                <a href="{{ item.url }}#options" rel="nofollow" style="color:#F46C1A!important; display: block; margin-top: 15px;" onclick="_gaq.push(['_trackEvent', 'Ссылка', 'Переход','Заказ пиццы'])">{{ item.name }}{% if item.discount >0 %} <span class="discount_in_basket_box">со скидкой {{ item.discount }}%</span>{% endif %}</a>
+                <a href="{{ path_city('_chain__menu',{'chain_url':item.url, '_city':app.request.attributes.get('_city'),'_locale':app.request.getLocale()}) }}" rel="nofollow" style="color:#F46C1A!important; display: block; margin-top: 15px;">{{ item.name }}{% if item.discount > 0 %} <span class="discount_in_basket_box">со скидкой {{ item.discount }}%</span>{% endif %}</a>
             {% endfor %}
         </p>
     {% endif %}
-</div>-->
+</div>
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!-- popup -->
