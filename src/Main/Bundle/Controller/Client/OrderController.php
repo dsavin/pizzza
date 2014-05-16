@@ -106,11 +106,13 @@ class OrderController extends Controller
 
             $message = '';
 
+            var_dump($data['items']);
             foreach($data['items'] as $item) {
+                var_dump($item);
                 $message .= 'Название пиццы: <strong>' . $item['title'] . '</strong>';
             }
 
-            var_dump($message);
+
 
             $headers = 'From: info@pizzza.com.ua' . "\r\n";
             mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', $message, $headers);
