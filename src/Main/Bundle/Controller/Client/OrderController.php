@@ -104,9 +104,15 @@ class OrderController extends Controller
                 $data['phone']
             );
 
+            $message = '';
+
+            foreach($data['items'] as $item) {
+                $message .= 'Название пиццы: <strong>' . $item['title'] . '</strong>';
+            }
+
             $headers = 'From: info@pizzza.com.ua' . "\r\n";
-            mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', 'test', $headers);
-            mail('info@pizzza.com.ua', '[ДУБЛИКАТ] Заказ с Pizzza.com.ua', var_dump($data), $headers);
+            mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', $message, $headers);
+            mail('info@pizzza.com.ua', '[ДУБЛИКАТ] Заказ с Pizzza.com.ua', $message, $headers);
             $userModel = $this->setUserData($user, $data);
 
 
