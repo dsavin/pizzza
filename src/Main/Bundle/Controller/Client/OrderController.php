@@ -110,6 +110,8 @@ class OrderController extends Controller
                 $message .= 'Название пиццы: <strong>' . $item['title'] . '</strong>';
             }
 
+            var_dump($message);
+
             $headers = 'From: info@pizzza.com.ua' . "\r\n";
             mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', $message, $headers);
             mail('info@pizzza.com.ua', '[ДУБЛИКАТ] Заказ с Pizzza.com.ua', $message, $headers);
