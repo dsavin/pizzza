@@ -105,14 +105,28 @@ class OrderController extends Controller
             );*/
 
             $message = '';
+            $price = 0;
 
-            //var_dump($data['items']);
-            foreach($data['items'] as $k => $item) {
+            var_dump($data);
+          /*foreach($data['items'] as $k => $item) {
                 //var_dump($item);
 
-                $message .= 'Название пиццы: <strong>' . $item->title . '</strong>';
+                $message .= 'Название пиццы: <b>' . $item->title . '</b>\r\n';
+                $message .= 'ID пиццы: <b>' . ;
+                $message .= 'Вес: <b>' . ;
+                $message .= 'Размер: <b>' . ;
+                $message .= 'Цена: <b>' . ;
+                $message .= 'Ингредиенты: <b>' . ;
+                $message .= 'Скидка: <b>' . ;
+                $message .= '<hr>';
 
-            }
+                $price = $price + intval();
+
+            }*/
+
+            $message .= '<b>Всего к оплате со скидкой:</b> ';
+
+
 
 
 
