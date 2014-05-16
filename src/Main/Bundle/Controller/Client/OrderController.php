@@ -99,17 +99,19 @@ class OrderController extends Controller
             $chain = $em->getRepository('MainBundle:Chain')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
 
-            $data['items']['user'] = array(
+           /* $data['items']['user'] = array(
                 $data['name'],
                 $data['phone']
-            );
+            );*/
 
             $message = '';
 
-            var_dump($data['items']);
-            foreach($data['items'] as $item) {
-                var_dump($item);
-                $message .= 'Название пиццы: <strong>' . $item['title'] . '</strong>';
+            //var_dump($data['items']);
+            foreach($data['items'] as $k => $item) {
+                //var_dump($item);
+
+                $message .= 'Название пиццы: <strong>' . $item->title . '</strong>';
+
             }
 
 
