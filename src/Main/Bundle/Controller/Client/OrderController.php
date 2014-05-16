@@ -107,25 +107,26 @@ class OrderController extends Controller
             $message = '';
             $price = 0;
 
-            var_dump($data);
-          /*foreach($data['items'] as $k => $item) {
+          foreach($data['items'] as $k => $item) {
                 //var_dump($item);
 
                 $message .= 'Название пиццы: <b>' . $item->title . '</b>\r\n';
-                $message .= 'ID пиццы: <b>' . ;
-                $message .= 'Вес: <b>' . ;
-                $message .= 'Размер: <b>' . ;
-                $message .= 'Цена: <b>' . ;
-                $message .= 'Ингредиенты: <b>' . ;
-                $message .= 'Скидка: <b>' . ;
+                $message .= 'ID пиццы: <b>' . $item->id . '</b>\r\n';
+                $message .= 'Вес: <b>' . $item->weight . '</b>\r\n';
+                $message .= 'Размер: <b>' . $item->size . '</b>\r\n';
+                $message .= 'Цена: <b>' . $item->price . '</b>\r\n';
+                $message .= 'Ингредиенты: <b>' . $item->ingredients . '</b>\r\n';
+                $message .= 'Скидка: <b>' . $item->discount . '</b>\r\n';
                 $message .= '<hr>';
 
-                $price = $price + intval();
+                $price = $price + intval($item->price);
 
-            }*/
+            }
 
-            $message .= '<b>Всего к оплате со скидкой:</b> ';
-
+            $message .= '\r\n\r\n\r\n<b>Всего к оплате со скидкой:</b> ' . $price . '\r\n';
+            $message .= 'Время заказа: ' . date('H:i:s d.m.Y') . '\r\n';
+            $message .= 'Получатель: ' . $data['name'] . '\r\n';
+            $message .= 'Телфон: ' . $data['phone']  . '\r\n';
 
 
 
