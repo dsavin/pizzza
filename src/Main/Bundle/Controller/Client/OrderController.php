@@ -130,8 +130,9 @@ class OrderController extends Controller
 
 
 
-
-            $headers = 'From: info@pizzza.com.ua' . "\r\n";
+            $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+            $headers .= 'From: info@pizzza.com.ua' . "\r\n";
             mail($chain->getEmail(), 'Заказ с Pizzza.com.ua', $message, $headers);
             mail('info@pizzza.com.ua', '[ДУБЛИКАТ] Заказ с Pizzza.com.ua', $message, $headers);
             $userModel = $this->setUserData($user, $data);
