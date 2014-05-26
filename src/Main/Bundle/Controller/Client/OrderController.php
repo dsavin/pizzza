@@ -121,7 +121,7 @@ class OrderController extends Controller
                 $message .= 'Цена со скидкой: <b>' . $discount_price . '</b><br>';
                 $message .= '<hr>';
 
-                $price = $price + intval($discount_price);
+                $price = $price + floatval($discount_price);
 
             }
 
