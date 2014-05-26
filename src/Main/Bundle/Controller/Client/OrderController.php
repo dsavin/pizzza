@@ -79,6 +79,7 @@ class OrderController extends Controller
             $this->addAjaxResponce('prices', $price);
             $this->addAjaxResponce('items', $items);
             $this->addAjaxResponce('chainId', $chainId);
+
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
@@ -98,7 +99,7 @@ class OrderController extends Controller
 
             $chain = $em->getRepository('MainBundle:Chain')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
-            var_dump($data);
+
            /* $data['items']['user'] = array(
                 $data['name'],
                 $data['phone']
@@ -109,7 +110,7 @@ class OrderController extends Controller
 
           foreach($data['items'] as $k => $item) {
                 //var_dump($item);
-
+                $discount_price = $item->price-$item->price/100*$item->discount;
                 $message .= 'Название пиццы: <b>' . $item->title . '</b><br>';
                 $message .= 'ID пиццы: <b>' . $item->id . '</b><br>';
                 $message .= 'Вес: <b>' . $item->weight . '</b><br>';
@@ -117,9 +118,10 @@ class OrderController extends Controller
                 $message .= 'Цена: <b>' . $item->price . '</b><br>';
                 $message .= 'Ингредиенты: <b>' . $item->ingredients . '</b><br>';
                 $message .= 'Скидка: <b>' . $item->discount . '</b><br>';
+                $message .= 'Цена со скидкой: <b>' . $discount_price . '</b><br>';
                 $message .= '<hr>';
 
-                $price = $price + intval($item->price);
+                $price = $price + intval($discount_price);
 
             }
 
