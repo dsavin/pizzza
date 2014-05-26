@@ -194,6 +194,7 @@ class OrderController extends Controller
         $records = array();
         if ($request->isXmlHttpRequest()) {
             $chainId = (int)$request->request->get('chain_id');
+            $chain = $em->getRepository('MainBundle:Chain')->find($chainId);
             $items = $em->getRepository('MainBundle:Item')
                 ->findBy(array(
                     'chain' => $chainId
@@ -207,7 +208,8 @@ class OrderController extends Controller
                         'price' => $item->getPrice(),
                         'title' => $item->getName(),
                         'size' => $item->getSize(),
-                        'weight' => $item->getWeight()
+                        'weight' => $item->getWeight(),
+                        'discount' => $chain->getDiscount()
                     );
                 }
             }
