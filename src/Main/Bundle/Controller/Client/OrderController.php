@@ -98,6 +98,7 @@ class OrderController extends Controller
 
             $chain = $em->getRepository('MainBundle:Chain')->findOneById($data['items'][0]->chain_id);
             $session->set('items', json_encode(array()));
+            var_dump($chain);
 
            /* $data['items']['user'] = array(
                 $data['name'],
