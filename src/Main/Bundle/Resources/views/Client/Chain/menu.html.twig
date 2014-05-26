@@ -19,7 +19,7 @@
     <script>
         menu.setUrlGetItems('{{ path_city('_ajax_get_menu_items') }}');
         menu.setChainId({{ entityChain.id }});
-        {#menu.setDiscount({{ chainAPIInfo.discount }});#}
+        menu.setDiscount({{ entityChain.discount }});
     </script>
 {% endblock %}
 

@@ -215,6 +215,7 @@ class OrderController extends Controller
             }
 
             $this->addAjaxResponce('items', array('records'=>$records));
+
         } else {
             $this->addAjaxResponceError("Не аяксовый запрос");
         }
