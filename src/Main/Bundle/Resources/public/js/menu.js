@@ -136,7 +136,7 @@ menuController = function()
 
     this.createHtmlItem = function(item)
     {
-        var html_item  = '<div class="box element" id="item_'+item.id+'" data-weight="'+item.weight+'" data-size="'+item.weight+'" data-price="'+item.price+'" data-title="'+item.title+'">'+
+        var html_item  = '<div class="box element" id="item_'+item.id+'" data-weight="'+item.weight+'" data-size="'+item.weight+'" data-price="'+item.price+'" data-title="'+item.title.replace(/"/g, "")+'">'+
                             '<div class="img-holder">'+
                                 '<img src="/uploads/images/items/'+item.image+'" alt="'+item.title+'" id="product_img_'+item.weight+'" width="184" height="161">'+
                                 '<div class="rating">'+
