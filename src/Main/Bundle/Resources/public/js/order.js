@@ -51,8 +51,6 @@ orderController = function()
         self.setDiscount();
         self.setChainId();
         var objItem = $('#item_'+id);
-        console.log(objItem.data('title'));
-        console.log(objItem.data('title').replace(/"/g, ""));
         var item = {
             id: id,
             weight: objItem.data('weight'),
