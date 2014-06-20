@@ -28,6 +28,7 @@ class OrderController extends Controller
         $items = json_decode($session->get('items'));
         if ($request->isXmlHttpRequest()) {
             $item = $request->request->get('item');
+            var_dump($item);
             $items[] = $item;
             $session->set('items', json_encode($items));
 
