@@ -55,7 +55,7 @@ orderController = function()
             weight: objItem.data('weight'),
             size: objItem.data('size'),
             price: objItem.data('price'),
-            title: objItem.data('title'),
+            title: objItem.data('title').replace(/"/g, ""),
             ingredients: objItem.find('div.feature_in > p').html(),
             image: objItem.find('img').first().attr('src'),
             discount: discount,
